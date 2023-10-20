@@ -1,5 +1,10 @@
 <template>
   <div>
-    <h2>test</h2>
+    <PageHeader />
+    <h2>home page</h2>
   </div>
 </template>
+
+<script setup lang="ts">
+import PageHeader from "~/components/pageHeader.vue";
+</script>
