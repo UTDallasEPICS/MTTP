@@ -30,7 +30,7 @@
 
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             @click.prevent="$event => addUser(fn, ln, em, rl)">
-                        Add
+                        Add User
                     </button>
                 </div>
                 
@@ -100,18 +100,20 @@ async function getUsers() {
 
 async function addUser(fn, ln, em, rl) {
     console.log('user: ', ln)
-
+    let addedUser = null
 
     if(fn && ln && em && rl)
-        return await $fetch('/api/user', {
+        addedUser = await $fetch('/api/user', {
             method: 'POST',
             body: {
                 firstName: fn,
                 lastName:  ln,
                 email:     em,
                 role:      rl
-        }
+            }
         })
+    
+    if(addedUser)   users.value = await getUser()
 }
 
 </script>
