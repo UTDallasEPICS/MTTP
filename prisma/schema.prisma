@@ -11,10 +11,12 @@ datasource db {
 }
 
 model Student {
-  studentId   Int       @id @default(autoincrement())
-  firstName   String  
-  lastName    String
-  address     String
+  studentId         Int       @id @default(autoincrement())
+  firstName         String  
+  lastName          String
+  streetAddress     String
+  county            String
+  zipCode           Int
   author      User      @relation(fields: [authorId], references: [userId])
   authorId    Int
   voted       Boolean   @default(false)
