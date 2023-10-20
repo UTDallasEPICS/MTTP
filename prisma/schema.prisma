@@ -16,6 +16,7 @@ model Student {
   lastName          String
   streetAddress     String
   county            String
+  city              String
   zipCode           Int
   author      User      @relation(fields: [authorId], references: [userId])
   authorId    Int
