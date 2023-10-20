@@ -12,7 +12,8 @@ datasource db {
 
 model Student {
   studentId   Int       @id @default(autoincrement())
-  name        String  
+  firstName   String  
+  lastName    String
   address     String
   author      User      @relation(fields: [authorId], references: [userId])
   authorId    Int
@@ -23,7 +24,8 @@ model Student {
 
 model User {
   userId      Int       @id @default(autoincrement())
-  name        String
+  firstName   String  
+  lastName    String
   email       String    @unique
   role        Int     
   students    Student[]

@@ -72,4 +72,18 @@ yarn preview
 bun run preview
 ```
 
+## prisma commands
+```bash
+
+#migrate
+npx prisma migrate dev --name init 
+
+#open prisma studio
+npx prisma studio
+
+```
+
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
