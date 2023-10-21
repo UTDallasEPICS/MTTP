@@ -64,7 +64,10 @@
                         <td v-else-if="u.role == 2">employee</td>
                         <td v-else-if="u.role == 3">admin</td>
                         
-                        <td><button type="button" class="btn btn-warning btn-sm">Edit</button></td>
+                        <td>
+                            <!-- Modal toggle -->
+                                <button @click="openModal">Edit</button>
+                        </td>
                         
                     </tr>
                 </tbody>
@@ -75,6 +78,21 @@
 </template>
 
 <script setup>
+
+import Modal from "./components/Modal.vue";
+import { ref } from "vue";
+
+const isModalVisible = ref(false);
+
+function openModal() {
+  isModalVisible.value = true;
+}
+
+function closeModal() {
+  isModalVisible.value = false;
+}
+
+
 
 const users = ref(null)
 const user = ref({
@@ -113,8 +131,6 @@ async function addUser(user) {
     
     let addedUser = null
 
-    console.log('user: ', user)
-
     if(user)
         addedUser = await $fetch('/api/user', {
             method: 'POST',
@@ -126,7 +142,8 @@ async function addUser(user) {
             }
         })
     
-    if(addedUser)   users.value = await getUsers()
+    if(addedUser)   
+        users.value = await getUsers()
 }
 
 
@@ -138,7 +155,23 @@ async function addUser(user) {
     @param rl role of the user
 */
 async function editUser(editedUser) {
-   
+    let user = null
+
+    console.log('editedUser: ', editedUser)
+
+    if(editedUser)
+        user = await $fetch('/api/user', {
+            method: 'PUT',
+            body: {
+                userId: parseInt(editedUser.userId),
+                firstName: editedUser.firstName,
+                lastName: editedUser.lastName,
+                email: editedUser.email,
+                role: parseInt(editedUser.role),
+            }
+        })
+
+    if(user)   users.value = await getUsers()
 }
 
 </script>
