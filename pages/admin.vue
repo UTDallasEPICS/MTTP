@@ -1,7 +1,10 @@
 <template>
+    <PageHeader/>
     <div class = "container">
         <h1>Users</h1>
         
+        
+
         <form class="w-full max-w-lg">
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -79,7 +82,7 @@
 
 <script setup>
 
-import Modal from "./components/Modal.vue";
+import Modal from "../src/components/Modal.vue";
 import { ref } from "vue";
 
 const isModalVisible = ref(false);
@@ -173,5 +176,7 @@ async function editUser(editedUser) {
 
     if(user)   users.value = await getUsers()
 }
+
+import PageHeader from "~/components/pageHeader.vue";
 
 </script>
