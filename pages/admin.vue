@@ -39,47 +39,9 @@
                 
             </div>
         </form>
-    
-        <div class="relative overflow-x-auto">
-            <table class = "w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">#</th>
-                        <th scope="col" class="px-6 py-3">First Name</th>
-                        <th scope="col" class="px-6 py-3">Last Name</th>
-                        <th scope="col" class="px-6 py-3">Email</th>
-                        <th scope="col" class="px-6 py-3">Role</th>
-                        <th scope="col" class="px-6 py-3">Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(u) in users">
-                        <th scope="row">{{ u.userId }}</th>
-                        <td>{{ u.firstName }}</td>
-                        <td>{{ u.lastName }}</td>
-                        <td>{{ u.email }}</td>
-                        
-                        <!--
-                            role displays string based on int value
-                        -->
-                        <td v-if="u.role == 4">ex-employee</td>
-                        <td v-else-if="u.role == 1">volunteer</td>
-                        <td v-else-if="u.role == 2">employee</td>
-                        <td v-else-if="u.role == 3">admin</td>
-                        
-                        <td>
-                            <!-- Modal toggle -->
-                                <button @click="openModal">Edit</button>
-                        </td>
-                        
-                    </tr>
-                </tbody>
-            </table>
-            
-        </div>
 
       </div>
-    </form>
+
 
     <div class="relative overflow-x-auto">
       <table class = "w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -118,7 +80,6 @@
       </table>
 
     </div>
-  </div>
 </template>
 
 <script setup>
