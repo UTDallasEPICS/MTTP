@@ -7,7 +7,7 @@
     </div>
     <div class="right">
       <nuxt-link to="/entry">Enter Info</nuxt-link>
-      <nuxt-link to="/view-database">View Database</nuxt-link>
+      <nuxt-link to="/database">View Database</nuxt-link>
       <nuxt-link to="/admin">Admin</nuxt-link>
     </div>
   </header>
