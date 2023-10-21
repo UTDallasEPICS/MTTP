@@ -63,6 +63,7 @@
                 
             </div>
         </form>
+<<<<<<< HEAD
 
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
@@ -134,6 +135,46 @@
         </table>
       </div>
 
+=======
+    
+        <div class="relative overflow-x-auto">
+            <table class = "w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">#</th>
+                        <th scope="col" class="px-6 py-3">First Name</th>
+                        <th scope="col" class="px-6 py-3">Last Name</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+                        <th scope="col" class="px-6 py-3">Role</th>
+                        <th scope="col" class="px-6 py-3">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(u) in users">
+                        <th scope="row">{{ u.userId }}</th>
+                        <td>{{ u.firstName }}</td>
+                        <td>{{ u.lastName }}</td>
+                        <td>{{ u.email }}</td>
+                        
+                        <!--
+                            role displays string based on int value
+                        -->
+                        <td v-if="u.role == 4">ex-employee</td>
+                        <td v-else-if="u.role == 1">volunteer</td>
+                        <td v-else-if="u.role == 2">employee</td>
+                        <td v-else-if="u.role == 3">admin</td>
+                        
+                        <td>
+                            <!-- Modal toggle -->
+                                <button @click="openModal">Edit</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+>>>>>>> 3e78871da591b1959d6274b2ef6ea32d68accad3
     </div>
 </template>
 
@@ -149,6 +190,21 @@
 </style>
 
 <script setup>
+
+import Modal from "./components/Modal.vue";
+import { ref } from "vue";
+
+const isModalVisible = ref(false);
+
+function openModal() {
+  isModalVisible.value = true;
+}
+
+function closeModal() {
+  isModalVisible.value = false;
+}
+
+
 
 const users = ref(null)
 const user = ref({
@@ -187,8 +243,6 @@ async function addUser(user) {
     
     let addedUser = null
 
-    console.log('user: ', user)
-
     if(user)
         addedUser = await $fetch('/api/user', {
             method: 'POST',
@@ -200,7 +254,8 @@ async function addUser(user) {
             }
         })
     
-    if(addedUser)   users.value = await getUsers()
+    if(addedUser)   
+        users.value = await getUsers()
 }
 
 
@@ -212,7 +267,23 @@ async function addUser(user) {
     @param rl role of the user
 */
 async function editUser(editedUser) {
-   
+    let user = null
+
+    console.log('editedUser: ', editedUser)
+
+    if(editedUser)
+        user = await $fetch('/api/user', {
+            method: 'PUT',
+            body: {
+                userId: parseInt(editedUser.userId),
+                firstName: editedUser.firstName,
+                lastName: editedUser.lastName,
+                email: editedUser.email,
+                role: parseInt(editedUser.role),
+            }
+        })
+
+    if(user)   users.value = await getUsers()
 }
 
 import PageHeader from '~/components/PageHeader.vue'
