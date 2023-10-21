@@ -8,28 +8,28 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                         First Name
                     </label>
-                    <input v-model="fn" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+                    <input v-model="user.firstName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
                     
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                         Last Name
                     </label>
-                    <input v-model="ln" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Doe">
-                
+                    <input v-model="user.lastName" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Doe">
+                    
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                         Email
                     </label>
-                    <input v-model="em" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="abc@123.com">
-                
-                    <select v-model="rl">
+                    <input v-model="user.email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="abc@123.com">
+                    
+                    <select v-model="user.role">
                         <option disabled value="">Please select role</option>
-                        <option value="1">volunteer</option>
-                        <option value="2">employee</option>
-                        <option value="3">admin</option>
-                        <option value="0">other</option>
+                        <option value=1>volunteer</option>
+                        <option value=2>employee</option>
+                        <option value=3>admin</option>
+                        <option value=4>other</option>
                     </select>
-
+                    
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            @click.prevent="$event => addUser(fn, ln, em, rl)">
+                            @click.prevent="addUser(user)">
                         Add User
                     </button>
                 </div>
@@ -59,7 +59,7 @@
                         <!--
                             role displays string based on int value
                         -->
-                        <td v-if="u.role == 0">ex-employee</td>
+                        <td v-if="u.role == 4">ex-employee</td>
                         <td v-else-if="u.role == 1">volunteer</td>
                         <td v-else-if="u.role == 2">employee</td>
                         <td v-else-if="u.role == 3">admin</td>
@@ -77,10 +77,19 @@
 <script setup>
 
 const users = ref(null)
-const fn = ref(null)
-const ln = ref(null)
-const em = ref(null)
-const rl = ref(null)
+const user = ref({
+    firstName: null,
+    lastName: null,
+    email: null,
+    role: null,
+})
+const editedUser = ref({
+    userId: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    role: null,
+})
 
 users.value = await getUsers()
 
@@ -95,25 +104,41 @@ async function getUsers() {
 
 /**
 *   @desc add users
-    @param user the user to add
+    @param fn firstName of the user
+    @param ln lastName of the user
+    @param em email of the user
+    @param rl role of the user
 */
-
-async function addUser(fn, ln, em, rl) {
-    console.log('user: ', ln)
+async function addUser(user) {
+    
     let addedUser = null
 
-    if(fn && ln && em && rl)
+    console.log('user: ', user)
+
+    if(user)
         addedUser = await $fetch('/api/user', {
             method: 'POST',
             body: {
-                firstName: fn,
-                lastName:  ln,
-                email:     em,
-                role:      rl
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: parseInt(user.role),
             }
         })
     
-    if(addedUser)   users.value = await getUser()
+    if(addedUser)   users.value = await getUsers()
+}
+
+
+/**
+*   @desc edit users
+    @param fn firstName of the user
+    @param ln lastName of the user
+    @param em email of the user
+    @param rl role of the user
+*/
+async function editUser(editedUser) {
+   
 }
 
 </script>
