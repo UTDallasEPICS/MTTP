@@ -10,10 +10,11 @@ export default defineEventHandler(async(event) => {
     let user = null
     let error = null
 
-    if (body.name)
+    if (body.firstName && body.lastName && body.email && body.role)
         await prisma.user.create({
             data: {
-            name: body.name,
+            firstName: body.firstName,
+            lastName: body.lastName,
             email: body.email,
             role: body.role,
             },

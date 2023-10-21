@@ -8,11 +8,12 @@ export default defineEventHandler(async(event) => {
     const body = await readBody(event)
 
     const userId = body.userId
-    const name = body.name
+    const firstName = body.firstName
+    const lastName = body.lastName
     const email = body.email
     const role = body.role
 
-    if(!(userId && name && email && role))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(userId && firstName && lastName && email && role))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let user = null
 
@@ -22,7 +23,8 @@ export default defineEventHandler(async(event) => {
                 userId: body.userId,
             },
             data: {
-                name: body.name,
+                firstName: body.firstName,
+                lastName: body.lastname,
                 email: body.email,
                 role: body.role
             }
