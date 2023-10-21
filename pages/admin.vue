@@ -80,7 +80,7 @@
 
           <td>
             <!-- Modal toggle -->
-            <button @click.prevent="showModal=true">Edit</button>
+            <button >Edit</button>
           </td>
 
         </tr>
@@ -89,11 +89,7 @@
     
     </div>
 
-    <div class="save-btn">
-      <button class="modalbutton" @click.prevent="showModal = true">Show Modal</button>
-    </div>
-
-    <SavedModal v-show="showModal" @close-modal="showModal = false" />
+    
   </div>
  
 </template>
@@ -102,7 +98,7 @@
 
 import SavedModal from '~/components/SavedModal.vue'
 
-
+let showModal = false;
 
 const users = ref(null)
 const user = ref({
