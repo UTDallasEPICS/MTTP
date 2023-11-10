@@ -61,9 +61,9 @@
         </div>
       </div>
 
-      <div id="table" class="mt-4 mx-96 table-auto">
+      <div id="table" class="mt-4 mx-96">
         <div class="relative overflow-x-auto rounded-lg">
-          <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 border-solid border-2 ">
+          <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
             <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">#</th>
@@ -82,21 +82,21 @@
                 <td v-if="!editButtonPressed">{{ u.firstName }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.firstName }}</div>
-                  <input v-else type="text" v-model="editedUser.firstName">
+                  <input v-else class="border-solid border-2" type="text" v-model="editedUser.firstName">
                 </td>
 
                 <!-- display last name -->
                 <td v-if="!editButtonPressed">{{ u.lastName }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.lastName }}</div>
-                  <input v-else type="text" v-model="editedUser.lastName" >
+                  <input v-else class="border-solid border-2" type="text" v-model="editedUser.lastName" >
                 </td>
 
                 <!-- display email-->
                 <td v-if="!editButtonPressed">{{ u.email }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.email }}</div>
-                  <input v-else type="text" v-model="editedUser.email" >
+                  <input v-else class="border-solid border-2" type="text" v-model="editedUser.email" >
                 </td>
 
                 <!--
@@ -116,7 +116,7 @@
                     <td v-else-if="u.role == 3">admin</td>
                   </div>
                   <td v-else>
-                    <select v-model="editedUser.role">
+                    <select class="border-solid border-2" v-model="editedUser.role">
                             <option value=1>volunteer</option>
                             <option value=2>employee</option>
                             <option value=3>admin</option>
