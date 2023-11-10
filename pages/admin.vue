@@ -36,12 +36,12 @@
                         <option value=1>volunteer</option>
                         <option value=2>employee</option>
                         <option value=3>admin</option>
-                        <option value=4>other</option>
+                        <option value=4>ex-employee</option>
                     </select>
                     </span>
 
                     <span>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    <button id="addUserButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             @click.prevent="addUser(user)">
                         Add User
                     </button>
@@ -65,22 +65,81 @@
         </thead>
         <tbody>
         <tr v-for="(u) in users">
-          <th scope="row">{{ u.userId }}</th>
-          <td>{{ u.firstName }}</td>
-          <td>{{ u.lastName }}</td>
-          <td>{{ u.email }}</td>
+            <th scope="row">{{ u.userId }}</th>
 
-          <!--
-              role displays string based on int value
-          -->
-          <td v-if="u.role == 4">ex-employee</td>
-          <td v-else-if="u.role == 1">volunteer</td>
-          <td v-else-if="u.role == 2">employee</td>
-          <td v-else-if="u.role == 3">admin</td>
+            <!-- Display first name -->
+            <td v-if="!editButtonPressed">{{ u.firstName }}</td>
+            <td v-else>
+              <div v-if="u.userId != editedUser.userId">{{ u.firstName }}</div>
+              <input v-else type="text" v-model="editedUser.firstName">
+            </td>
+
+            <!-- display last name -->
+            <td v-if="!editButtonPressed">{{ u.lastName }}</td>
+            <td v-else>
+              <div v-if="u.userId != editedUser.userId">{{ u.lastName }}</div>
+              <input v-else type="text" v-model="editedUser.lastName" >
+            </td>
+
+            <!-- display email-->
+            <td v-if="!editButtonPressed">{{ u.email }}</td>
+            <td v-else>
+              <div v-if="u.userId != editedUser.userId">{{ u.email }}</div>
+              <input v-else type="text" v-model="editedUser.email" >
+            </td>
+
+            <!--
+                role displays string based on int value
+            -->
+            <div v-if="!editButtonPressed">
+              <td v-if="u.role == 4">ex-employee</td>
+              <td v-else-if="u.role == 1">volunteer</td>
+              <td v-else-if="u.role == 2">employee</td>
+              <td v-else-if="u.role == 3">admin</td>
+            </div>
+            <div v-else>
+              <div v-if="u.userId != editedUser.userId">
+                <td v-if="u.role == 4">ex-employee</td>
+                <td v-else-if="u.role == 1">volunteer</td>
+                <td v-else-if="u.role == 2">employee</td>
+                <td v-else-if="u.role == 3">admin</td>
+              </div>
+              <td v-else>
+                <select v-model="editedUser.role">
+                        <option value=1>volunteer</option>
+                        <option value=2>employee</option>
+                        <option value=3>admin</option>
+                        <option value=4>ex-employee</option>
+                    </select>
+              </td>
+            </div>
+
+            <!--
+            <td>{{ u.lastName }}</td>
+            <td>{{ u.email }}</td>
+
+            
+                role displays string based on int value
+            
+            <td v-if="u.role == 4">ex-employee</td>
+            <td v-else-if="u.role == 1">volunteer</td>
+            <td v-else-if="u.role == 2">employee</td>
+            <td v-else-if="u.role == 3">admin</td>
+            -->
 
           <td>
-            <!-- Modal toggle -->
-            <button >Edit</button>
+            
+            <button id="editUserButton" v-if="!editButtonPressed" @click="{editedUser.userId = u.userId; 
+                                                 editedUser.firstName = u.firstName; 
+                                                 editedUser.lastName = u.lastName;
+                                                 editedUser.email = u.email;
+                                                 editedUser.role = u.role;
+                                                 editButtonPressed = true;}">Edit</button>
+            <div v-else>
+              <button id="applyEditButton" @click="{editButtonPressed = false;
+                                                    editUser(editedUser);}">Apply</button>
+              <button id="cancelEditButton" @click="editButtonPressed = false">Cancel</button>
+            </div>
           </td>
 
         </tr>
@@ -88,7 +147,10 @@
       </table>
     
     </div>
-
+    
+      {{ editedUser }}
+      
+    
     
   </div>
  
@@ -96,9 +158,9 @@
 
 <script setup>
 
-import SavedModal from '~/components/SavedModal.vue'
-
-let showModal = false;
+const showName = ref(true)
+const editButtonPressed = ref(false)
+const editIndex = ref(0)
 
 const users = ref(null)
 const user = ref({
@@ -117,7 +179,9 @@ const editedUser = ref({
 
 users.value = await getUsers()
 
-
+ function myFunction() {
+  showName = !showName
+}
 
 /**
  *   @desc get users

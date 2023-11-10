@@ -24,7 +24,7 @@ export default defineEventHandler(async(event) => {
             },
             data: {
                 firstName: body.firstName,
-                lastName: body.lastname,
+                lastName: body.lastName,
                 email: body.email,
                 role: body.role
             }
