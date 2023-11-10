@@ -45,8 +45,11 @@
           </select>
         </div>
       </div>
-
+      
       <div class="flex items-center justify-end sm:col-span-6">
+        <label for="file-upload">Import:</label>
+        <input type="file" id="file-upload" name="file-upload" accept=".xlsx">
+
         <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3" @click="clearForm">Clear</button>
         <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
          hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2

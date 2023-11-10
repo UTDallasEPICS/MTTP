@@ -46,12 +46,12 @@
           <select class="block w-full bg-gray-200 text-gray-700 border rounded-md py-2 px-3
           mb-3 leading-tight focus:outline-none focus:bg-white" v-model="student.county">
             <option disabled value="">Please select county</option>
-            <option value="1">Dallas</option>
-            <option value="2">Collin</option>
-            <option value="3">Denton</option>
-            <option value="4">Ellis</option>
-            <option value="5">Kaufman</option>
-            <option value="6">Rockwall</option>
+            <option value="Dallas">Dallas</option>
+            <option value="Collin">Collin</option>
+            <option value="Denton">Denton</option>
+            <option value="Ellis">Ellis</option>
+            <option value="Kaufman">Kaufman</option>
+            <option value="Rockwall">Rockwall</option>
           </select>
         </div>
       </div>
