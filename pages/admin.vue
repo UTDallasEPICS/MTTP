@@ -82,34 +82,34 @@
                 <td v-if="!editButtonPressed">{{ u.firstName }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.firstName }}</div>
-                  <input v-else type="text" v-model="editedUser.firstName">
+                  <input v-else type="text" v-model="editedUser.firstName" style="text-align: center; width: 100%;">
                 </td>
 
                 <!-- display last name -->
                 <td v-if="!editButtonPressed">{{ u.lastName }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.lastName }}</div>
-                  <input v-else type="text" v-model="editedUser.lastName" >
+                  <input v-else type="text" v-model="editedUser.lastName" style="text-align: center; width: 100%;">
                 </td>
 
                 <!-- display email-->
                 <td v-if="!editButtonPressed">{{ u.email }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.email }}</div>
-                  <input v-else type="text" v-model="editedUser.email" >
+                  <input v-else type="text" v-model="editedUser.email" style="text-align: center; width: 100%;">
                 </td>
 
                 <!--
                     role displays string based on int value
                 -->
-                <div v-if="!editButtonPressed">
+                <div v-if="!editButtonPressed" style="text-align: center; width: 100%;">
                   <td v-if="u.role == 4">ex-employee</td>
                   <td v-else-if="u.role == 1">volunteer</td>
                   <td v-else-if="u.role == 2">employee</td>
                   <td v-else-if="u.role == 3">admin</td>
                 </div>
-                <div v-else>
-                  <div v-if="u.userId != editedUser.userId">
+                <div v-else style="text-align: center; width: 100%;">
+                  <div v-if="u.userId != editedUser.userId" >
                     <td v-if="u.role == 4">ex-employee</td>
                     <td v-else-if="u.role == 1">volunteer</td>
                     <td v-else-if="u.role == 2">employee</td>

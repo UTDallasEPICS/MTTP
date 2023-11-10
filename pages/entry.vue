@@ -49,9 +49,7 @@
             <option value="Dallas">Dallas</option>
             <option value="Collin">Collin</option>
             <option value="Denton">Denton</option>
-            <option value="Ellis">Ellis</option>
-            <option value="Kaufman">Kaufman</option>
-            <option value="Rockwall">Rockwall</option>
+            <option value="Tarrant">Tarrant</option>
           </select>
         </div>
       </div>
