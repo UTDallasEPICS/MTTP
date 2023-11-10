@@ -3,7 +3,10 @@
 </script>
 
 <template>
-
+    <div>
+        <PageHeader title="Database" />
+        
+    </div>
 </template>
 
 <style scoped>
