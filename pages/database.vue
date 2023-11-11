@@ -9,10 +9,11 @@
         
         
         <div class="flex items-center justify-start sm:col-span-6">
-          <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3" >Import</button>
+          <input type="file" @change="handleFileImport" accept=".xlsx">
           <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
-           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-           focus-visible:outline-indigo-600" >Export</button>
+          hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+          focus-visible:outline-indigo-600" @click.prevent="exportData">Import</button>
+          
         </div>
       </div>
     </div>
@@ -68,6 +69,51 @@
   
   import Modal from "../src/components/Modal.vue";
   import { ref } from "vue";
+  import * as XLSX from 'xlsx';
+
+
+  const handleFileImport = async (event) => {
+  const file = event.target.files[0];
+
+    if (file) {
+      try {
+        const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+        // Now you have jsonData containing the data from the XLSX file
+        // Process and add the data to the Prisma database
+        await addDataToDatabase(jsonData);
+      } catch (error) {
+        console.error('Error reading XLSX file:', error);
+      }
+    }
+  };
+
+  const addDataToDatabase = async (jsonData) => {
+  // Iterate through jsonData and add each record to the Prisma database
+  for (const record of jsonData) {
+    const newStudent = {
+      firstName: record['firstName'],
+      lastName: record['lastName'],
+      streetAddress: record['streetAddress'],
+      county: record['county'],
+      city: record['city'],
+      zipCode: record['zipCode'],
+      voted: record['voted'],
+      authorId: record['authorId'],
+    };
+
+    // Use Prisma to add the new student to the database
+    await $fetch('/api/student', {
+      method: 'POST',
+      body: newStudent,
+    });
+  }
+
+  // Refresh the list of students after importing data
+  students.value = await getStudents();
+};
   
   const isModalVisible = ref(false);
   
