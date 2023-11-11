@@ -10,11 +10,11 @@
         
         <div class="flex items-center justify-start sm:col-span-6">
           <input type="file" @change="handleFileImport" accept=".xlsx">
-          <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
-          hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-          focus-visible:outline-indigo-600" @click.prevent="exportData">Import</button>
-          
+            <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
         </div>
+
       </div>
     </div>
   
@@ -71,6 +71,12 @@
   import { ref } from "vue";
   import * as XLSX from 'xlsx';
 
+  const exportData = () => {
+    const worksheet = XLSX.utils.json_to_sheet(students.value);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Students');
+    XLSX.writeFile(workbook, 'students.xlsx');
+  };
 
   const handleFileImport = async (event) => {
   const file = event.target.files[0];
