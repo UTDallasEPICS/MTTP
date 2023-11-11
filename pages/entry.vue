@@ -99,6 +99,7 @@ const student = ref({
   city: null,
   county: null,
   zipcode: null,
+  voted: false,
   authorId: 1,
 });
 const user = ref(null)
@@ -136,6 +137,7 @@ async function addStudent(student) {
         city: student.city,
         zipCode: parseInt(student.zipcode),
         county: student.county,
+        voted: false,
         authorId: parseInt(student.authorId),
       }
     })

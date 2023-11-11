@@ -10,7 +10,7 @@ export default defineEventHandler(async(event) => {
     let student = null
     let error = null
     
-    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.authorId) {
+    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.voted && body.authorId) {
         await prisma.student.create({
             data: {
                 firstName: body.firstName,
@@ -19,6 +19,7 @@ export default defineEventHandler(async(event) => {
                 city: body.city,
                 zipCode: body.zipCode,
                 county: body.county,
+                voted: body.voted,
                 authorId: body.authorId,
             },
         }).then((response) => {
