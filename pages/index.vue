@@ -6,5 +6,5 @@
 </template>
 
 <script setup lang="ts">
-import PageHeader from "~/components/pageHeader.vue";
+import PageHeader from "@/components/pageHeader.vue";
 </script>

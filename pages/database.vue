@@ -1,4 +1,5 @@
 <template>
+    <div v-if="currentUserRole == 3">
     <div>
       <PageHeader />
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
@@ -22,19 +23,20 @@
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">Author Name</th>
-            <th scope="col" class="px-6 py-3">First Name</th>
-            <th scope="col" class="px-6 py-3">Last Name</th>
+            <th scope="col" class="px-6 py-3">Student First Name</th>
+            <th scope="col" class="px-6 py-3">Student Last Name</th>
             <th scope="col" class="px-6 py-3">Address</th>
             <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">City</th>
             <th scope="col" class="px-6 py-3">Zip Code</th>
             <th scope="col" class="px-6 py-3">Voted</th>
             <th scope="col" class="px-6 py-3">Edit</th>
+            <th scope="col" class="px-6 py-3">Remove</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(u) in students" :key="u.studentId">
-            <th scope="row">{{ u.author.firstName }}</th>
+            <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
             <td>{{ u.streetAddress }}</td>
@@ -48,10 +50,17 @@
             <td>
               <button @click="openModal">Edit</button>
             </td>
+            <td>
+              <button @click="openModal">Remove</button>
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
+    </div>
+    </div>
+    <div v-else>
+        <h1>Access Denied</h1>
     </div>
   </template>
   
@@ -70,7 +79,7 @@
     isModalVisible.value = false;
   }
   
-  const author = ref(null)
+  const currentUserRole = ref(3)
   
   const students = ref(null)
   const student = ref({
