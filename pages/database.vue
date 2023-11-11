@@ -34,7 +34,7 @@
           </thead>
           <tbody>
           <tr v-for="(u) in students" :key="u.studentId">
-            <th scope="row">{{ u.author?.firstName }} {{ u.author?.lastName }}</th>
+            <th scope="row">{{ u.author.firstName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
             <td>{{ u.streetAddress }}</td>
@@ -80,6 +80,7 @@
     county: null,
     city: null,
     zipCode: null,
+    voted: null,
     authorId: null
   })
   const editedStudent = ref({
@@ -90,6 +91,7 @@
     county: null,
     city: null,
     zipCode: null,
+    voted: null,
     authorId: null
   })
   
@@ -128,6 +130,7 @@
           streetAddress: editedUser.streetAddress,
           county: editedUser.county,
           city: editedUser.city,
+          voted: editedUser.voted,
           zipCode: parseInt(editedUser.zipCode),
         }
       })
