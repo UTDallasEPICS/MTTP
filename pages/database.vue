@@ -5,17 +5,19 @@
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
       <h3 class="text-center text-xl font-bold">View the full database and Import/ Export</h3>
   
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
-        
-        
-        <div class="flex items-center justify-start sm:col-span-6">
-          <input type="file" @change="handleFileImport" accept=".xlsx">
-            <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
-            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
-        </div>
-
+      <div class="flex items-center justify-center sm:col-span-6">
+        <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
+        <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
+        hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-green-600" @click.prevent="importData">Import</button>
+        <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
+        hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
+       
       </div>
+      <Notification :isVisible="isImportSuccessful" :message="successMessage" />
+      <Notification :isVisible="isError" :message="errorMessage" />
+      <Loading :isLoading = "isLoading" />
     </div>
   
     <div class="mt-4 mx-96">
@@ -66,10 +68,12 @@
   </template>
   
   <script setup>
-  
+  import Notification from "~/components/Notification.vue";
+  import Loading from "~/components/LoadingOverlay.vue";
   import Modal from "../src/components/Modal.vue";
   import { ref } from "vue";
   import * as XLSX from 'xlsx';
+  import * as Papa from 'papaparse';
 
   const exportData = () => {
     const worksheet = XLSX.utils.json_to_sheet(students.value);
@@ -79,22 +83,146 @@
   };
 
   const handleFileImport = async (event) => {
-  const file = event.target.files[0];
+    const file = event.target.files[0];
 
     if (file) {
       try {
-        const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+        const fileType = getFileType(file);
 
-        // Now you have jsonData containing the data from the XLSX file
+        if (!fileType) {
+          console.error('Unsupported file type');
+          return;
+        }
+
+        let jsonData;
+
+        if (fileType === 'xlsx') {
+          const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+        } else if (fileType === 'csv') {
+          jsonData = await parseCsvFile(file);
+        }
+
+        // Now you have jsonData containing the data from the file
         // Process and add the data to the Prisma database
         await addDataToDatabase(jsonData);
       } catch (error) {
-        console.error('Error reading XLSX file:', error);
+        console.error('Error reading file:', error);
       }
     }
   };
+
+  const getFileType = (file) => {
+    if (file.name.endsWith('.xlsx')) {
+      return 'xlsx';
+    } else if (file.name.endsWith('.csv')) {
+      return 'csv';
+    } else {
+      return null;
+   }
+  };
+
+  const isImportSuccessful = ref(false);
+  const successMessage = ref('');
+  
+
+  const handleFileSelect = async (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    console.log("File type: ", file.type);
+    try {
+      const fileType = getFileType(file);
+
+      if (!fileType) {
+        console.error('Unsupported file type');
+        return;
+      }
+
+      const jsonData = await (fileType === 'xlsx' ?
+        parseXlsxFile(file) :
+        parseCsvFile(file));
+
+      // Store jsonData in a ref or reactive property
+      importedDataRef.value = jsonData;
+    } catch (error) {
+      console.error('Error reading file:', error);
+    }
+  }
+};
+const clearSuccessMessage = () => {
+  isImportSuccessful.value = false;
+   successMessage.value = '';
+};
+
+const isError = ref(false);
+const errorMessage = ref('');
+const isLoading = ref(false);
+const importedDataRef = ref(null);
+const importData = async () => {
+  try {
+    
+    isLoading.value = true;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (!importedDataRef.value) {
+      console.error('No data to import.');
+      return;
+    }
+
+    let jsonData;
+
+    if (Array.isArray(importedDataRef.value)) {
+      jsonData = importedDataRef.value;
+    } else if (importedDataRef.value.data) {
+      jsonData = importedDataRef.value.data;
+    } else {
+      console.error('Invalid data format for import.');
+      return;
+    }
+
+    // Process and add the data to the Prisma database
+    await addDataToDatabase(jsonData);
+
+    // Set the success state and message
+    isImportSuccessful.value = true;
+    successMessage.value = 'Import successful!';
+    isLoading.value = false;
+    // Clear success state and message after a delay (adjust as needed)
+    setTimeout(() => {
+      clearSuccessMessage();
+    }, 3000);
+  } catch (error) {
+    isError.value = true; // Show error notification
+    errorMessage.value = 'An error occurred during import. Please check the console for details.';
+    
+    isLoading.value = false; // Hide loading overlay
+    console.error('Error importing data:', error);
+  }
+};
+
+
+const parseXlsxFile = async (file) => {
+  const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+  const sheetName = workbook.SheetNames[0];
+  return XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+};
+
+const parseCsvFile = (file) => {
+  return new Promise((resolve) => {
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      complete: (result) => {
+        resolve(result.data);
+      },
+      error: (error) => {
+        console.error('Error parsing CSV file:', error);
+        resolve([]);
+      },
+    });
+  });
+};
 
   const addDataToDatabase = async (jsonData) => {
   // Iterate through jsonData and add each record to the Prisma database

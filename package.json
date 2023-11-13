@@ -320,6 +320,7 @@
     "openapi-typescript": "^6.7.0",
     "p-map": "^4.0.0",
     "pacote": "^17.0.4",
+    "papaparse": "^5.4.1",
     "parse-git-config": "^3.0.0",
     "parse-path": "^7.0.0",
     "parse-url": "^8.1.0",
