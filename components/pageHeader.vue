@@ -24,7 +24,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #A5B4FC; /* Set the background to white */
+  background-color: #ffffff; /* Set the background to white */
   color: #333; /* Set the text color to dark */
   padding: 20px 20px;
 }
