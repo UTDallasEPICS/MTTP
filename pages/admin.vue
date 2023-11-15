@@ -56,9 +56,9 @@
 
     <div id="table" class="mt-4 mx-96">
       <div class="relative overflow-x-auto rounded-lg">
-        <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
+        <table class="table-fixed text-sm text-center text-gray-500 dark:text-gray-400 table-fixed text-center align-middle w-fit">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr class="h-12">
             <th scope="col" class="px-6 py-3">#</th>
             <th scope="col" class="px-6 py-3">First Name</th>
             <th scope="col" class="px-6 py-3">Last Name</th>
@@ -68,47 +68,49 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(u) in users">
+          <tr v-for="(u) in users" class="align-middle text-center w-12 h-10">
             <th scope="row">{{ u.userId }}</th>
 
             <!-- Display first name -->
             <td v-if="!editButtonPressed">{{ u.firstName }}</td>
             <td v-else>
               <div v-if="u.userId != editedUser.userId">{{ u.firstName }}</div>
-              <input v-else class="border-solid border-2" type="text" v-model="editedUser.firstName">
+              <input v-else class="border-solid border-2 align-middle text-center" type="text" v-model="editedUser.firstName">
             </td>
 
             <!-- display last name -->
             <td v-if="!editButtonPressed">{{ u.lastName }}</td>
             <td v-else>
               <div v-if="u.userId != editedUser.userId">{{ u.lastName }}</div>
-              <input v-else class="border-solid border-2" type="text" v-model="editedUser.lastName" >
+              <input v-else class="border-solid border-2 align-middle text-center" type="text" v-model="editedUser.lastName" >
             </td>
 
             <!-- display email-->
             <td v-if="!editButtonPressed">{{ u.email }}</td>
             <td v-else>
               <div v-if="u.userId != editedUser.userId">{{ u.email }}</div>
-              <input v-else class="border-solid border-2" type="text" v-model="editedUser.email" >
+              <input v-else class="border-solid border-2 align-middle text-center" type="text" v-model="editedUser.email" >
             </td>
 
             <!--
                 role displays string based on int value
             -->
-            <div v-if="!editButtonPressed">
+            <div class="text-center align-middle" v-if="!editButtonPressed">
               <td v-if="u.role == 4">ex-employee</td>
               <td v-else-if="u.role == 1">volunteer</td>
               <td v-else-if="u.role == 2">employee</td>
               <td v-else-if="u.role == 3">admin</td>
             </div>
-            <div v-else>
+
+            <div class="text-center align-middle" v-else>
               <div v-if="u.userId != editedUser.userId">
                 <td v-if="u.role == 4">ex-employee</td>
                 <td v-else-if="u.role == 1">volunteer</td>
                 <td v-else-if="u.role == 2">employee</td>
                 <td v-else-if="u.role == 3">admin</td>
               </div>
-              <td v-else>
+
+              <td class="text-center align-middle" v-else>
                 <select class="border-solid border-2 align-middle text-center" v-model="editedUser.role">
                   <option value=1>volunteer</option>
                   <option value=2>employee</option>
@@ -145,9 +147,6 @@
         </table>
 
       </div>
-
-
-
     </div>
   </div>
 
