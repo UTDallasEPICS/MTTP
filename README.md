@@ -1,6 +1,4 @@
-# Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# March To The Polls voter database
 
 ## Setup
 
@@ -82,8 +80,5 @@ npx prisma migrate dev --name init
 npx prisma studio
 
 ```
-
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 
