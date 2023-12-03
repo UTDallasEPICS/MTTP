@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader />
+    <PageHeader :userRole="userRole" />
     <h2 class="text-center text-2xl font-bold mt-4">Entry Page</h2>
     <h3 class="text-center text-xl font-bold">Add student voter information and modify recent entries</h3>
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
@@ -87,7 +87,7 @@
 </style>
 
 <script setup>
-
+const userRole = ref(2)
 const students = ref(null)
 const student = ref({
   firstName: null,
