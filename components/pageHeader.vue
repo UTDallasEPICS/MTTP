@@ -7,7 +7,7 @@
     </div>
     <div class="right">
       <nuxt-link v-if="userRole <= 3" to="/entry" >Enter Info</nuxt-link>
-      <nuxt-link to="/database" v-if="userRole == 2 || userRole == 3">View Database</nuxt-link>
+      <nuxt-link to="/database" v-if="userRole <= 3">View Database</nuxt-link>
       <nuxt-link to="/admin" v-if="userRole == 3" >Admin</nuxt-link>
     </div>
   </header>
