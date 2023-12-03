@@ -5,7 +5,7 @@
     <h3 class="text-center text-xl font-bold">Add student voter information and modify recent entries</h3>
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
       <div class="sm:col-span-3">
-        <label for="first-name" class="block text-lg font-medium leading-6 text-gray-900">First name</label>
+        <label for="first-name" class="block text-lg font-medium leading-6 text-gray-900">First Name</label>
         <div class="mt-2">
           <input type="text" v-model="student.firstName" name="first-name" id="first-name" autocomplete="given-name" class="block w-full
           rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
@@ -14,18 +14,25 @@
       </div>
 
       <div class="sm:col-span-3">
-        <label for="last-name" class="block text-lg font-medium leading-6 text-gray-900">Last name</label>
+        <label for="last-name" class="block text-lg font-medium leading-6 text-gray-900">Last Name</label>
         <div class="mt-2">
           <input type="text" v-model="student.lastName" name="last-name" id="last-name" autocomplete="family-name" class="block w-full
           rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
-
-      <div class="col-span-full">
-        <label for="street-address" class="block text-lg font-medium leading-6 text-gray-900">Street address</label>
+      <div class="sm:col-span-3">
+        <label for="street-number" class="block text-lg font-medium leading-6 text-gray-900">Street/Apt Number</label>
         <div class="mt-2">
-          <input type="text" v-model="student.street" name="street-address" id="street-address" autocomplete="street-address" class="block w-full
+          <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="street-number" class="block w-full
+          rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <label for="address" class="block text-lg font-medium leading-6 text-gray-900">Address</label>
+        <div class="mt-2">
+          <input type="text" v-model="student.street" name="address" id="street-address" autocomplete="address" class="block w-full
           rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
@@ -75,6 +82,7 @@
 </template>
 
 <style scoped>
+
 .input {
   @apply w-full px-4 py-2 border rounded-md;
 }
@@ -94,8 +102,8 @@ const students = ref(null)
 const student = ref({
   firstName: null,
   lastName: null,
-  street: null,
-  apartment: null,
+  streetAddress: null,
+  streetNumber: null,
   city: null,
   county: null,
   zipcode: null,
@@ -103,6 +111,18 @@ const student = ref({
 });
 const user = ref(null)
 
+const clearForm = () => {
+  student.value = {
+    firstName: null,
+    lastName: null,
+    streetAddress: null,
+    streetNumber: null,
+    city: null,
+    county: null,
+    zipcode: null,
+    authorId: 1,
+  }
+};
 
 
 /**
@@ -132,6 +152,7 @@ async function addStudent(student) {
       body: {
         firstName: student.firstName,
         lastName: student.lastName,
+        streetNumber: parseInt(student.streetNumber),
         streetAddress: student.street,
         city: student.city,
         zipCode: parseInt(student.zipcode),
