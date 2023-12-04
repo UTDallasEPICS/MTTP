@@ -248,6 +248,7 @@ import PageHeader from "~/components/pageHeader.vue";
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 //import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+<<<<<<< HEAD
 const userRole = ref(2)
 const open = ref(true)
 

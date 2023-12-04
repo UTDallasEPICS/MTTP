@@ -28,6 +28,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
     "@prisma/client": "^5.4.2",
     "abbrev": "^1.1.1",
     "acorn": "^8.10.0",
@@ -321,6 +322,7 @@
     "openapi-typescript": "^6.7.0",
     "p-map": "^4.0.0",
     "pacote": "^17.0.4",
+    "papaparse": "^5.4.1",
     "parse-git-config": "^3.0.0",
     "parse-path": "^7.0.0",
     "parse-url": "^8.1.0",
