@@ -160,7 +160,7 @@ async function addStudent(student) {
         authorId: parseInt(student.authorId),
       }
     })
-
+    this.clearForm()
   //if(addedStudent)   students.value = await getStudents()
 }
 

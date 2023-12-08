@@ -29,8 +29,8 @@
             <th scope="col" class="px-6 py-3">Student First Name</th>
             <th scope="col" class="px-6 py-3">Student Last Name</th>
             <th scope="col" class="px-6 py-3">Address</th>
-            <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">City</th>
+            <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">Zip Code</th>
             <th scope="col" class="px-6 py-3">Voted</th>
             <th scope="col" class="px-6 py-3">Edit</th>
@@ -42,7 +42,8 @@
             <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
-            <td>{{ u.streetAddress }}</td>
+            <td>{{u.streetNumber}} {{ u.streetAddress }}</td>
+            <!-- <td>{{ u.streetAddress }}</td> -->
             <td>{{ u.county }}</td>
             <td>{{ u.city }}</td>
             <td>{{ u.zipCode }}</td>
