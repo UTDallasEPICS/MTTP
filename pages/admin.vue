@@ -1,6 +1,13 @@
 <template>
+
+    <!--The header tab that acts as navigation throughout the website
+        Takes in the current user's role to only display links to pages
+          they have access to-->
     <PageHeader :userRole="userRole" />
+
     <div class = " content-center">
+
+      <!--the submission form for new users-->
       <div class = "container content-center" id="form">
 
       
@@ -56,6 +63,7 @@
         </div>
       </div>
 
+      <!--the table used to display the user table-->
       <div id="table" class="mt-4 mx-96">
         <div class="relative overflow-x-auto rounded-lg">
           <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
@@ -73,7 +81,9 @@
             <tr v-for="(u) in users">
                 <th scope="row">{{ u.userId }}</th>
 
-                <!-- Display first name -->
+                <!-- Display first name 
+                      if the edit button is pressed it changes to
+                      an input field to edit (repeated for the rest of the fields as well)-->
                 <td v-if="!editButtonPressed">{{ u.firstName }}</td>
                 <td v-else>
                   <div v-if="u.userId != editedUser.userId">{{ u.firstName }}</div>
@@ -121,7 +131,10 @@
                 </div>
 
               <td>
-                
+                <!--the edit button
+                    Appears when the row is not in edit mode
+                    when clicked the user in the row is stored in editedUser
+                    then modified in the input fields that show up-->
                 <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{editedUser.userId = u.userId; 
@@ -130,6 +143,8 @@
                                                     editedUser.email = u.email;
                                                     editedUser.role = u.role;
                                                     editButtonPressed = true;}">Edit</button>
+                <!--when the edit button is pressed
+                    user can choose to apply the edit or cancel-->
                 <div v-else>
                   <div v-if="editedUser.userId == u.userId">
                     <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
@@ -155,9 +170,8 @@
 
 <script setup>
 
-const showName = ref(true)
+
 const editButtonPressed = ref(false)
-const editIndex = ref(0)
 
 const users = ref(null)
 const user = ref({
@@ -191,10 +205,7 @@ async function getUsers() {
 
 /**
  *   @desc add users
- @param fn firstName of the user
- @param ln lastName of the user
- @param em email of the user
- @param rl role of the user
+ @param user user object {firstName, lastName, email, role}
  */
 async function addUser(user) {
 
@@ -218,10 +229,7 @@ async function addUser(user) {
 
 /**
  *   @desc edit users
- @param fn firstName of the user
- @param ln lastName of the user
- @param em email of the user
- @param rl role of the user
+ @param editedUser user object {userId, firstName, lastName, email, role}
  */
 async function editUser(editedUser) {
   let user = null
@@ -246,10 +254,8 @@ async function editUser(editedUser) {
 import PageHeader from "~/components/pageHeader.vue";
 
 import { ref } from 'vue'
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-//import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
-<<<<<<< HEAD
-const userRole = ref(2)
-const open = ref(true)
+const userId = ref(1)
+const userRole = ref(3)
+
 
 </script>

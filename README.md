@@ -85,5 +85,7 @@ npx prisma studio
 
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Deployment will be done with Google Cloud as MTTP will be maintaining the webapp on their end.
+
 
 

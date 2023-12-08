@@ -1,7 +1,11 @@
 <template>
-    <div v-if="currentUserRole == 3">
+    <div v-if="userRole == 3">
     <div>
-      <PageHeader />
+      <!--The header tab that acts as navigation throughout the website
+        Takes in the current user's role to only display links to pages
+          they have access to-->
+      <PageHeader :userRole="userRole"/>
+      
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
       <h3 class="text-center text-xl font-bold">View the full database and Import/ Export</h3>
   
@@ -38,24 +42,26 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(u) in students" :key="u.studentId">
-            <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
-            <td>{{ u.firstName }}</td>
-            <td>{{ u.lastName }}</td>
-            <td>{{ u.streetAddress }}</td>
-            <td>{{ u.county }}</td>
-            <td>{{ u.city }}</td>
-            <td>{{ u.zipCode }}</td>
-            <td>
-                <input type="checkbox" v-model="u.voted" disabled>
-            </td>
+          <tr v-for="(u) in students " v-show="userRole >= 2 || u.authorId == currentUserId" :key="u.studentId">
             
-            <td>
-              <button @click="openModal">Edit</button>
-            </td>
-            <td>
-              <button @click="openModal">Remove</button>
-            </td>
+              <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
+              <td>{{ u.firstName }}</td>
+              <td>{{ u.lastName }}</td>
+              <td>{{ u.streetAddress }}</td>
+              <td>{{ u.county }}</td>
+              <td>{{ u.city }}</td>
+              <td>{{ u.zipCode }}</td>
+              <td>
+                  <input type="checkbox" v-model="u.voted" disabled>
+              </td>
+              
+              <td>
+                <button @click="openModal">Edit</button>
+              </td>
+              <td>
+                <button @click="openModal">Remove</button>
+              </td>
+           
           </tr>
           </tbody>
         </table>
@@ -259,7 +265,8 @@ const parseCsvFile = (file) => {
     isModalVisible.value = false;
   }
   
-  const currentUserRole = ref(3)
+  const currentUserId = ref(1)
+  const userRole = ref(3)
   
   const students = ref(null)
   const student = ref({
