@@ -18,7 +18,7 @@ export default defineEventHandler(async(event) => {
     const authorId = body.authorId
 
 
-    if(!(streetNumber && streetAddress && firstName && lastName && city && zipCode && county && authorId && studentId))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && studentId))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let student = null
 
@@ -30,8 +30,8 @@ export default defineEventHandler(async(event) => {
             data: {
                 firstName: body.firstName,
                 lastName: body.lastname,
-                streetNumber: body.streetNumber,
-                streetAddress: body.street,
+                // streetNumber: body.streetNumber,
+                streetAddress: body.streetAddress,
                 city: body.city,
                 zipCode: body.zipcode,
                 county: body.county,

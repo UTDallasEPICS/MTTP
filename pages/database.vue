@@ -24,7 +24,7 @@
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr class="h-9">
             <th scope="col" class="px-6 py-3">Author Name</th>
             <th scope="col" class="px-6 py-3">Student First Name</th>
             <th scope="col" class="px-6 py-3">Student Last Name</th>
@@ -38,7 +38,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(u) in students" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" :key="u.studentId">
             <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
@@ -52,10 +52,35 @@
             </td>
             
             <td>
-              <button @click="openModal">Edit</button>
+              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
+                                                    editedStudent.studentId = u.studentId;
+                                                    editedStudent.firstName = u.firstName;
+                                                    editedStudent.lastName = u.lastName;
+                                                    editedStudent.streetAddress = u.streetAddress;
+                                                    editedStudent.county = u.county;
+                                                    editedStudent.city = u.city;
+                                                    editedStudent.zipCode = u.zipCode;
+                                                    editedStudent.voted = u.voted;
+                                                    editedStudent.authorId = u.authorId;
+                                                    editButtonPressed = true;}">Edit</button>
+              <div v-else>
+                <div v-if="editedStudent.studentId == u.studentId">
+                  <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
+                                                          editStudent(editedStudent);}">Apply</button>
+                  <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="editButtonPressed = false">Cancel</button>
+                </div>
+              </div>
             </td>
             <td>
-              <button @click="removeStudent(u.studentId)">Remove</button>
+              <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="removeStudent(u.studentId)">Remove</button>
             </td>
           </tr>
           </tbody>
@@ -170,6 +195,10 @@ const importData = async () => {
       isError.value = true;
       errorMessage.value = 'No file imported. Please select a file to import.';
       isLoading.value = false;
+      // Clear success state and message after a delay (adjust as needed)
+      setTimeout(() => {
+      clearSuccessMessage();
+      }, 3000);
       return;
     }
     let jsonData;
@@ -310,29 +339,28 @@ const parseCsvFile = (file) => {
    @param em email of the user
    @param rl role of the user
    */
-  async function editStudent(editedStudent) {
-    let student = null
-  
-    console.log('editedStudent: ', editedStudent)
-  
-    if(editedStudent)
-      student = await $fetch('/api/student', {
-        method: 'PUT',
-        body: {
-          studentId: parseInt(editedStduent.studentId),
-          firstName: editedStudent.firstName,
-          lastName: editedUser.lastName,
-          streetNumber: parseInt(editedUser.streetNumber),
-          streetAddress: editedUser.streetAddress,
-          county: editedUser.county,
-          city: editedUser.city,
-          voted: editedUser.voted,
-          zipCode: parseInt(editedUser.zipCode),
-        }
-      })
-  
-    if(student)   students.value = await getStudents()
-  }
+   async function editStudent(editedStudent) {
+  let student = null
+
+  console.log('editedStudent: ', editedStudent)
+
+  if(editedStudent)
+    user = await $fetch('/api/student', {
+      method: 'PUT',
+      body: {
+        firstName: editedStudent.firstName,
+        lastName: editedStudent.lastName,
+        streetAddress: editedStudent.streetAddress,
+        county: editedStudent.county,
+        city: editedStudent.city,
+        zipCode: editedStudent.zipCode,
+        voted: editedStudent.voted,
+      }
+    })
+
+  if(student)   students.value = await getStudents()
+}
+
 
   const removeStudent = async (studentId) => {
   try {

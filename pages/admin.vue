@@ -58,7 +58,7 @@
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr class="h-9">
             <th scope="col" class="px-6 py-3">#</th>
             <th scope="col" class="px-6 py-3">First Name</th>
             <th scope="col" class="px-6 py-3">Last Name</th>
@@ -68,7 +68,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(u) in users">
+          <tr class="h-9" v-for="(u) in users">
             <th scope="row">{{ u.userId }}</th>
 
             <!-- Display first name -->
@@ -214,7 +214,6 @@ async function addUser(user) {
         role: parseInt(user.role),
       }
     })
-
   if(addedUser)
     users.value = await getUsers()
 }
