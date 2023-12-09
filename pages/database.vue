@@ -55,7 +55,7 @@
               <button @click="openModal">Edit</button>
             </td>
             <td>
-              <button @click="openModal">Remove</button>
+              <button @click="removeStudent(u.studentId)">Remove</button>
             </td>
           </tr>
           </tbody>
@@ -163,14 +163,15 @@ const isLoading = ref(false);
 const importedDataRef = ref(null);
 const importData = async () => {
   try {
-    
     isLoading.value = true;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+
     if (!importedDataRef.value) {
-      console.error('No data to import.');
+      // Display an error message if no file is imported
+      isError.value = true;
+      errorMessage.value = 'No file imported. Please select a file to import.';
+      isLoading.value = false;
       return;
     }
-
     let jsonData;
 
     if (Array.isArray(importedDataRef.value)) {
@@ -189,6 +190,7 @@ const importData = async () => {
     isImportSuccessful.value = true;
     successMessage.value = 'Import successful!';
     isLoading.value = false;
+    
     // Clear success state and message after a delay (adjust as needed)
     setTimeout(() => {
       clearSuccessMessage();
@@ -196,11 +198,12 @@ const importData = async () => {
   } catch (error) {
     isError.value = true; // Show error notification
     errorMessage.value = 'An error occurred during import. Please check the console for details.';
-    
+
     isLoading.value = false; // Hide loading overlay
     console.error('Error importing data:', error);
   }
 };
+
 
 
 const parseXlsxFile = async (file) => {
@@ -232,6 +235,7 @@ const parseCsvFile = (file) => {
       firstName: record['firstName'],
       lastName: record['lastName'],
       streetAddress: record['streetAddress'],
+      streetNumber: record['streetNumber'],
       county: record['county'],
       city: record['city'],
       zipCode: record['zipCode'],
@@ -266,6 +270,7 @@ const parseCsvFile = (file) => {
   const student = ref({
     firstName: null,
     lastName: null,
+    streetNumber: null,
     streetAddress: null,
     county: null,
     city: null,
@@ -317,6 +322,7 @@ const parseCsvFile = (file) => {
           studentId: parseInt(editedStduent.studentId),
           firstName: editedStudent.firstName,
           lastName: editedUser.lastName,
+          streetNumber: parseInt(editedUser.streetNumber),
           streetAddress: editedUser.streetAddress,
           county: editedUser.county,
           city: editedUser.city,
@@ -327,6 +333,38 @@ const parseCsvFile = (file) => {
   
     if(student)   students.value = await getStudents()
   }
+
+  const removeStudent = async (studentId) => {
+  try {
+    // Ensure the URL matches your backend API
+    const apiUrl = `/api/student`;
+
+    // Make the DELETE request to the backend API
+    await $fetch(apiUrl, {
+      method: 'DELETE',
+      body: { studentId },
+    });
+
+    // Display a success message
+    isImportSuccessful.value = true;
+    successMessage.value = 'Student removed successfully!';
+
+    setTimeout(() => {
+      clearSuccessMessage();
+    }, 3000);
+
+    // Refresh the list of students after removing one
+    students.value = await getStudents();
+  } catch (error) {
+    isError.value = true; // Show error notification
+    errorMessage.value = 'An error occurred while removing the student. Please check the console for details.';
+
+    console.error('Error removing student:', error);
+  }
+};
+
+
+
   
   import PageHeader from "~/components/pageHeader.vue";
   
