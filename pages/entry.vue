@@ -95,7 +95,7 @@
     <!--saves the information in the form-->
     <button type="button" class="rounded-md bg-indigo-600 mr-96 px-3 py-2 text-lg font-semibold
     text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-    focus-visible:outline-indigo-600" @click.prevent="addStudent(student)">Save Voter</button>
+    focus-visible:outline-indigo-600" @click.prevent="addStudent(student)" @click="clearForm ">Save Voter</button>
   </div>
 </template>
 
@@ -157,14 +157,16 @@ async function getStudents() {
  @param student student object 
  */
 
+const isError = ref(false);
+const errorMessage = ref('');
+const isLoading = ref(false);
+const importedDataRef = ref(null);
+
 async function addStudent(student) {
+  isLoading.value = true;
 
-  let addedStudent = null
-
-  console.log('student: ', student)
-
-  if(student)
-    return await $fetch('/api/student', {
+  try {
+    const addedStudent = await $fetch('/api/student', {
       method: 'POST',
       body: {
         firstName: student.firstName,
@@ -176,9 +178,30 @@ async function addStudent(student) {
         county: student.county,
         authorId: parseInt(student.authorId),
       }
-    })
+    });
 
-  //if(addedStudent)   students.value = await getStudents()
+    // If the student is added successfully, update the UI and show success message
+    if (addedStudent) {
+      // Set the success state and message
+      isImportSuccessful.value = true;
+      successMessage.value = 'Student added successfully!';
+      
+      // Clear success state and message after a delay (adjust as needed)
+      setTimeout(() => {
+        clearSuccessMessage();
+      }, 3000);
+
+      // Refresh the list of students after adding one
+      students.value = await getStudents();
+    }
+  } catch (error) {
+    isError.value = true; // Show error notification
+    errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
+
+    console.error('Error adding student:', error);
+  } finally {
+    isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
+  }
 }
 
 

@@ -29,13 +29,13 @@
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
+          <tr class="h-9">
             <th scope="col" class="px-6 py-3">Author Name</th>
             <th scope="col" class="px-6 py-3">Student First Name</th>
             <th scope="col" class="px-6 py-3">Student Last Name</th>
             <th scope="col" class="px-6 py-3">Address</th>
-            <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">City</th>
+            <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">Zip Code</th>
             <th scope="col" class="px-6 py-3">Voted</th>
             <th scope="col" class="px-6 py-3">Edit</th>
@@ -43,26 +43,50 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(u) in students " v-show="userRole >= 2 || u.authorId == currentUserId" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" :key="u.studentId">
+            <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
+            <td>{{ u.firstName }}</td>
+            <td>{{ u.lastName }}</td>
+            <td>{{u.streetNumber}} {{ u.streetAddress }}</td>
+            <!-- <td>{{ u.streetAddress }}</td> -->
+            <td>{{ u.county }}</td>
+            <td>{{ u.city }}</td>
+            <td>{{ u.zipCode }}</td>
+            <td>
+                <input type="checkbox" v-model="u.voted" disabled>
+            </td>
             
-              <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
-              <td>{{ u.firstName }}</td>
-              <td>{{ u.lastName }}</td>
-              <td>{{ u.streetAddress }}</td>
-              <td>{{ u.county }}</td>
-              <td>{{ u.city }}</td>
-              <td>{{ u.zipCode }}</td>
-              <td>
-                  <input type="checkbox" v-model="u.voted" disabled>
-              </td>
-              
-              <td>
-                <button @click="openModal">Edit</button>
-              </td>
-              <td>
-                <button @click="openModal">Remove</button>
-              </td>
-           
+            <td>
+              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
+                                                    editedStudent.studentId = u.studentId;
+                                                    editedStudent.firstName = u.firstName;
+                                                    editedStudent.lastName = u.lastName;
+                                                    editedStudent.streetAddress = u.streetAddress;
+                                                    editedStudent.county = u.county;
+                                                    editedStudent.city = u.city;
+                                                    editedStudent.zipCode = u.zipCode;
+                                                    editedStudent.voted = u.voted;
+                                                    editedStudent.authorId = u.authorId;
+                                                    editButtonPressed = true;}">Edit</button>
+              <div v-else>
+                <div v-if="editedStudent.studentId == u.studentId">
+                  <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
+                                                          editStudent(editedStudent);}">Apply</button>
+                  <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="editButtonPressed = false">Cancel</button>
+                </div>
+              </div>
+            </td>
+            <td>
+              <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="removeStudent(u.studentId)">Remove</button>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -169,14 +193,19 @@ const isLoading = ref(false);
 const importedDataRef = ref(null);
 const importData = async () => {
   try {
-    
     isLoading.value = true;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+
     if (!importedDataRef.value) {
-      console.error('No data to import.');
+      // Display an error message if no file is imported
+      isError.value = true;
+      errorMessage.value = 'No file imported. Please select a file to import.';
+      isLoading.value = false;
+      // Clear success state and message after a delay (adjust as needed)
+      setTimeout(() => {
+      clearSuccessMessage();
+      }, 3000);
       return;
     }
-
     let jsonData;
 
     if (Array.isArray(importedDataRef.value)) {
@@ -195,6 +224,7 @@ const importData = async () => {
     isImportSuccessful.value = true;
     successMessage.value = 'Import successful!';
     isLoading.value = false;
+    
     // Clear success state and message after a delay (adjust as needed)
     setTimeout(() => {
       clearSuccessMessage();
@@ -202,11 +232,12 @@ const importData = async () => {
   } catch (error) {
     isError.value = true; // Show error notification
     errorMessage.value = 'An error occurred during import. Please check the console for details.';
-    
+
     isLoading.value = false; // Hide loading overlay
     console.error('Error importing data:', error);
   }
 };
+
 
 
 const parseXlsxFile = async (file) => {
@@ -238,6 +269,7 @@ const parseCsvFile = (file) => {
       firstName: record['firstName'],
       lastName: record['lastName'],
       streetAddress: record['streetAddress'],
+      streetNumber: record['streetNumber'],
       county: record['county'],
       city: record['city'],
       zipCode: record['zipCode'],
@@ -273,6 +305,7 @@ const parseCsvFile = (file) => {
   const student = ref({
     firstName: null,
     lastName: null,
+    streetNumber: null,
     streetAddress: null,
     county: null,
     city: null,
@@ -312,28 +345,60 @@ const parseCsvFile = (file) => {
    @param em email of the user
    @param rl role of the user
    */
-  async function editStudent(editedStudent) {
-    let student = null
-  
-    console.log('editedStudent: ', editedStudent)
-  
-    if(editedStudent)
-      student = await $fetch('/api/student', {
-        method: 'PUT',
-        body: {
-          studentId: parseInt(editedStduent.studentId),
-          firstName: editedStudent.firstName,
-          lastName: editedUser.lastName,
-          streetAddress: editedUser.streetAddress,
-          county: editedUser.county,
-          city: editedUser.city,
-          voted: editedUser.voted,
-          zipCode: parseInt(editedUser.zipCode),
-        }
-      })
-  
-    if(student)   students.value = await getStudents()
+   async function editStudent(editedStudent) {
+  let student = null
+
+  console.log('editedStudent: ', editedStudent)
+
+  if(editedStudent)
+    user = await $fetch('/api/student', {
+      method: 'PUT',
+      body: {
+        firstName: editedStudent.firstName,
+        lastName: editedStudent.lastName,
+        streetAddress: editedStudent.streetAddress,
+        county: editedStudent.county,
+        city: editedStudent.city,
+        zipCode: editedStudent.zipCode,
+        voted: editedStudent.voted,
+      }
+    })
+
+  if(student)   students.value = await getStudents()
+}
+
+
+  const removeStudent = async (studentId) => {
+  try {
+    // Ensure the URL matches your backend API
+    const apiUrl = `/api/student`;
+
+    // Make the DELETE request to the backend API
+    await $fetch(apiUrl, {
+      method: 'DELETE',
+      body: { studentId },
+    });
+
+    // Display a success message
+    isImportSuccessful.value = true;
+    successMessage.value = 'Student removed successfully!';
+
+    setTimeout(() => {
+      clearSuccessMessage();
+    }, 3000);
+
+    // Refresh the list of students after removing one
+    students.value = await getStudents();
+  } catch (error) {
+    isError.value = true; // Show error notification
+    errorMessage.value = 'An error occurred while removing the student. Please check the console for details.';
+
+    console.error('Error removing student:', error);
   }
+};
+
+
+
   
   import PageHeader from "~/components/pageHeader.vue";
   

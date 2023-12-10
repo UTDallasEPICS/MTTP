@@ -221,7 +221,6 @@ async function addUser(user) {
         role: parseInt(user.role),
       }
     })
-
   if(addedUser)
     users.value = await getUsers()
 }
