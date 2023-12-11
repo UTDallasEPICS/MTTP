@@ -13,8 +13,9 @@
 import {ref} from 'vue'
 
 
-const userId = ref(1)
-const userRole = ref(3)
+const cvuser = useCookie('cvuser')
+const userRole = parseInt(cvuser.value.role)
+console.log(cvuser)
 
 
 

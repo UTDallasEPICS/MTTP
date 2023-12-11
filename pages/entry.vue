@@ -114,8 +114,8 @@
 </style>
 
 <script setup>
-const userId = ref(1)
-const userRole = ref(3)
+const cvuser = useCookie('cvuser')
+const userRole = parseInt(cvuser.value.role)
 const students = ref(null)
 const student = ref({
   firstName: null,
@@ -125,7 +125,7 @@ const student = ref({
   city: null,
   county: null,
   zipcode: null,
-  authorId: 1,
+  authorId: cvuser.value.userId,
 });
 
 
@@ -139,7 +139,7 @@ const clearForm = () => {
     city: null,
     county: null,
     zipcode: null,
-    authorId: 1,
+    authorId: cvuser.value.userId,
   }
 };
 

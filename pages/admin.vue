@@ -6,10 +6,10 @@
     <PageHeader :userRole="userRole" />
 
     <div class = " content-center">
-
+    
       <!--the submission form for new users-->
       <div class = "container content-center" id="form">
-
+      
       
         <h2 class="text-center text-2xl font-bold mt-4">Admin Page</h2>
         <h3 class="text-center text-xl font-bold">Modify volunteer and MTTP employee/admin info, and their permissions</h3>
@@ -253,8 +253,10 @@ async function editUser(editedUser) {
 import PageHeader from "~/components/pageHeader.vue";
 
 import { ref } from 'vue'
-const userId = ref(1)
-const userRole = ref(3)
+const cvuser = useCookie('cvuser')
+const userRole = parseInt(cvuser.value.role)
+
+
 
 
 </script>

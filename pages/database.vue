@@ -45,7 +45,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 2 || userRole == 3)" :key="u.studentId">
             <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
@@ -306,7 +306,7 @@ const parseCsvFile = (file) => {
     isModalVisible.value = false;
   }
   
-  const userRole = ref(3)
+  
   
   const students = ref(null)
   const student = ref({
@@ -402,11 +402,16 @@ const parseCsvFile = (file) => {
 
     console.error('Error removing student:', error);
   }
-};
+  }
 
 
 
   
   import PageHeader from "~/components/pageHeader.vue";
   
+  const cvuser = useCookie('cvuser')
+  const userRole = parseInt(cvuser.value.role)
+  console.log(cvuser.role)
+  const currUserId = parseInt(cvuser.value.userId)
+
   </script>
