@@ -88,4 +88,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 Deployment will be done with Google Cloud as MTTP will be maintaining the webapp on their end.
 
 
+Editing entries in the student database from the View Database page is still under development
+
 

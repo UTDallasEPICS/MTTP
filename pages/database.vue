@@ -9,7 +9,8 @@
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
       <h3 class="text-center text-xl font-bold">View the full database and Import/Export</h3>
       
-      <!--import and export function-->
+      <!--import and export function
+          only shows up if user is staff or higher ( not volunteer )-->
       <div v-if="userRole >= 2" class="flex items-center justify-center sm:col-span-6">
         <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
         <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
@@ -24,7 +25,8 @@
       <Notification :isVisible="isError" :message="errorMessage" />
       <Loading :isLoading = "isLoading" />
     </div>
-  
+
+    <!--table for the database display-->
     <div class="mt-4 mx-96">
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
@@ -56,6 +58,8 @@
                 <input type="checkbox" v-model="u.voted" disabled>
             </td>
             
+            <!--if the edit button is pressed the user can change the value of the entry
+                !!! NOT YET FINISHED !!!-->
             <td>
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -82,6 +86,8 @@
                 </div>
               </div>
             </td>
+
+            <!--Remove function-->
             <td>
               <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -262,6 +268,10 @@ const parseCsvFile = (file) => {
   });
 };
 
+  /**
+   * @desc adding data from an imported file to the student table
+   * @param jsonData the data from a parsed file
+   */
   const addDataToDatabase = async (jsonData) => {
   // Iterate through jsonData and add each record to the Prisma database
   for (const record of jsonData) {
@@ -340,10 +350,7 @@ const parseCsvFile = (file) => {
   
   /**
    *   @desc edit student
-   @param fn firstName of the user
-   @param ln lastName of the user
-   @param em email of the user
-   @param rl role of the user
+   @param editedStudent student object 
    */
    async function editStudent(editedStudent) {
   let student = null
@@ -367,7 +374,10 @@ const parseCsvFile = (file) => {
   if(student)   students.value = await getStudents()
 }
 
-
+/**
+   *   @desc delete student
+   @param studentId id of the student being removed 
+   */
   const removeStudent = async (studentId) => {
   try {
     // Ensure the URL matches your backend API
