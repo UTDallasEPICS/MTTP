@@ -12,8 +12,19 @@ export default defineNuxtConfig({
       },
     ],
   },
-  modules: ['@nuxtjs/tailwindcss','nuxt-headlessui'],
-  
-  
-  
+  modules: ['@nuxtjs/tailwindcss'],
+  runtimeConfig: {
+    AUTH0_CLIENT_ID: "",
+    AUTH0_CLIENT_SECRET: "",
+    AUTH0_BASE_URL: "",
+    AUTH0_ISSUER_BASE_URL: "",
+    STRIPE_PUBLIC: '',
+    STRIPE_SECRET: '',
+    AWS_S3_BUCKET_NAME: '',
+    EMAIL_SOURCE_ADDRESS: '',
+  },
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
+
 })

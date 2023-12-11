@@ -238,12 +238,10 @@ const importData = async () => {
   } catch (error) {
     isError.value = true; // Show error notification
     errorMessage.value = 'An error occurred during import. Please check the console for details.';
-
     isLoading.value = false; // Hide loading overlay
     console.error('Error importing data:', error);
   }
 };
-
 
 
 const parseXlsxFile = async (file) => {
@@ -308,7 +306,6 @@ const parseCsvFile = (file) => {
     isModalVisible.value = false;
   }
   
-  const currentUserId = ref(1)
   const userRole = ref(3)
   
   const students = ref(null)

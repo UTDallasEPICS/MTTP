@@ -100,7 +100,6 @@
 </template>
 
 <style scoped>
-
 .input {
   @apply w-full px-4 py-2 border rounded-md;
 }
