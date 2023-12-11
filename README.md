@@ -88,4 +88,12 @@ Deployment will be done with Google Cloud as MTTP will be maintaining the webapp
 
 Editing entries in the student database from the View Database page is still under development
 
-
+IMPORTANT!!!
+user.role is currently being stored as an int
+it should be stored as a string
+1 -> "volunteer"
+2 -> "staff"
+3 -> "admin"
+4 -> "ex"
+each one has different functions in the org
+"ex" means they no longer work at MTTP, but their entry in the user table needs to stay in case they have students they entered.
