@@ -161,5 +161,5 @@ async function getAuthor(student) {
 
   //if(addedStudent)   students.value = await getStudents()
 }
-import PageHeader from '@/components/PageHeader.vue';
+import PageHeader from '@/components/pageHeader.vue';
 </script>
