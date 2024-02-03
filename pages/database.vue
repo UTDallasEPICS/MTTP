@@ -1,10 +1,6 @@
 <template>
     <div v-if="userRole == 3">
     <div>
-      <!--The header tab that acts as navigation throughout the website
-        Takes in the current user's role to only display links to pages
-          they have access to-->
-      <PageHeader :userRole="userRole"/>
       
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
       <h3 class="text-center text-xl font-bold">View the full database and Import/Export</h3>
@@ -406,8 +402,6 @@ const parseCsvFile = (file) => {
 
 
 
-  
-  import PageHeader from "~/components/pageHeader.vue";
   
   const cvuser = useCookie('cvuser')
   const userRole = parseInt(cvuser.value.role)

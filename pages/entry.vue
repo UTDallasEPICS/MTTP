@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!--The header tab that acts as navigation throughout the website
-        Takes in the current user's role to only display links to pages
-          they have access to-->
-    <PageHeader :userRole="userRole" />
-
     <h2 class="text-center text-2xl font-bold mt-4">Entry Page</h2>
     <h3 class="text-center text-xl font-bold">Add student voter information and modify recent entries</h3>
 
@@ -205,5 +200,4 @@ async function addStudent(student) {
 
 
 
-import PageHeader from '@/components/PageHeader.vue';
 </script>

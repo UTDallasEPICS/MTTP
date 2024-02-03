@@ -1,10 +1,4 @@
 <template>
-
-    <!--The header tab that acts as navigation throughout the website
-        Takes in the current user's role to only display links to pages
-          they have access to-->
-    <PageHeader :userRole="userRole" />
-
     <div class = " content-center">
     
       <!--the submission form for new users-->
@@ -250,7 +244,6 @@ async function editUser(editedUser) {
   if(user)   users.value = await getUsers()
 }
 
-import PageHeader from "~/components/pageHeader.vue";
 
 import { ref } from 'vue'
 const cvuser = useCookie('cvuser')

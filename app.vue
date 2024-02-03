@@ -1,4 +1,5 @@
 <template>
+    <PageHeader :userRole="userRole"/>
     <NuxtPage ></NuxtPage>
 </template>
 
@@ -13,9 +14,11 @@ const cvCookie = useCookie('cvtoken')
 const cvuser = useCookie('cvuser')
 
 
+const userRole = computed(() => parseInt(cvuser.value.role));
+
 if(!cvCookie.value)
 {
-    await navigateTo('/api/login')
+  navigateTo('/api/login')
 }
 
 </script>
