@@ -2,21 +2,30 @@
   <header class="page-header">
     <div class="left">
       <nuxt-link to="/">
-        <img src="~/../src/assets/mttp_logo.png" alt="Your Logo" />
+        <img src="~/../src/assets/mttp_logo-transparent.png" alt="Your Logo" />
       </nuxt-link>
     </div>
     <div class="right">
-      <nuxt-link to="/entry">Enter Info</nuxt-link>
-      <nuxt-link to="/database">View Database</nuxt-link>
-      <nuxt-link to="/admin">Admin</nuxt-link>
+      <nuxt-link v-if="userRole <= 3" to="/entry" >Enter Info</nuxt-link>
+      <nuxt-link to="/database" v-if="userRole <= 3">View Database</nuxt-link>
+      <nuxt-link to="/admin" v-if="userRole == 3" >Admin</nuxt-link>
+      <!--button @click.prevent="logout()">Log Out</button--> 
     </div>
   </header>
 </template>
 
 <script>
+
 export default {
   name: 'PageHeader',
+  props: ['userRole'],
+
+
+
 }
+
+
+
 </script>
 
 <style scoped>
@@ -24,9 +33,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff; /* Set the background to white */
+  background-color: #A5B4FC; /* Set the background to white */
   color: #333; /* Set the text color to dark */
-  padding: 10px 20px;
+  padding: 20px 20px;
 }
 
 .left {
@@ -36,7 +45,7 @@ export default {
 
 .left img {
   width: auto; /* Adjust the image size as needed */
-  height: 40px;
+  height: 60px;
 }
 
 .right a {

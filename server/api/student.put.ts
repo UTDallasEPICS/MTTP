@@ -10,6 +10,7 @@ export default defineEventHandler(async(event) => {
     const studentId = body.studentId
     const firstName = body.firstName
     const lastName = body.lastName
+    const streetNumber = body.streetNumber
     const streetAddress = body.streetAddress
     const city = body.city
     const zipCode = body.zipCode
@@ -29,7 +30,8 @@ export default defineEventHandler(async(event) => {
             data: {
                 firstName: body.firstName,
                 lastName: body.lastname,
-                streetAddress: body.street,
+                // streetNumber: body.streetNumber,
+                streetAddress: body.streetAddress,
                 city: body.city,
                 zipCode: body.zipcode,
                 county: body.county,
