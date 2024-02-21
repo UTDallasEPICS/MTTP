@@ -9,29 +9,15 @@
       <nuxt-link v-if="userRole <= 3" to="/entry" >Enter Info</nuxt-link>
       <nuxt-link to="/database" v-if="userRole <= 3">View Database</nuxt-link>
       <nuxt-link to="/admin" v-if="userRole == 3" >Admin</nuxt-link>
-      <a href="/api/logout">Logout</a>
+      <a href="/api/logout">Test</a>
     </div>
   </header>
 </template>
 
-<script>
-
-export default {
-  name: 'PageHeader',
-  props: ['userRole'],
-  methods: {
-    logout() {
-      navigateTo("/api/logout")
-      //navigateTo("/")
-    }
-  }
-
-
-}
-
-
-
+<script setup>
+  const props = defineProps(['userRole']);
 </script>
+
 
 <style scoped>
 .page-header {
