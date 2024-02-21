@@ -9,7 +9,7 @@
       <nuxt-link v-if="userRole <= 3" to="/entry" >Enter Info</nuxt-link>
       <nuxt-link to="/database" v-if="userRole <= 3">View Database</nuxt-link>
       <nuxt-link to="/admin" v-if="userRole == 3" >Admin</nuxt-link>
-      <a href="/api/logout">Test</a>
+      <a href="/api/logout">Logout</a>
     </div>
   </header>
 </template>
@@ -26,7 +26,7 @@
   align-items: center;
   background-color: #A5B4FC; /* Set the background to white */
   color: #333; /* Set the text color to dark */
-  padding: 20px 20px;
+  padding: 10px 20px;
 }
 
 .left {
