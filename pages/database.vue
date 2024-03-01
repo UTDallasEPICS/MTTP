@@ -1,5 +1,6 @@
 <template>
-    <div v-if="userRole === 'volunteer'">
+  console.log(userRole)
+    <div v-if="userRole === 'staff'">
     <div>
       
       <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
@@ -7,7 +8,7 @@
       
       <!--import and export function
           only shows up if user is staff or higher ( not volunteer )-->
-      <div v-if="userRole >= 2" class="flex items-center justify-center sm:col-span-6">
+      <div v-if="userRole === 'staff'" class="flex items-center justify-center sm:col-span-6">
         <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
         <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
         hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2

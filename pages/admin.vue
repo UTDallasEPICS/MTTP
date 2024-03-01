@@ -212,7 +212,7 @@ async function addUser(user) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        role: parseInt(user.role),
+        role: user.role,
       }
     })
   if(addedUser)
@@ -237,7 +237,7 @@ async function editUser(editedUser) {
         firstName: editedUser.firstName,
         lastName: editedUser.lastName,
         email: editedUser.email,
-        role: parseInt(editedUser.role),
+        role: editedUser.role,
       }
     })
 
