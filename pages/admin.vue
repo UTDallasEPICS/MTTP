@@ -58,7 +58,7 @@
     </div>
 
     <!--the table used to display the user table-->
-    <div id="table" class="mt-4 mx-40">
+    <div id="table" class="mt-4 mx-10">
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

@@ -31,7 +31,7 @@ model User {
   firstName   String
   lastName    String
   email       String    @unique
-  role        String
+  role        Int
   students    Student[]
   dateCreated DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
