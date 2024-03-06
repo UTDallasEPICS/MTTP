@@ -14,24 +14,10 @@
   </header>
 </template>
 
-<script>
-
-export default {
-  name: 'PageHeader',
-  props: ['userRole'],
-  methods: {
-    logout() {
-      navigateTo("/api/logout")
-      //navigateTo("/")
-    }
-  }
-
-
-}
-
-
-
+<script setup>
+  const props = defineProps(['userRole']);
 </script>
+
 
 <style scoped>
 .page-header {
@@ -40,7 +26,7 @@ export default {
   align-items: center;
   background-color: #889FCB; /* Set the background to white */
   color: #333; /* Set the text color to dark */
-  padding: 20px 20px;
+  padding: 10px 20px;
 }
 
 .left {
