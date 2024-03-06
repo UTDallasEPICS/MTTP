@@ -6,7 +6,7 @@
       
       
         <h2 class="text-center text-2xl font-bold mt-4">Admin Page</h2>
-        <h3 class="text-center text-xl font-bold">Modify volunteer and MTTP employee/admin info, and their permissions</h3>
+        <h3 class="text-center text-xl font-bold">Modify volunteer, employee, and admin info and permissions</h3>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
           <div class="sm:col-span-3">
@@ -163,7 +163,22 @@
 </template>
 
 <script setup>
+// add route thing here define page meta
+/*definePageMeta({
+  middleware: [
+    function(to, from) {
+      // custom inline middleware
+    },
+    'auth',
+  ],
+});*/
 
+//export default defineNuxtRouteMiddleware(to, from) => {
+ // if (to.params.id == "1")
+ // {
+  //  return abortNavigation()
+ // }
+//}
 
 const editButtonPressed = ref(false)
 
@@ -245,9 +260,12 @@ async function editUser(editedUser) {
 }
 
 
-import { ref } from 'vue'
 const cvuser = useCookie('cvuser')
-const userRole = parseInt(cvuser.value.role)
+//const userRole = cvuser.value.role // do we remove parseInt since we changed it to enum not int? remove line
+
+// Nuxt router guards - if cvuser.value.role is in list of allowed roles, allow else redirect to index
+// we can also hide navbar elements in app.vue depending on role so that
+// someone can only see the admin link if their role is admin
 
 
 

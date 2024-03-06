@@ -2,7 +2,12 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor:{
+        'periwinkle':'#889FCB',
+        'salmon':'#D99EA4'
+      }
+    },
   },
   plugins: [],
 }

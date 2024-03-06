@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="text-center text-2xl font-bold mt-4">Entry Page</h2>
-    <h3 class="text-center text-xl font-bold">Add student voter information and modify recent entries</h3>
-
+    <h2 class="text-center text-3xl font-bold mt-4" style="margin-top: 20px">Student Sign-Up</h2>
+    <h2 class="text-center text-s font-bold" style="margin-top: 10px">Add student voter information</h2>
+    <hr class="rounded center-text" style="border-top: 7px solid #889FCB; width: 65%; margin: 0 auto; margin-top: 7px">
     <!--the form to add a new entry to the student table-->
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
 
@@ -88,13 +88,20 @@
     <!--clears the form-->
     <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3" @click="clearForm">Clear</button>
     <!--saves the information in the form-->
-    <button type="button" class="rounded-md bg-indigo-600 mr-96 px-3 py-2 text-lg font-semibold
+    <button type="button"  class="rounded-md mr-96 bg-blue-500 px-3 py-2 text-lg font-semibold
     text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
     focus-visible:outline-indigo-600" @click.prevent="addStudent(student)" @click="clearForm ">Save Voter</button>
   </div>
 </template>
 
 <style scoped>
+
+/*.jost-font {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}*/
 .input {
   @apply w-full px-4 py-2 border rounded-md;
 }

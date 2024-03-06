@@ -2,8 +2,9 @@
     <div v-if="userRole == 3">
     <div>
       
-      <h2 class="text-center text-2xl font-bold mt-4">View Database</h2>
-      <h3 class="text-center text-xl font-bold">View the full database and Import/Export</h3>
+      <h2 class="text-center text-3xl font-bold mt-4"  style="margin-top: 20px">View Database</h2>
+      <h3 class="text-center text-s font-bold" style="margin-top: 10px">View the full database and Import/Export</h3>
+      <br>
       
       <!--import and export function
           only shows up if user is staff or higher ( not volunteer )-->
@@ -42,7 +43,7 @@
           </thead>
           <tbody>
           <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 2 || userRole == 3)" :key="u.studentId">
-            <th scope="row">{{ u.author.firstName }} {{ u.author.lastName }}</th>
+            <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
             <td>{{u.streetNumber}} {{ u.streetAddress }}</td>
