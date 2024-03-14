@@ -3,9 +3,9 @@ export default {
   content: [],
   theme: {
     extend: {
-      backgroundColor:{
-        'periwinkle':'#889FCB',
-        'salmon':'#D99EA4'
+      colors:{
+        'chili':'#D81F33',
+        'sailor':'#122C4F',
       }
     },
   },

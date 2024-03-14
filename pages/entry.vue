@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="text-center text-3xl font-bold mt-4" style="margin-top: 20px">Student Sign-Up</h2>
+    <h2 class="text-center text-3xl font-bold mt-4" style="margin-top: 35px">Student Sign-Up</h2>
     <h2 class="text-center text-s font-bold" style="margin-top: 10px">Add student voter information</h2>
-    <hr class="rounded center-text" style="border-top: 7px solid #889FCB; width: 65%; margin: 0 auto; margin-top: 7px">
+    <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
     <!--the form to add a new entry to the student table-->
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
 

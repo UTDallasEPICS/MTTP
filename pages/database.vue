@@ -2,7 +2,7 @@
     <div v-if="userRole == 3">
     <div>
       
-      <h2 class="text-center text-3xl font-bold mt-4"  style="margin-top: 20px">View Database</h2>
+      <h2 class="text-center text-3xl font-bold mt-4"  style="margin-top: 35px">View Database</h2>
       <h3 class="text-center text-s font-bold" style="margin-top: 10px">View the full database and Import/Export</h3>
       <br>
       
