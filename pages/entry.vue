@@ -1,4 +1,5 @@
 <template>
+  <h1>{{ userRole }}</h1>
   <div>
     <h2 class="text-center text-2xl font-bold mt-4">Entry Page</h2>
     <h3 class="text-center text-xl font-bold">Add student voter information and modify recent entries</h3>
@@ -110,7 +111,7 @@
 
 <script setup>
 const cvuser = useCookie('cvuser')
-const userRole = parseInt(cvuser.value.role)
+const userRole = cvuser.value.role
 const students = ref(null)
 const student = ref({
   firstName: null,

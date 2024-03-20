@@ -224,7 +224,6 @@ async function addUser(user) {
 
 let addedUser = null
 
-<<<<<<< HEAD
   if(user)
     addedUser = await $fetch('/api/user', {
       method: 'POST',
@@ -237,20 +236,6 @@ let addedUser = null
     })
   if(addedUser)
     users.value = await getUsers()
-=======
-if(user)
-  addedUser = await $fetch('/api/user', {
-    method: 'POST',
-    body: {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: parseInt(user.role),
-    }
-  })
-if(addedUser)
-  users.value = await getUsers()
->>>>>>> 852d473a16dd9f9f89417d52381aab9550451d31
 }
 
 
@@ -263,7 +248,6 @@ let user = null
 
 console.log('editedUser: ', editedUser)
 
-<<<<<<< HEAD
   if(editedUser)
     user = await $fetch('/api/user', {
       method: 'PUT',
@@ -275,20 +259,6 @@ console.log('editedUser: ', editedUser)
         role: editedUser.role,
       }
     })
-=======
-if(editedUser)
-  user = await $fetch('/api/user', {
-    method: 'PUT',
-    body: {
-      userId: parseInt(editedUser.userId),
-      firstName: editedUser.firstName,
-      lastName: editedUser.lastName,
-      email: editedUser.email,
-      role: parseInt(editedUser.role),
-    }
-  })
->>>>>>> 852d473a16dd9f9f89417d52381aab9550451d31
-
 if(user)   users.value = await getUsers()
 }
 
