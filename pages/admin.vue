@@ -1,12 +1,13 @@
 <template>
-  <div class = " content-center">
+  <div class = "content-center">
   
     <!--the submission form for new users-->
-    <div class = "container content-center" id="form">
+    <div class = "container content-center" id="form" style="margin: 0 auto">
     
     
-      <h2 class="text-center text-2xl font-bold mt-4">Admin Page</h2>
-      <h3 class="text-center text-xl font-bold">Modify volunteer and MTTP employee/admin info, and their permissions</h3>
+      <h2 class="text-center text-3xl font-bold mt-6">Admin Page</h2>
+      <h3 class="text-center text-s font-bold">Modify volunteer and MTTP employee/admin info, and their permissions</h3>
+      <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
 
       <div class="mt-10 grid grid-cols-1 gap-x-24 gap-y-8 sm:grid-cols-6 mx-40">
         <div class="sm:col-span-3 ml-28">
@@ -58,7 +59,7 @@
     </div>
 
     <!--the table used to display the user table-->
-    <div id="table" class="mt-4 mx-40">
+    <div id="table" class="mt-12 mx-10">
       <div class="relative overflow-x-auto rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400 table-fixed">
           <thead class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -182,7 +183,22 @@
 </template>
 
 <script setup>
+// add route thing here define page meta
+/*definePageMeta({
+  middleware: [
+    function(to, from) {
+      // custom inline middleware
+    },
+    'auth',
+  ],
+});*/
 
+//export default defineNuxtRouteMiddleware(to, from) => {
+ // if (to.params.id == "1")
+ // {
+  //  return abortNavigation()
+ // }
+//}
 
 const editButtonPressed = ref(false)
 
@@ -263,9 +279,12 @@ if(user)   users.value = await getUsers()
 }
 
 
-import { ref } from 'vue'
 const cvuser = useCookie('cvuser')
-const userRole = parseInt(cvuser.value.role)
+//const userRole = cvuser.value.role // do we remove parseInt since we changed it to enum not int? remove line
+
+// Nuxt router guards - if cvuser.value.role is in list of allowed roles, allow else redirect to index
+// we can also hide navbar elements in app.vue depending on role so that
+// someone can only see the admin link if their role is admin
 
 
 

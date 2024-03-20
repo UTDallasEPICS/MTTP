@@ -2,7 +2,12 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        'chili':'#D81F33',
+        'sailor':'#122C4F',
+      }
+    },
   },
   plugins: [],
 }

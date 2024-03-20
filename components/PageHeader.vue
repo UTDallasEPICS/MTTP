@@ -2,7 +2,7 @@
   <header class="page-header">
     <div class="left">
       <nuxt-link to="/">
-        <img src="~/../src/assets/mttp_logo-transparent.png" alt="Your Logo" />
+         <img src="..\src\assets\March-to-the-Polls.png" alt="Your Logo" /> 
       </nuxt-link>
     </div>
     <div class="right">
@@ -25,8 +25,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #A5B4FC; /* Set the background to white */
-  color: #333; /* Set the text color to dark */
+  background-color: #122C4F; /* Set the background to navy*/
+  color: #ffffff; /* Set the text color to white */
   padding: 10px 20px;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .right a {
-  color: #333; /* Set button text color to dark */
+  color: #ffff; /* Set button text color to dark */
   margin-left: 20px;
   text-decoration: none;
 }
