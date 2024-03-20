@@ -128,6 +128,8 @@ const student = ref({
   county: null,
   zipcode: null,
   authorId: cvuser.value.userId,
+  phoneNumber: null,
+  studentEmail: null,
 });
 
 
@@ -142,6 +144,8 @@ const clearForm = () => {
     county: null,
     zipcode: null,
     authorId: cvuser.value.userId,
+    phoneNumber: null,
+    studentEmail: null,
   }
 };
 
@@ -178,6 +182,8 @@ async function addStudent(student) {
         zipCode: parseInt(student.zipcode),
         county: student.county,
         authorId: parseInt(student.authorId),
+        phoneNumber: student.phoneNumber,
+        studentEmail: student.studentEmail,
       }
     });
 
