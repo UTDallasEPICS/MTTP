@@ -1,6 +1,6 @@
 <template>
-    <h2> {{ userRole }}</h2>
-    <div v-if="userRole == '3'">
+    <h2> {{ typeof userRole }}</h2>
+    <div v-if="userRole == 'staff' || userRole == 'admin'">
     <div>
       
       <h2 class="text-center text-3xl font-bold mt-4"  style="margin-top: 35px">View Database</h2>
@@ -9,7 +9,7 @@
       
       <!--import and export function
           only shows up if user is staff or higher ( not volunteer )-->
-      <div v-if="userRole == '3'" class="flex items-center justify-center sm:col-span-6">
+      <div v-if="userRole == 'staff' || userRole == 'admin'" class="flex items-center justify-center sm:col-span-6">
         <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
         <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
         hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -43,7 +43,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 2 || userRole == 3)" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.studentId">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
@@ -406,7 +406,7 @@ const parseCsvFile = (file) => {
 
   
   const cvuser = useCookie('cvuser')
-  const userRole = parseInt(cvuser.value.role)
+  const userRole = (cvuser.value.role)
   console.log(cvuser.role)
   const currUserId = parseInt(cvuser.value.userId)
 

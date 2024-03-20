@@ -6,10 +6,10 @@
       </nuxt-link>
     </div>
     <div class="right">
-      <h1>{{ userRole }}</h1>
-      <nuxt-link v-if="userRole === 'staff'" to="/entry" >Enter Info</nuxt-link>
-      <nuxt-link to="/database" v-if="userRole === 'staff'">View Database</nuxt-link>
-      <nuxt-link to="/admin" v-if="userRole === 'staff'" >Admin</nuxt-link>
+      <h2> {{  userRole }}</h2>
+      <nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" >Enter Info</nuxt-link>
+      <nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'">View Database</nuxt-link>
+      <nuxt-link to="/admin" v-if="userRole === 'admin'" >Admin</nuxt-link>
       <a href="/api/logout">Logout</a>
     </div>
   </header>

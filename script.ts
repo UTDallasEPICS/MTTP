@@ -8,7 +8,7 @@ async function main() {
     data: {
       name: 'Alice',
       email: 'abc@123.com',
-      role: 1,
+      role: 'staff',
       students: {
         create: {
           name: 'Simon',

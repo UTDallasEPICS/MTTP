@@ -43,10 +43,8 @@
             <select v-model="user.role" class="block w-full bg-gray-200 text-gray-700 border rounded-md py-2 px-3
             mb-3 leading-tight focus:outline-none focus:bg-white">
               <option disabled value="">Please select role</option>
-              <option value="1">volunteer</option>
-              <option value="2">employee</option>
-              <option value="3">admin</option>
-              <option value="4">other</option>
+              <option value="staff">staff</option>
+              <option value="admin">admin</option>
             </select>
           </div>
         </div>
@@ -134,10 +132,8 @@
                   </div>
                   <template v-else>
                     <select class="border-solid border-2" v-model="editedUser.role">
-                      <option value="1">volunteer</option>
-                      <option value="2">employee</option>
-                      <option value="3">admin</option>
-                      <option value="4">ex-employee</option>
+                      <option value="staff">staff</option>
+                      <option value="admin">admin</option>
                     </select>
                   </template>
                 </template>
