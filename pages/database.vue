@@ -38,6 +38,8 @@
             <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">Zip Code</th>
             <th scope="col" class="px-6 py-3">Voted</th>
+            <th scope="col" class="px-6 py-3">Phone Number</th>
+            <th scope="col" class="px-6 py-3">Student Email</th>
             <th scope="col" class="px-6 py-3">Edit</th>
             <th scope="col" class="px-6 py-3">Remove</th>
           </tr>
@@ -55,6 +57,8 @@
             <td>
                 <input type="checkbox" v-model="u.voted" disabled>
             </td>
+            <td>{{ u.phoneNumber }}</td>
+            <td>{{ u.studentEamil }}</td>
             
             <!--if the edit button is pressed the user can change the value of the entry
                 !!! NOT YET FINISHED !!!-->
@@ -71,6 +75,8 @@
                                                     editedStudent.zipCode = u.zipCode;
                                                     editedStudent.voted = u.voted;
                                                     editedStudent.authorId = u.authorId;
+                                                    editedStudent.phoneNumber = u.phoneNumber;
+                                                    editedStudent.studentEamil = u.studentEamil;
                                                     editButtonPressed = true;}">Edit</button>
               <div v-else>
                 <div v-if="editedStudent.studentId == u.studentId">
@@ -281,6 +287,8 @@ const parseCsvFile = (file) => {
       zipCode: record['zipCode'],
       voted: record['voted'],
       authorId: record['authorId'],
+      phoneNumber: record['phoneNumber'],
+      studentEmail: record['userEmail'],
     };
 
     // Use Prisma to add the new student to the database
@@ -316,7 +324,9 @@ const parseCsvFile = (file) => {
     city: null,
     zipCode: null,
     voted: null,
-    authorId: null
+    authorId: null,
+    phoneNumber: null,
+    studentEmail: null
   })
   const editedStudent = ref({
     studentId: null,
@@ -327,7 +337,9 @@ const parseCsvFile = (file) => {
     city: null,
     zipCode: null,
     voted: null,
-    authorId: null
+    authorId: null,
+    phoneNumber: null,
+    studentEamil: null
   })
   
   students.value = await getStudents()
@@ -363,6 +375,8 @@ const parseCsvFile = (file) => {
         city: editedStudent.city,
         zipCode: editedStudent.zipCode,
         voted: editedStudent.voted,
+        phoneNumber: editedStudent.phoneNumber ,
+        studentEmail: editedStudent.userEmail,
       }
     })
 

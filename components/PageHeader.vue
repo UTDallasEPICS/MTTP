@@ -2,7 +2,7 @@
   <header class="page-header">
     <div class="left">
       <nuxt-link to="/">
-         <img src="..\src\assets\March-to-the-Polls.png" alt="Your Logo" /> 
+         <img src="..\src\assets\OutlinedLogo.png" alt="Your Logo" /> 
       </nuxt-link>
     </div>
     <div class="right">
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #122C4F; /* Set the background to navy*/
+  background-color: #122C4F; /* Set the background to blue */
   color: #ffffff; /* Set the text color to white */
   padding: 10px 20px;
 }
