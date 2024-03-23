@@ -83,9 +83,9 @@
 
       <!--Phone number-->
       <div class="sm:col-span-2 sm:col-start-1">
-        <label for="number" class="block text-lg font-medium leading-6 text-gray-900">Phone Number</label>
+        <label for="phoneNumber" class="block text-lg font-medium leading-6 text-gray-900">Phone Number</label>
         <div class="mt-2">
-          <input type="text" v-model="student.city" name="phoneNumber" id="phoneNumber" class="block w-full rounded-md
+          <input type="text" v-model="student.phoneNumber" name="phoneNumber" id="phoneNumber" class="block w-full rounded-md
           border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
@@ -93,9 +93,9 @@
       
       <!--Email Address-->
       <div class="sm:col-span-2">
-        <label for="email" class="block text-lg font-medium leading-6 text-gray-900">Email Address</label>
+        <label for="studentEmail" class="block text-lg font-medium leading-6 text-gray-900">Email Address</label>
         <div class="mt-2">
-          <input type="text" v-model="student.city" name="emailAddress" id="emailAddress" class="block w-full rounded-md
+          <input type="text" v-model="student.studentEmail" name="studentEmail" id="studentEmail" class="block w-full rounded-md
           border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
@@ -103,9 +103,9 @@
 
       <!--ZIP code-->
       <div class="sm:col-span-2">
-        <label for="zip-code" class="block text-lg font-medium leading-6 text-gray-900">ZIP code</label>
+        <label for="schoolName" class="block text-lg font-medium leading-6 text-gray-900">School Name</label>
         <div class="mt-2">
-          <input type="text" name="zip-code" v-model="student.zipcode" id="zip-code" autocomplete="zip-code" class="block
+          <input type="text" name="schoolName" v-model="student.schoolName" id="schoolName" class="block
           w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
           ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
@@ -161,6 +161,7 @@ const student = ref({
   authorId: cvuser.value.userId,
   phoneNumber: null,
   studentEmail: null,
+  schoolName: null,
 });
 
 
@@ -177,6 +178,7 @@ const clearForm = () => {
     authorId: cvuser.value.userId,
     phoneNumber: null,
     studentEmail: null,
+    schoolName: null,
   }
 };
 
@@ -215,6 +217,7 @@ async function addStudent(student) {
         authorId: parseInt(student.authorId),
         phoneNumber: student.phoneNumber,
         studentEmail: student.studentEmail,
+        schoolName: student.schoolName,
       }
     });
 
