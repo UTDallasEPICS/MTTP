@@ -39,6 +39,7 @@
             <th scope="col" class="px-6 py-3">Voted</th>
             <th scope="col" class="px-6 py-3">Phone Number</th>
             <th scope="col" class="px-6 py-3">Student Email</th>
+            <th scope="col" class="px-6 py-3">Student Name</th>
             <th scope="col" class="px-6 py-3">Edit</th>
             <th scope="col" class="px-6 py-3">Remove</th>
           </tr>
@@ -58,6 +59,7 @@
             </td>
             <td>{{ u.phoneNumber }}</td>
             <td>{{ u.studentEamil }}</td>
+            <td>{{ u.schoolName }}</td>
             
             <!--if the edit button is pressed the user can change the value of the entry
                 !!! NOT YET FINISHED !!!-->
@@ -76,6 +78,7 @@
                                                     editedStudent.authorId = u.authorId;
                                                     editedStudent.phoneNumber = u.phoneNumber;
                                                     editedStudent.studentEamil = u.studentEamil;
+                                                    editedStudent.schoolName = u.schoolName;
                                                     editButtonPressed = true;}">Edit</button>
               <div v-else>
                 <div v-if="editedStudent.studentId == u.studentId">
@@ -288,6 +291,7 @@ const parseCsvFile = (file) => {
       authorId: record['authorId'],
       phoneNumber: record['phoneNumber'],
       studentEmail: record['studentEmail'],
+      schoolName: record['schoolName'],
     };
 
     // Use Prisma to add the new student to the database
@@ -326,6 +330,7 @@ const parseCsvFile = (file) => {
     authorId: null,
     phoneNumber: null,
     studentEmail: null,
+    schoolName: null,
   })
   const editedStudent = ref({
     studentId: null,
@@ -339,6 +344,7 @@ const parseCsvFile = (file) => {
     authorId: null,
     phoneNumber: null,
     studentEmail: null,
+    schoolName: null,
   })
   
   students.value = await getStudents()
@@ -376,6 +382,7 @@ const parseCsvFile = (file) => {
         voted: editedStudent.voted,
         phoneNumber: editedStudent.phoneNumber,
         studentEmail: editedStudent.studentEmail,
+        schoolName: editedStudent.schoolName,
       }
     })
 
