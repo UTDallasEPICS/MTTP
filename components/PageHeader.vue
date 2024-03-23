@@ -5,13 +5,15 @@
          <img src="..\src\assets\OutlinedLogo.png" alt="Your Logo" /> 
       </nuxt-link>
     </div>
-    <div class="right">
-      <nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" >Student Entry</nuxt-link>
-      <nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'">View Students</nuxt-link>
-      <nuxt-link to="/admin" v-if="userRole === 'admin'" >Admin</nuxt-link>
-      <a href="/api/logout">Logout</a>
+    <div class="right flex">
+      <div class="right">
+        <nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" >Student Entry</nuxt-link>
+        <nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'">View Students</nuxt-link>
+        <nuxt-link to="/admin" v-if="userRole === 'admin'" >Admin</nuxt-link>
+      </div>
+      <a class="right" href="/api/logout">Logout</a>
     </div>
-  </header>
+</header>
 </template>
 
 <script setup>
