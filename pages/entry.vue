@@ -1,5 +1,4 @@
 <template>
-  <h1>{{ userRole }}</h1>
   <div>
     <h2 class="text-center text-3xl font-bold mt-4" style="margin-top: 35px">Student Sign-Up</h2>
     <h2 class="text-center text-s font-bold" style="margin-top: 10px">Add student voter information</h2>

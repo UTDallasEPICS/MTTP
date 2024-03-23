@@ -1,5 +1,4 @@
 <template>
-    <h2> {{ typeof userRole }}</h2>
     <div v-if="userRole == 'staff' || userRole == 'admin'">
     <div>
       
@@ -288,7 +287,7 @@ const parseCsvFile = (file) => {
       voted: record['voted'],
       authorId: record['authorId'],
       phoneNumber: record['phoneNumber'],
-      studentEmail: record['userEmail'],
+      studentEmail: record['studentEmail'],
     };
 
     // Use Prisma to add the new student to the database
@@ -326,7 +325,7 @@ const parseCsvFile = (file) => {
     voted: null,
     authorId: null,
     phoneNumber: null,
-    studentEmail: null
+    studentEmail: null,
   })
   const editedStudent = ref({
     studentId: null,
@@ -339,7 +338,7 @@ const parseCsvFile = (file) => {
     voted: null,
     authorId: null,
     phoneNumber: null,
-    studentEamil: null
+    studentEmail: null,
   })
   
   students.value = await getStudents()
@@ -375,8 +374,8 @@ const parseCsvFile = (file) => {
         city: editedStudent.city,
         zipCode: editedStudent.zipCode,
         voted: editedStudent.voted,
-        phoneNumber: editedStudent.phoneNumber ,
-        studentEmail: editedStudent.userEmail,
+        phoneNumber: editedStudent.phoneNumber,
+        studentEmail: editedStudent.studentEmail,
       }
     })
 
