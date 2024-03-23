@@ -58,7 +58,7 @@
                 <input type="checkbox" v-model="u.voted" disabled>
             </td>
             <td>{{ u.phoneNumber }}</td>
-            <td>{{ u.studentEamil }}</td>
+            <td>{{ u.studentEmail }}</td>
             <td>{{ u.schoolName }}</td>
             
             <!--if the edit button is pressed the user can change the value of the entry
