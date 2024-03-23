@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <!--ZIP code-->
+      <!--School Name-->
       <div class="sm:col-span-2">
         <label for="schoolName" class="block text-lg font-medium leading-6 text-gray-900">School Name</label>
         <div class="mt-2">
@@ -110,6 +110,7 @@
           ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
+      
       
     </div>
   </div>

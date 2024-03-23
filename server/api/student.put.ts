@@ -16,9 +16,12 @@ export default defineEventHandler(async(event) => {
     const zipCode = body.zipCode
     const county = body.county
     const authorId = body.authorId
+    const phoneNumber = body.phoneNumber
+    const studentEmail = body.studentEmail
+    const schoolName = body.schoolName
 
 
-    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && studentId))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && studentId && phoneNumber && studentEmail && schoolName))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let student = null
 
@@ -30,12 +33,15 @@ export default defineEventHandler(async(event) => {
             data: {
                 firstName: body.firstName,
                 lastName: body.lastname,
-                // streetNumber: body.streetNumber,
+                streetNumber: body.streetNumber,
                 streetAddress: body.streetAddress,
                 city: body.city,
                 zipCode: body.zipcode,
                 county: body.county,
                 authorId: body.authorId,
+                phoneNumber: body.phoneNumber,
+                studentEmail: body.studentEmail,
+                schoolName: body.schoolName,
             },
         })
         
