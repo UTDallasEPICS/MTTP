@@ -25,7 +25,8 @@ model Student {
   dateCreated   DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
   phoneNumber      String    
-  studentEmail     String    
+  studentEmail     String
+  schoolName       String    
 }
 
 model User {

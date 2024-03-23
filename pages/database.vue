@@ -39,7 +39,7 @@
             <th scope="col" class="px-6 py-3">Voted</th>
             <th scope="col" class="px-6 py-3">Phone Number</th>
             <th scope="col" class="px-6 py-3">Student Email</th>
-            <th scope="col" class="px-6 py-3">Student Name</th>
+            <th scope="col" class="px-6 py-3">School Name</th>
             <th scope="col" class="px-6 py-3">Edit</th>
             <th scope="col" class="px-6 py-3">Remove</th>
           </tr>
