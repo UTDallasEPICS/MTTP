@@ -80,6 +80,37 @@
           ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
+
+      <!--Phone number-->
+      <div class="sm:col-span-2 sm:col-start-1">
+        <label for="number" class="block text-lg font-medium leading-6 text-gray-900">Phone Number</label>
+        <div class="mt-2">
+          <input type="text" v-model="student.city" name="phoneNumber" id="phoneNumber" class="block w-full rounded-md
+          border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
+      
+      <!--Email Address-->
+      <div class="sm:col-span-2">
+        <label for="email" class="block text-lg font-medium leading-6 text-gray-900">Email Address</label>
+        <div class="mt-2">
+          <input type="text" v-model="student.city" name="emailAddress" id="emailAddress" class="block w-full rounded-md
+          border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
+
+      <!--ZIP code-->
+      <div class="sm:col-span-2">
+        <label for="zip-code" class="block text-lg font-medium leading-6 text-gray-900">ZIP code</label>
+        <div class="mt-2">
+          <input type="text" name="zip-code" v-model="student.zipcode" id="zip-code" autocomplete="zip-code" class="block
+          w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
+          ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
+      
     </div>
   </div>
 
