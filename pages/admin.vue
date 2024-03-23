@@ -117,18 +117,14 @@
               <td>
                 <template v-if="!editButtonPressed">
                   <div style="text-align: center; width: 100%;">
-                    <span v-if="u.role == 4">ex-employee</span>
-                    <span v-else-if="u.role == 1">volunteer</span>
-                    <span v-else-if="u.role == 2">employee</span>
-                    <span v-else-if="u.role == 3">admin</span>
+                    <span v-if="u.role === 'staff'">staff</span>
+                    <span v-else-if="u.role === 'admin'">admin</span>
                   </div>
                 </template>
                 <template v-else>
                   <div v-if="u.userId != editedUser.userId" style="text-align: center; width: 100%;">
-                    <span v-if="u.role == 4">ex-employee</span>
-                    <span v-else-if="u.role == 1">volunteer</span>
-                    <span v-else-if="u.role == 2">employee</span>
-                    <span v-else-if="u.role == 3">admin</span>
+                    <span v-if="u.role === 'staff'">staff</span>
+                    <span v-else-if="u.role === 'admin'">admin</span>
                   </div>
                   <template v-else>
                     <select class="border-solid border-2" v-model="editedUser.role">
