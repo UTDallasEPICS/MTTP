@@ -4,15 +4,15 @@
         Takes in the current user's role to only display links to pages
           they have access to-->
         <img src="..\src\assets\March-to-the-Polls.png" style="display:block; margin: 160px auto 0; height:150px; width:400px"/>
-    <h1 style="text-align: center; font-size: 45px; margin-top: 20px; color:#122C4F">USER PORTAL</h1>
+        <h1 style = "text-align: center; font-size: 45px; margin-top: 20px; color:#122C4f">Welcome {{ name }}</h1>
+        <h1 style="text-align: center; font-size: 45px; margin-top: 20px; color:#122C4F">USER PORTAL</h1>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 
 import {ref} from 'vue'
-
-
-
-
+const cvuser = useCookie('cvuser')
+const name = cvuser.value.firstName
+console.log(name)
 </script>
