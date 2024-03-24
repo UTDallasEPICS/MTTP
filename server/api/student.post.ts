@@ -6,36 +6,34 @@ const prisma = new PrismaClient()
 export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
-
-    let student = null
-    let error = null
-    
-    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.authorId && body.phoneNumber && body.studentEmail && body.schoolName) {
-        await prisma.student.create({
-            data: {
-                firstName: body.firstName,
-                lastName: body.lastName,
-                streetNumber: body.streetNumber,
-                streetAddress: body.streetAddress,
-                city: body.city,
-                zipCode: body.zipCode,
-                county: body.county,
-                authorId: body.authorId,
-                phoneNumber: body.phoneNumber,
-                studentEmail: body.studentEmail,
-                schoolName: body.schoolName,
-            },
-        }).then((response) => {
-            student = response
-        }).catch(async (e) => {
-            error = e
-        })
+    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.phoneNumber && body.studentEmail && body.schoolName) {
+        try{
+            const student = await prisma.student.create({
+                data: {
+                    author: {
+                        connect: {
+                            id: body.authorId
+                        }
+                    },
+                    firstName: body.firstName,
+                    lastName: body.lastName,
+                    streetNumber: body.streetNumber,
+                    streetAddress: body.streetAddress,
+                    city: body.city,
+                    zipCode: body.zipCode,
+                    county: body.county,
+                    phoneNumber: body.phoneNumber,
+                    studentEmail: body.studentEmail,
+                    schoolName: body.schoolName,
+                },
+            })
+            
+            return {
+                student: student
+            }
+        } catch(err){
+            console.log(err)
+            return createError({statusCode: 500, statusMessage: "Server Post Error"})
+        }
     }
-
-    if (error) return createError({statusCode: 500, statusMessage: "Server Post Error"})
-
-
-    return {
-      student: student
-    }
-  })
+})

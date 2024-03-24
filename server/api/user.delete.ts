@@ -9,10 +9,10 @@ export default defineEventHandler(async(event) => {
     let user = null
     let error = null
 
-    if(body.userId)
+    if(body.id)
         await prisma.user.delete({
             where: {
-            userId: body.userId,
+            id: body.id,
             },
       }).then((response) => {
         user = response

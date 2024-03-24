@@ -7,20 +7,20 @@ export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
 
-    const userId = body.userId
+    const id = body.id
     const firstName = body.firstName
     const lastName = body.lastName
     const email = body.email
     const role = body.role
 
-    if(!(userId && firstName && lastName && email && role))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(id && firstName && lastName && email && role))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let user = null
 
-    if(body.userId)
+    if(body.id)
         user = await prisma.user.update({
             where: {
-                userId: body.userId,
+                id: body.id,
             },
             data: {
                 firstName: body.firstName,

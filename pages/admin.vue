@@ -71,15 +71,15 @@
           </tr>
           </thead>
           <tbody>
-            <tr v-for="(u) in users" :key="u.userId">
-              <th scope="row">{{ u.userId }}</th>
+            <tr v-for="(u) in users" :key="u.id">
+              <th scope="row">{{ u.id }}</th>
 
               <!-- Display first name -->
               <td v-if="!editButtonPressed">
                 <div>{{ u.firstName }}</div>
               </td>
               <td v-else>
-                <template v-if="u.userId != editedUser.userId">
+                <template v-if="u.id != editedUser.id">
                   <div>{{ u.firstName }}</div>
                 </template>
                 <template v-else>
@@ -92,7 +92,7 @@
                 <div>{{ u.lastName }}</div>
               </td>
               <td v-else>
-                <template v-if="u.userId != editedUser.userId">
+                <template v-if="u.id != editedUser.id">
                   <div>{{ u.lastName }}</div>
                 </template>
                 <template v-else>
@@ -105,7 +105,7 @@
                 <div style="overflow: auto;">{{ u.email }}</div>
               </td>
               <td v-else>
-                <template v-if="u.userId != editedUser.userId">
+                <template v-if="u.id != editedUser.id">
                   <div style="overflow: auto;">{{ u.email }}</div>
                 </template>
                 <template v-else>
@@ -122,7 +122,7 @@
                   </div>
                 </template>
                 <template v-else>
-                  <div v-if="u.userId != editedUser.userId" style="text-align: center; width: 100%;">
+                  <div v-if="u.id != editedUser.id" style="text-align: center; width: 100%;">
                     <span v-if="u.role === 'staff'">staff</span>
                     <span v-else-if="u.role === 'admin'">admin</span>
                   </div>
@@ -142,7 +142,7 @@
                   then modified in the input fields that show up-->
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-          focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{editedUser.userId = u.userId; 
+          focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{editedUser.id = u.id; 
                                                   editedUser.firstName = u.firstName; 
                                                   editedUser.lastName = u.lastName;
                                                   editedUser.email = u.email;
@@ -151,7 +151,7 @@
               <!--when the edit button is pressed
                   user can choose to apply the edit or cancel-->
               <div v-else>
-                  <div v-if="editedUser.userId == u.userId">
+                  <div v-if="editedUser.id == u.id">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
@@ -202,7 +202,7 @@ email: null,
 role: null,
 })
 const editedUser = ref({
-userId: null,
+id: null,
 firstName: null,
 lastName: null,
 email: null,
@@ -249,7 +249,7 @@ let addedUser = null
 
 /**
 *   @desc edit users
-@param editedUser user object {userId, firstName, lastName, email, role}
+@param editedUser user object {id, firstName, lastName, email, role}
 */
 async function editUser(editedUser) {
 let user = null
@@ -260,7 +260,7 @@ console.log('editedUser: ', editedUser)
     user = await $fetch('/api/user', {
       method: 'PUT',
       body: {
-        userId: parseInt(editedUser.userId),
+        id: parseInt(editedUser.id),
         firstName: editedUser.firstName,
         lastName: editedUser.lastName,
         email: editedUser.email,

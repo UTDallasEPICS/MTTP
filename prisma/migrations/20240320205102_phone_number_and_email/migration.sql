@@ -8,7 +8,7 @@
 -- RedefineTables
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_Student" (
-    "studentId" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "streetNumber" INTEGER NOT NULL DEFAULT 0,
@@ -22,9 +22,9 @@ CREATE TABLE "new_Student" (
     "updatedAt" DATETIME,
     "phoneNumber" TEXT NOT NULL,
     "studentEmail" TEXT NOT NULL,
-    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("userId") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO "new_Student" ("authorId", "city", "county", "dateCreated", "firstName", "lastName", "streetAddress", "streetNumber", "studentId", "updatedAt", "voted", "zipCode") SELECT "authorId", "city", "county", "dateCreated", "firstName", "lastName", "streetAddress", "streetNumber", "studentId", "updatedAt", "voted", "zipCode" FROM "Student";
+INSERT INTO "new_Student" ("authorId", "city", "county", "dateCreated", "firstName", "lastName", "streetAddress", "streetNumber", "id", "updatedAt", "voted", "zipCode") SELECT "authorId", "city", "county", "dateCreated", "firstName", "lastName", "streetAddress", "streetNumber", "id", "updatedAt", "voted", "zipCode" FROM "Student";
 DROP TABLE "Student";
 ALTER TABLE "new_Student" RENAME TO "Student";
 PRAGMA foreign_key_check;

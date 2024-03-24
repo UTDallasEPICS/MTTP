@@ -7,7 +7,7 @@ export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
 
-    const studentId = body.studentId
+    const id = body.id
     const firstName = body.firstName
     const lastName = body.lastName
     const streetNumber = body.streetNumber
@@ -21,14 +21,14 @@ export default defineEventHandler(async(event) => {
     const schoolName = body.schoolName
 
 
-    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && studentId && phoneNumber && studentEmail && schoolName))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && id && phoneNumber && studentEmail && schoolName))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let student = null
 
-    if(body.studentId)
+    if(body.id)
         student = await prisma.student.update({
             where: {
-                studentId: body.studentId
+                id: body.id
             },
             data: {
                 firstName: body.firstName,

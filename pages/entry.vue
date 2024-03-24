@@ -40,7 +40,7 @@
       <div class="sm:col-span-3">
         <label for="street-number" class="block text-lg font-medium leading-6 text-gray-900">Apt number</label>
         <div class="mt-2">
-          <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="street-number" class="block w-full
+          <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="" class="block w-full
           rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
@@ -159,7 +159,7 @@ const student = ref({
   city: null,
   county: null,
   zipcode: null,
-  authorId: cvuser.value.userId,
+  authorId: cvuser.value.id,
   phoneNumber: null,
   studentEmail: null,
   schoolName: null,
@@ -176,7 +176,7 @@ const clearForm = () => {
     city: null,
     county: null,
     zipcode: null,
-    authorId: cvuser.value.userId,
+    authorId: cvuser.value.id,
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,
@@ -221,7 +221,7 @@ async function addStudent(student) {
         schoolName: student.schoolName,
       }
     });
-
+    console.log(addedStudent.value.authorId)
     // If the student is added successfully, update the UI and show success message
     if (addedStudent) {
       // Set the success state and message

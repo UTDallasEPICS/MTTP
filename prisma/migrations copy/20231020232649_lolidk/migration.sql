@@ -11,7 +11,7 @@
 -- RedefineTables
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_Student" (
-    "studentId" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "streetAddress" TEXT NOT NULL,
@@ -22,9 +22,9 @@ CREATE TABLE "new_Student" (
     "voted" BOOLEAN NOT NULL DEFAULT false,
     "dateCreated" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
-    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("userId") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO "new_Student" ("authorId", "dateCreated", "firstName", "lastName", "studentId", "updatedAt", "voted") SELECT "authorId", "dateCreated", "firstName", "lastName", "studentId", "updatedAt", "voted" FROM "Student";
+INSERT INTO "new_Student" ("authorId", "dateCreated", "firstName", "lastName", "id", "updatedAt", "voted") SELECT "authorId", "dateCreated", "firstName", "lastName", "id", "updatedAt", "voted" FROM "Student";
 DROP TABLE "Student";
 ALTER TABLE "new_Student" RENAME TO "Student";
 PRAGMA foreign_key_check;

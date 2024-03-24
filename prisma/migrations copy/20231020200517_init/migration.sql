@@ -12,7 +12,7 @@
 -- RedefineTables
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_Student" (
-    "studentId" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -20,13 +20,13 @@ CREATE TABLE "new_Student" (
     "voted" BOOLEAN NOT NULL DEFAULT false,
     "dateCreated" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
-    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("userId") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO "new_Student" ("address", "authorId", "dateCreated", "studentId", "updatedAt", "voted") SELECT "address", "authorId", "dateCreated", "studentId", "updatedAt", "voted" FROM "Student";
+INSERT INTO "new_Student" ("address", "authorId", "dateCreated", "id", "updatedAt", "voted") SELECT "address", "authorId", "dateCreated", "id", "updatedAt", "voted" FROM "Student";
 DROP TABLE "Student";
 ALTER TABLE "new_Student" RENAME TO "Student";
 CREATE TABLE "new_User" (
-    "userId" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE "new_User" (
     "dateCreated" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME
 );
-INSERT INTO "new_User" ("dateCreated", "email", "role", "updatedAt", "userId") SELECT "dateCreated", "email", "role", "updatedAt", "userId" FROM "User";
+INSERT INTO "new_User" ("dateCreated", "email", "role", "updatedAt", "id") SELECT "dateCreated", "email", "role", "updatedAt", "id" FROM "User";
 DROP TABLE "User";
 ALTER TABLE "new_User" RENAME TO "User";
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

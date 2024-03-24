@@ -45,7 +45,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" v-show="currid == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.id">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
@@ -67,7 +67,7 @@
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
-                                                    editedStudent.studentId = u.studentId;
+                                                    editedStudent.id = u.id;
                                                     editedStudent.firstName = u.firstName;
                                                     editedStudent.lastName = u.lastName;
                                                     editedStudent.streetAddress = u.streetAddress;
@@ -81,7 +81,7 @@
                                                     editedStudent.schoolName = u.schoolName;
                                                     editButtonPressed = true;}">Edit</button>
               <div v-else>
-                <div v-if="editedStudent.studentId == u.studentId">
+                <div v-if="editedStudent.id == u.id">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
@@ -97,7 +97,7 @@
             <td>
               <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" @click="removeStudent(u.studentId)">Remove</button>
+            focus-visible:outline-indigo-600" @click="removeStudent(u.id)">Remove</button>
             </td>
           </tr>
           </tbody>
@@ -333,7 +333,7 @@ const parseCsvFile = (file) => {
     schoolName: null,
   })
   const editedStudent = ref({
-    studentId: null,
+    id: null,
     firstName: null,
     lastName: null,
     streetAddress: null,
@@ -391,9 +391,9 @@ const parseCsvFile = (file) => {
 
 /**
    *   @desc delete student
-   @param studentId id of the student being removed 
+   @param id id of the student being removed 
    */
-  const removeStudent = async (studentId) => {
+  const removeStudent = async (id) => {
   try {
     // Ensure the URL matches your backend API
     const apiUrl = `/api/student`;
@@ -401,7 +401,7 @@ const parseCsvFile = (file) => {
     // Make the DELETE request to the backend API
     await $fetch(apiUrl, {
       method: 'DELETE',
-      body: { studentId },
+      body: { id },
     });
 
     // Display a success message
@@ -428,6 +428,6 @@ const parseCsvFile = (file) => {
   const cvuser = useCookie('cvuser')
   const userRole = (cvuser.value.role)
   console.log(cvuser.role)
-  const currUserId = parseInt(cvuser.value.userId)
+  const currid = parseInt(cvuser.value.id)
 
   </script>
