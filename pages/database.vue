@@ -16,13 +16,30 @@
         <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
         hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
         focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
-       
       </div>
+       
+        <!--sorting menu-->
+     <div class="sm:col-span-2">
+        <div class="mt-2">
+          <select class="block mx-auto w-1/2 bg-gray-200 text-gray-700 border rounded-md py-2 px-3
+          mb-3 leading-tight focus:outline-none focus:bg-white">
+            <option disabled value="">Please select a sorting option</option>
+            <option value="">Most Recent</option>
+            <option value="">School Name</option>
+            <option value="">County</option>
+            <option value="">First Name</option>
+            <option value="">Last Name</option>
+            <option value="">Author Name</option>
+          </select>
+        </div>
+      </div> 
+
       <Notification :isVisible="isImportSuccessful" :message="successMessage" />
       <Notification :isVisible="isError" :message="errorMessage" />
       <Loading :isLoading = "isLoading" />
     </div>
 
+      
     <!--table for the database display-->
     <div class="mt-4 mx-10">
       <div class="relative overflow-x-auto rounded-lg">
@@ -45,7 +62,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" v-show="currid == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.id">
+          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.studentId">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             <td>{{ u.firstName }}</td>
             <td>{{ u.lastName }}</td>
@@ -67,7 +84,7 @@
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
-                                                    editedStudent.id = u.id;
+                                                    editedStudent.studentId = u.studentId;
                                                     editedStudent.firstName = u.firstName;
                                                     editedStudent.lastName = u.lastName;
                                                     editedStudent.streetAddress = u.streetAddress;
@@ -81,7 +98,7 @@
                                                     editedStudent.schoolName = u.schoolName;
                                                     editButtonPressed = true;}">Edit</button>
               <div v-else>
-                <div v-if="editedStudent.id == u.id">
+                <div v-if="editedStudent.studentId == u.studentId">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
@@ -97,7 +114,7 @@
             <td>
               <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" @click="removeStudent(u.id)">Remove</button>
+            focus-visible:outline-indigo-600" @click="removeStudent(u.studentId)">Remove</button>
             </td>
           </tr>
           </tbody>
@@ -333,7 +350,7 @@ const parseCsvFile = (file) => {
     schoolName: null,
   })
   const editedStudent = ref({
-    id: null,
+    studentId: null,
     firstName: null,
     lastName: null,
     streetAddress: null,
@@ -391,9 +408,9 @@ const parseCsvFile = (file) => {
 
 /**
    *   @desc delete student
-   @param id id of the student being removed 
+   @param studentId id of the student being removed 
    */
-  const removeStudent = async (id) => {
+  const removeStudent = async (studentId) => {
   try {
     // Ensure the URL matches your backend API
     const apiUrl = `/api/student`;
@@ -401,7 +418,7 @@ const parseCsvFile = (file) => {
     // Make the DELETE request to the backend API
     await $fetch(apiUrl, {
       method: 'DELETE',
-      body: { id },
+      body: { studentId },
     });
 
     // Display a success message
@@ -421,13 +438,19 @@ const parseCsvFile = (file) => {
     console.error('Error removing student:', error);
   }
   }
-
-
-
   
   const cvuser = useCookie('cvuser')
   const userRole = (cvuser.value.role)
   console.log(cvuser.role)
-  const currid = parseInt(cvuser.value.id)
+  const currUserId = parseInt(cvuser.value.userId)
+
+  /*"sort by" feature
+  const sortBySchoolName = await prisma.user.findMany({
+       orderBy: {
+        Student:{
+        role: 'desc',
+       }
+      }
+    })  */
 
   </script>
