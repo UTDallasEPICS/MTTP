@@ -195,7 +195,7 @@ const editButtonPressed = ref(false)
 
 
 async function goToEdit(userId) {
-  const editUrl = '/editUser?' + userId
+  const editUrl = '/editUser?' + 'id=' + userId
   navigateTo(editUrl)
 }
 
@@ -251,31 +251,6 @@ let addedUser = null
   if(addedUser)
     users.value = await getUsers()
 }
-
-
-/**
-*   @desc edit users
-@param editedUser user object {id, firstName, lastName, email, role}
-*/
-async function editUser(editedUser) {
-let user = null
-
-console.log('editedUser: ', editedUser)
-
-  if(editedUser)
-    user = await $fetch('/api/user', {
-      method: 'PUT',
-      body: {
-        id: parseInt(editedUser.id),
-        firstName: editedUser.firstName,
-        lastName: editedUser.lastName,
-        email: editedUser.email,
-        role: editedUser.role,
-      }
-    })
-if(user)   users.value = await getUsers()
-}
-
 
 const cvuser = useCookie('cvuser')
 //const userRole = cvuser.value.role // do we remove parseInt since we changed it to enum not int? remove line
