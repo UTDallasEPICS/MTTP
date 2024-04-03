@@ -13,7 +13,7 @@
       </div>
       <a class="right" href="/api/logout">Logout</a>
     </div>
-</header>
+  </header>
 </template>
 
 <script setup>

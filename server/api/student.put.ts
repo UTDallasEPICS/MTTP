@@ -32,11 +32,11 @@ export default defineEventHandler(async(event) => {
             },
             data: {
                 firstName: body.firstName,
-                lastName: body.lastname,
+                lastName: body.lastName,
                 streetNumber: body.streetNumber,
                 streetAddress: body.streetAddress,
                 city: body.city,
-                zipCode: body.zipcode,
+                zipCode: body.zipCode,
                 county: body.county,
                 authorId: body.authorId,
                 phoneNumber: body.phoneNumber,
