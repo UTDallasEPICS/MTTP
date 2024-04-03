@@ -136,10 +136,10 @@
               </td>
 
               <td>
-              <!--the edit button
-                  Appears when the row is not in edit mode
-                  when clicked the user in the row is stored in editedUser
-                  then modified in the input fields that show up-->
+              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+          hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+          focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
+  <!--
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{editedUser.id = u.id; 
@@ -148,8 +148,6 @@
                                                   editedUser.email = u.email;
                                                   editedUser.role = u.role;
                                                   editButtonPressed = true;}">Edit</button>
-              <!--when the edit button is pressed
-                  user can choose to apply the edit or cancel-->
               <div v-else>
                   <div v-if="editedUser.id == u.id">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
@@ -161,6 +159,7 @@
           focus-visible:outline-indigo-600" @click="editButtonPressed = false">Cancel</button>
                   </div>
               </div>
+-->
               </td>
             </tr>
           </tbody>
@@ -193,6 +192,13 @@
 //}
 
 const editButtonPressed = ref(false)
+
+
+async function goToEdit(userId) {
+  const editUrl = '/editUser?' + 'id=' + userId
+  navigateTo(editUrl)
+}
+
 
 const users = ref(null)
 const user = ref({
@@ -245,31 +251,6 @@ let addedUser = null
   if(addedUser)
     users.value = await getUsers()
 }
-
-
-/**
-*   @desc edit users
-@param editedUser user object {id, firstName, lastName, email, role}
-*/
-async function editUser(editedUser) {
-let user = null
-
-console.log('editedUser: ', editedUser)
-
-  if(editedUser)
-    user = await $fetch('/api/user', {
-      method: 'PUT',
-      body: {
-        id: parseInt(editedUser.id),
-        firstName: editedUser.firstName,
-        lastName: editedUser.lastName,
-        email: editedUser.email,
-        role: editedUser.role,
-      }
-    })
-if(user)   users.value = await getUsers()
-}
-
 
 const cvuser = useCookie('cvuser')
 //const userRole = cvuser.value.role // do we remove parseInt since we changed it to enum not int? remove line

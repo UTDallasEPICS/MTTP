@@ -50,6 +50,7 @@
             <th scope="col" class="px-6 py-3">Student First Name</th>
             <th scope="col" class="px-6 py-3">Student Last Name</th>
             <th scope="col" class="px-6 py-3">Address</th>
+            <th scope="col" class="px-6 py-3">Apartment Number</th>
             <th scope="col" class="px-6 py-3">City</th>
             <th scope="col" class="px-6 py-3">County</th>
             <th scope="col" class="px-6 py-3">Zip Code</th>
@@ -64,39 +65,137 @@
           <tbody>
           <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.studentId">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
-            <td>{{ u.firstName }}</td>
-            <td>{{ u.lastName }}</td>
-            <td>{{u.streetNumber}} {{ u.streetAddress }}</td>
-            <!-- <td>{{ u.streetAddress }}</td> -->
-            <td>{{ u.county }}</td>
-            <td>{{ u.city }}</td>
-            <td>{{ u.zipCode }}</td>
+            
+            <td v-if="!editButtonPressed">
+              <div>{{ u.firstName }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.firstName }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.firstName" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.lastName }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.lastName }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.lastName" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+            
+            <td v-if="!editButtonPressed">
+              <div>{{ u.streetAddress }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.streetAddress }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.streetAddress" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.streetNumber }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.streetNumber }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.streetNumber" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.city }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.city }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.city" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.county }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.county }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.county" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.zipCode }}</div>
+            </td>
+
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.zipCode }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.zipCode" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
             <td>
                 <input type="checkbox" v-model="u.voted" disabled>
             </td>
-            <td>{{ u.phoneNumber }}</td>
-            <td>{{ u.studentEmail }}</td>
-            <td>{{ u.schoolName }}</td>
-            
-            <!--if the edit button is pressed the user can change the value of the entry
-                !!! NOT YET FINISHED !!!-->
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.phoneNumber }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.phoneNumber }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.phoneNumber" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div style="overflow: auto;">{{ u.studentEmail }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div style="overflow: auto;">{{ u.studentEmail }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.studentEmail" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.schoolName }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.schoolName }}</div>
+              </template>
+              <template v-else>
+                <input type="text" v-model="editedStudent.schoolName" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
             <td>
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
-                                                    editedStudent.studentId = u.studentId;
-                                                    editedStudent.firstName = u.firstName;
-                                                    editedStudent.lastName = u.lastName;
-                                                    editedStudent.streetAddress = u.streetAddress;
-                                                    editedStudent.county = u.county;
-                                                    editedStudent.city = u.city;
-                                                    editedStudent.zipCode = u.zipCode;
-                                                    editedStudent.voted = u.voted;
-                                                    editedStudent.authorId = u.authorId;
-                                                    editedStudent.phoneNumber = u.phoneNumber;
-                                                    editedStudent.studentEamil = u.studentEamil;
-                                                    editedStudent.schoolName = u.schoolName;
-                                                    editButtonPressed = true;}">Edit</button>
+            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
               <div v-else>
                 <div v-if="editedStudent.studentId == u.studentId">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
@@ -134,6 +233,8 @@
   import { ref } from "vue";
   import * as XLSX from 'xlsx';
   import * as Papa from 'papaparse';
+
+  const editButtonPressed = ref(false)
 
   const exportData = () => {
     const worksheet = XLSX.utils.json_to_sheet(students.value);
@@ -387,7 +488,7 @@ const parseCsvFile = (file) => {
   console.log('editedStudent: ', editedStudent)
 
   if(editedStudent)
-    user = await $fetch('/api/student', {
+    student = await $fetch('/api/student', {
       method: 'PUT',
       body: {
         firstName: editedStudent.firstName,
@@ -406,11 +507,17 @@ const parseCsvFile = (file) => {
   if(student)   students.value = await getStudents()
 }
 
+async function goToEdit(studentId) {
+  const editUrl = '/editStudent?' + 'id=' + studentId
+  navigateTo(editUrl)
+}
+
+
 /**
-   *   @desc delete student
-   @param studentId id of the student being removed 
-   */
-  const removeStudent = async (studentId) => {
+ *   @desc delete student
+ @param studentId id of the student being removed 
+*/
+const removeStudent = async (studentId) => {
   try {
     // Ensure the URL matches your backend API
     const apiUrl = `/api/student`;
