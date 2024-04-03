@@ -6,7 +6,7 @@
       
       
         <h2 class="text-center text-3xl font-bold mt-6">Edit Users</h2>
-        <h3 class="text-center text-s font-bold">Modify volunteer and MTTP employee/admin info, and their permissions</h3>
+        <h3 class="text-center text-s font-bold">Edit volunteer and MTTP employee/admin info, and their permissions</h3>
         <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
   
         <div class="mt-10 grid grid-cols-1 gap-x-24 gap-y-8 sm:grid-cols-6 mx-40">

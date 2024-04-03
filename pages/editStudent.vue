@@ -209,7 +209,6 @@
         schoolName: editedStudent.schoolName,
         }
       })
-      console.log("TESTTING")
     navigateTo('/database')
   if(student)   students.value = await getStudents()
   }
@@ -220,63 +219,6 @@
   async function getStudents() {
     return await $fetch('/api/student')
   }
-  
-  /**
-   *   @desc add student
-   @param student student object 
-   */
-  
-  const isError = ref(false);
-  const errorMessage = ref('');
-  const isLoading = ref(false);
-  const importedDataRef = ref(null);
-  
-  async function addStudent(student) {
-    isLoading.value = true;
-  
-    try {
-      const addedStudent = await $fetch('/api/student', {
-        method: 'POST',
-        body: {
-          firstName: student.firstName,
-          lastName: student.lastName,
-          streetNumber: parseInt(student.streetNumber),
-          streetAddress: student.street,
-          city: student.city,
-          zipCode: parseInt(student.zipcode),
-          county: student.county,
-          authorId: parseInt(student.authorId),
-          phoneNumber: student.phoneNumber,
-          studentEmail: student.studentEmail,
-          schoolName: student.schoolName,
-        }
-      });
-      console.log(addedStudent.value.authorId)
-      // If the student is added successfully, update the UI and show success message
-      if (addedStudent) {
-        // Set the success state and message
-        isImportSuccessful.value = true;
-        successMessage.value = 'Student added successfully!';
-        
-        // Clear success state and message after a delay (adjust as needed)
-        setTimeout(() => {
-          clearSuccessMessage();
-        }, 3000);
-  
-        // Refresh the list of students after adding one
-        students.value = await getStudents();
-      }
-    } catch (error) {
-      isError.value = true; // Show error notification
-      errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
-  
-      console.error('Error adding student:', error);
-    } finally {
-      isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
-    }
-  }
-  
-  
   
   </script>
   
