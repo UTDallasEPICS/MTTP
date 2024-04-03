@@ -178,20 +178,7 @@
             <td>
               <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{
-                                                    editedStudent.id = u.id;
-                                                    editedStudent.firstName = u.firstName;
-                                                    editedStudent.lastName = u.lastName;
-                                                    editedStudent.streetAddress = u.streetAddress;
-                                                    editedStudent.county = u.county;
-                                                    editedStudent.city = u.city;
-                                                    editedStudent.zipCode = u.zipCode;
-                                                    editedStudent.voted = u.voted;
-                                                    editedStudent.authorId = u.authorId;
-                                                    editedStudent.phoneNumber = u.phoneNumber;
-                                                    editedStudent.studentEmail = u.studentEmail;
-                                                    editedStudent.schoolName = u.schoolName;
-                                                    editButtonPressed = true;}">Edit</button>
+            focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
               <div v-else>
                 <div v-if="editedStudent.id == u.id">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
@@ -502,6 +489,12 @@ const parseCsvFile = (file) => {
 
   if(student)   students.value = await getStudents()
 }
+
+async function goToEdit(studentId) {
+  const editUrl = '/editStudent?' + 'id=' + studentId
+  navigateTo(editUrl)
+}
+
 
 /**
    *   @desc delete student

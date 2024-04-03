@@ -69,14 +69,6 @@
   email: null,
   role: null,
   })
-
-  const editedUser = ref({
-  id: null,
-  firstName: null,
-  lastName: null,
-  email: null,
-  role: null,
-  })
   
   
   
@@ -97,8 +89,6 @@
         }
       }
   }
-  console.log(users.value[0].firstName)
-  console.log("hmm2")
 
   /**
   *   @desc get users
