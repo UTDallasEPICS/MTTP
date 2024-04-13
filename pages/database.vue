@@ -220,6 +220,12 @@
   const editButtonPressed = ref(false)
 
   const exportData = () => {
+    students.value.forEach(student => {
+        const columns = Object.keys(student);
+        const lastColumn = columns[columns.length - 1];
+        delete student[lastColumn];
+    });
+
     const worksheet = XLSX.utils.json_to_sheet(students.value);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Students');
