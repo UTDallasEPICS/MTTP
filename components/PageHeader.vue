@@ -7,11 +7,11 @@
     </div>
     <div class="right flex">
       <div class="right">
-        <nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" >Student Entry</nuxt-link>
-        <nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'">View Students</nuxt-link>
-        <nuxt-link to="/admin" v-if="userRole === 'admin'" >Admin</nuxt-link>
+        <nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" class="navPage">Student Entry</nuxt-link>
+        <nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View Students</nuxt-link>
+        <nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link>
       </div>
-      <a class="right" href="/api/logout">Logout</a>
+      <a class="right navPage" href="/api/logout">Logout</a>
     </div>
   </header>
 </template>
@@ -45,5 +45,8 @@
   color: #ffff; /* Set button text color to dark */
   margin-left: 20px;
   text-decoration: none;
+}
+.navPage:hover {
+  font-weight: bold;
 }
 </style>
