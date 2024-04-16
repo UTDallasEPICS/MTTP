@@ -326,7 +326,6 @@ const importData = async () => {
       return;
     }
     let jsonData;
-
     if (Array.isArray(importedDataRef.value)) {
       jsonData = importedDataRef.value;
     } else if (importedDataRef.value.data) {
@@ -335,7 +334,6 @@ const importData = async () => {
       console.error('Invalid data format for import.');
       return;
     }
-
     // Process and add the data to the Prisma database
     await addDataToDatabase(jsonData);
 
@@ -396,7 +394,7 @@ const parseCsvFile = (file) => {
       zipCode: record['zipCode'],
       voted: record['voted'],
       authorId: record['authorId'],
-      phoneNumber: record['phoneNumber'],
+      phoneNumber: String(record['phoneNumber']),
       studentEmail: record['studentEmail'],
       schoolName: record['schoolName'],
     };
