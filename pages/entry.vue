@@ -4,6 +4,7 @@
     <h2 class="text-center text-s font-bold" style="margin-top: 10px">Add student voter information</h2>
     <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
     <!--the form to add a new entry to the student table-->
+    <Error :isVisible="isError" :message="errorMessage" />
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-16">
 
       <!--first name-->
@@ -122,7 +123,6 @@
 </template>
 
 <style scoped>
-
 /*.jost-font {
   font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
@@ -143,6 +143,8 @@
 </style>
 
 <script setup>
+import Error from "~/components/Error.vue";
+
 const cvuser = useCookie('cvuser')
 const userRole = cvuser.value.role
 const students = ref(null)
@@ -198,46 +200,60 @@ const importedDataRef = ref(null);
 
 async function addStudent(student) {
   isLoading.value = true;
-
-  try {
-    const addedStudent = await $fetch('/api/student', {
-      method: 'POST',
-      body: {
-        firstName: student.firstName,
-        lastName: student.lastName,
-        streetNumber: parseInt(student.streetNumber),
-        streetAddress: student.street,
-        city: student.city,
-        zipCode: parseInt(student.zipcode),
-        county: student.county,
-        authorId: parseInt(student.authorId),
-        phoneNumber: student.phoneNumber,
-        studentEmail: student.studentEmail,
-        schoolName: student.schoolName,
-      }
-    });
-    console.log(addedStudent.value.authorId)
-    // If the student is added successfully, update the UI and show success message
-    if (addedStudent) {
-      // Set the success state and message
-      isImportSuccessful.value = true;
-      successMessage.value = 'Student added successfully!';
-      
-      // Clear success state and message after a delay (adjust as needed)
+  if (!Number.isInteger(parseInt(student.streetNumber))) {
+      isError.value = true;
+      errorMessage.value = 'Error: The street number can only include numbers';
       setTimeout(() => {
-        clearSuccessMessage();
+          isError.value = false;
       }, 3000);
+  } else if (!Number.isInteger(parseInt(student.zipCode))){
+      isError.value = true;
+      errorMessage.value = 'Error: The zip code can only include numbers';
+      setTimeout(() => {
+          isError.value = false;
+      }, 3000);
+  } else {
+    try {
+      const addedStudent = await $fetch('/api/student', {
+        method: 'POST',
+        body: {
+          firstName: student.firstName,
+          lastName: student.lastName,
+          streetNumber: parseInt(student.streetNumber),
+          streetAddress: student.street,
+          city: student.city,
+          zipCode: parseInt(student.zipcode),
+          county: student.county,
+          authorId: parseInt(student.authorId),
+          phoneNumber: student.phoneNumber,
+          studentEmail: student.studentEmail,
+          schoolName: student.schoolName,
+        }
+      });
+      console.log(addedStudent.value.authorId)
+      // If the student is added successfully, update the UI and show success message
+      if (addedStudent) {
+        // Set the success state and message
+        isImportSuccessful.value = true;
+        successMessage.value = 'Student added successfully!';
+        
+        // Clear success state and message after a delay (adjust as needed)
+        setTimeout(() => {
+          clearSuccessMessage();
+        }, 3000);
 
-      // Refresh the list of students after adding one
-      students.value = await getStudents();
+        // Refresh the list of students after adding one
+        students.value = await getStudents();
+      }
+    
+    } catch (error) {
+      isError.value = true; // Show error notification
+      errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
+
+      console.error('Error adding student:', error);
+    } finally {
+      isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
     }
-  } catch (error) {
-    isError.value = true; // Show error notification
-    errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
-
-    console.error('Error adding student:', error);
-  } finally {
-    isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
   }
 }
 
