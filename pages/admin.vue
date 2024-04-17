@@ -51,7 +51,7 @@
           <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3 mx-72" @click="clearForm">Clear</button>
           <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-          focus-visible:outline-indigo-600 w-60 mx-72" @click.prevent="addUser(user)">Submit User</button>
+          focus-visible:outline-indigo-600 w-60 mx-72" @click.prevent="addUser(user); clearForm()">Submit User</button>
         </div>
       </div>
     </div>
@@ -68,6 +68,7 @@
             <th scope="col" class="py-3">Email</th>
             <th scope="col" class="py-3">Role</th>
             <th scope="col" class="py-3">Edit</th>
+            <th scope="col" class="py-3">Remove</th>
           </tr>
           </thead>
           <tbody>
@@ -161,6 +162,14 @@
               </div>
 -->
               </td>
+              <td>
+                <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+            hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600" @click="removeUser(u.id)">Remove</button>
+              </td>
+              <Notification :isVisible="isRemovalSuccessful" :message="successMessage" />
+              <Notification :isVisible="isError" :message="errorMessage" />
+              <Loading :isLoading = "isLoading" />
             </tr>
           </tbody>
 
@@ -174,6 +183,8 @@
 </template>
 
 <script setup>
+import Notification from "~/components/Notification.vue";
+import Loading from "~/components/LoadingOverlay.vue";
 // add route thing here define page meta
 /*definePageMeta({
   middleware: [
@@ -221,8 +232,44 @@ user.value.email = null;
 user.value.role = null;
 };
 
+const isRemovalSuccessful = ref(false);
+const successMessage = ref('');
+
 users.value = await getUsers()
 
+const removeUser = async (id) => {
+  try {
+    // Ensure the URL matches your backend API
+    const apiUrl = `/api/user`;
+
+    // Make the DELETE request to the backend API
+    await $fetch(apiUrl, {
+      method: 'DELETE',
+      body: { id },
+    });
+    users.value = await getUsers();
+
+    // Display a success message
+    isRemovalSuccessful.value = true;
+    successMessage.value = 'User removed successfully!';
+
+    setTimeout(() => {
+      clearSuccessMessage();
+    }, 3000);
+
+    // Refresh the list of users after removing one
+  } catch (error) {
+    isError.value = true; // Show error notification
+    errorMessage.value = 'An error occurred while removing the user. Please check the console for details.';
+
+    console.error('Error removing user:', error);
+  }
+  }
+
+const clearSuccessMessage = () => {
+  isRemovalSuccessful.value = false;
+  successMessage.value = '';
+};
 /**
 *   @desc get users
 */
