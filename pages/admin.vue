@@ -10,7 +10,7 @@
       <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
 
       <div class="mt-10 grid grid-cols-1 gap-x-24 gap-y-8 sm:grid-cols-6 mx-40">
-        <div class="sm:col-span-3 ml-28">
+        <div class="sm:col-span-3">
           <label for="first-name" class="block text-lg font-medium leading-6 text-gray-900">First name</label>
           <div class="mt-2">
             <input v-model="user.firstName" type="text" name="first-name" id="first-name" autocomplete="given-name"
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3 mr-28">
+        <div class="sm:col-span-3">
           <label for="last-name" class="block text-lg font-medium leading-6 text-gray-900">Last name</label>
           <div class="mt-2">
             <input v-model="user.lastName" type="text" name="last-name" id="last-name" autocomplete="family-name"
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3 ml-28">
+        <div class="sm:col-span-3">
           <label for="email" class="block text-lg font-medium leading-6 text-gray-900">Email</label>
           <div class="mt-2">
             <input v-model="user.email" type="text" name="email" id="email" autocomplete="email" class="block w-full
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-3 mr-28">
+        <div class="sm:col-span-3">
           <label for="role" class="block text-lg font-medium leading-6 text-gray-900">Role</label>
           <div class="mt-2">
             <select v-model="user.role" class="block w-full bg-gray-200 text-gray-700 border rounded-md py-2 px-3

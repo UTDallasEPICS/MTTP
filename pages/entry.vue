@@ -5,6 +5,7 @@
     <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
     <!--the form to add a new entry to the student table-->
     <Error :isVisible="isError" :message="errorMessage" />
+    <Notification :isVisible="isImportSuccessful" :message="successMessage" />
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-16">
 
       <!--first name-->
@@ -144,6 +145,7 @@
 
 <script setup>
 import Error from "~/components/Error.vue";
+import Notification from "~/components/Notification.vue";
 
 const cvuser = useCookie('cvuser')
 const userRole = cvuser.value.role
@@ -196,17 +198,19 @@ async function getStudents() {
 const isError = ref(false);
 const errorMessage = ref('');
 const isLoading = ref(false);
-const importedDataRef = ref(null);
+const isImportSuccessful = ref(null);
+const successMessage = ref('');
 
 async function addStudent(student) {
   isLoading.value = true;
   if (!Number.isInteger(parseInt(student.streetNumber))) {
       isError.value = true;
-      errorMessage.value = 'Error: The street number can only include numbers';
+      errorMessage.value = 'Error: The apartment number can only include numbers';
       setTimeout(() => {
           isError.value = false;
       }, 3000);
-  } else if (!Number.isInteger(parseInt(student.zipCode))){
+  } else if (!Number.isInteger(parseInt(student.zipcode))){
+      console.log(student.zipCode);
       isError.value = true;
       errorMessage.value = 'Error: The zip code can only include numbers';
       setTimeout(() => {
@@ -224,13 +228,12 @@ async function addStudent(student) {
           city: student.city,
           zipCode: parseInt(student.zipcode),
           county: student.county,
-          authorId: parseInt(student.authorId),
+          authorId: cvuser.value.id,
           phoneNumber: student.phoneNumber,
           studentEmail: student.studentEmail,
           schoolName: student.schoolName,
         }
       });
-      console.log(addedStudent.value.authorId)
       // If the student is added successfully, update the UI and show success message
       if (addedStudent) {
         // Set the success state and message
@@ -239,7 +242,8 @@ async function addStudent(student) {
         
         // Clear success state and message after a delay (adjust as needed)
         setTimeout(() => {
-          clearSuccessMessage();
+          isImportSuccessful.value = false;
+          successMessage.value = '';
         }, 3000);
 
         // Refresh the list of students after adding one
