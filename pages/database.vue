@@ -16,30 +16,13 @@
         <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
         hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
         focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
-      </div>
        
-        <!--sorting menu-->
-     <div class="sm:col-span-2">
-        <div class="mt-2">
-          <select class="block mx-auto w-1/2 bg-gray-200 text-gray-700 border rounded-md py-2 px-3
-          mb-3 leading-tight focus:outline-none focus:bg-white">
-            <option disabled value="">Please select a sorting option</option>
-            <option value="">Most Recent</option>
-            <option value="">School Name</option>
-            <option value="">County</option>
-            <option value="">First Name</option>
-            <option value="">Last Name</option>
-            <option value="">Author Name</option>
-          </select>
-        </div>
-      </div> 
-
+      </div>
       <Notification :isVisible="isImportSuccessful" :message="successMessage" />
       <Notification :isVisible="isError" :message="errorMessage" />
       <Loading :isLoading = "isLoading" />
     </div>
 
-      
     <!--table for the database display-->
     <div class="mt-4 mx-10">
       <div class="relative overflow-x-auto rounded-lg">
@@ -49,6 +32,7 @@
             <th scope="col" class="px-6 py-3">Author Name</th>
             <th scope="col" class="px-6 py-3">Student First Name</th>
             <th scope="col" class="px-6 py-3">Student Last Name</th>
+            <th scope="col" class="px-6 py-3">Date of Birth</th>
             <th scope="col" class="px-6 py-3">Address</th>
             <th scope="col" class="px-6 py-3">Apartment Number</th>
             <th scope="col" class="px-6 py-3">City</th>
@@ -63,7 +47,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" v-show="currUserId == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.studentId">
+          <tr class="h-9" v-for="(u) in students" v-show="currid == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.id">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             
             <td v-if="!editButtonPressed">
@@ -87,6 +71,18 @@
               </template>
               <template v-else>
                 <input type="text" v-model="editedStudent.lastName" style="text-align: center; width: 100%;">
+              </template>
+            </td>
+
+            <td v-if="!editButtonPressed">
+              <div>{{ u.birthDay }}</div>
+            </td>
+            <td v-else>
+              <template v-if="u.id != editedStudent.id">
+                <div>{{ u.birthDay }}</div>
+              </template>
+              <template v-else>
+                <input type="date" v-model="editedStudent.birthDay" style="text-align: center; width: 100%;">
               </template>
             </td>
             
@@ -197,7 +193,7 @@
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
               <div v-else>
-                <div v-if="editedStudent.studentId == u.studentId">
+                <div v-if="editedStudent.id == u.id">
                   <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
@@ -213,7 +209,7 @@
             <td>
               <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600" @click="removeStudent(u.studentId)">Remove</button>
+            focus-visible:outline-indigo-600" @click="removeStudent(u.id)">Remove</button>
             </td>
           </tr>
           </tbody>
@@ -414,6 +410,7 @@ const parseCsvFile = (file) => {
       phoneNumber: String(record['phoneNumber']),
       studentEmail: record['studentEmail'],
       schoolName: record['schoolName'],
+      birthDay: record['birthDay'],
     };
 
     // Use Prisma to add the new student to the database
@@ -453,9 +450,10 @@ const parseCsvFile = (file) => {
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,
+    birthDay: null,
   })
   const editedStudent = ref({
-    studentId: null,
+    id: null,
     firstName: null,
     lastName: null,
     streetAddress: null,
@@ -467,6 +465,7 @@ const parseCsvFile = (file) => {
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,
+    birthDay: null,
   })
   
   students.value = await getStudents()
@@ -505,6 +504,7 @@ const parseCsvFile = (file) => {
         phoneNumber: editedStudent.phoneNumber,
         studentEmail: editedStudent.studentEmail,
         schoolName: editedStudent.schoolName,
+        birthDay: editedStudent.birthDay,
       }
     })
 
@@ -518,10 +518,10 @@ async function goToEdit(studentId) {
 
 
 /**
- *   @desc delete student
- @param studentId id of the student being removed 
-*/
-const removeStudent = async (studentId) => {
+   *   @desc delete student
+   @param id id of the student being removed 
+   */
+  const removeStudent = async (id) => {
   try {
     // Ensure the URL matches your backend API
     const apiUrl = `/api/student`;
@@ -529,7 +529,7 @@ const removeStudent = async (studentId) => {
     // Make the DELETE request to the backend API
     await $fetch(apiUrl, {
       method: 'DELETE',
-      body: { studentId },
+      body: { id },
     });
 
     // Display a success message
@@ -549,19 +549,13 @@ const removeStudent = async (studentId) => {
     console.error('Error removing student:', error);
   }
   }
+
+
+
   
   const cvuser = useCookie('cvuser')
   const userRole = (cvuser.value.role)
   console.log(cvuser.role)
-  const currUserId = parseInt(cvuser.value.userId)
-
-  /*"sort by" feature
-  const sortBySchoolName = await prisma.user.findMany({
-       orderBy: {
-        Student:{
-        role: 'desc',
-       }
-      }
-    })  */
+  const currid = parseInt(cvuser.value.id)
 
   </script>

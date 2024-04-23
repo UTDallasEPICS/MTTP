@@ -27,9 +27,17 @@
           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
-
+      <!--Date of Birth-->
+      <div class="sm:col-span-2">
+        <label for="birth-day" class="block text-lg font-medium leading-6 text-gray-900">Date of Birth</label>
+        <div class="mt-2">
+          <input type="date" v-model="student.birthDay" name="birth-day" id="birth-day" autocomplete="birth-day" class="block w-full
+          rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
       <!--street number-->
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-2">
         <label for="address" class="block text-lg font-medium leading-6 text-gray-900">Address</label>
         <div class="mt-2">
           <input type="text" v-model="student.street" name="address" id="street-address" autocomplete="address" class="block w-full
@@ -39,7 +47,7 @@
       </div>
 
       <!--street name-->
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-2">
         <label for="street-number" class="block text-lg font-medium leading-6 text-gray-900">Apt number</label>
         <div class="mt-2">
           <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="" class="block w-full
@@ -162,6 +170,7 @@ const student = ref({
   phoneNumber: null,
   studentEmail: null,
   schoolName: null,
+  birthDay: null,
 });
 
 
@@ -179,6 +188,7 @@ const clearForm = () => {
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,
+    birthDay: null,
   }
 };
 
@@ -232,6 +242,7 @@ async function addStudent(student) {
           phoneNumber: student.phoneNumber,
           studentEmail: student.studentEmail,
           schoolName: student.schoolName,
+          birthDay: student.birthDay,
         }
       });
       // If the student is added successfully, update the UI and show success message
