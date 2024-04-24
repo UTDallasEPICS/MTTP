@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
-    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.phoneNumber && body.studentEmail && body.schoolName) {
+    if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.phoneNumber && body.studentEmail && body.schoolName && body.birthDay) {
         try{
             const student = await prisma.student.create({
                 data: {
@@ -25,6 +25,7 @@ export default defineEventHandler(async(event) => {
                     phoneNumber: body.phoneNumber,
                     studentEmail: body.studentEmail,
                     schoolName: body.schoolName,
+                    birthDay: body.birthDay,
                 },
             })
             
