@@ -13,40 +13,24 @@ export default defineEventHandler(async (event) => {
   let orderOption = key[1];
   try {
     let students;
-    if (orderOption == 'firstName') {
+    if (orderOption == 'author') {
+      students = await prisma.student.findMany({
+      include: {
+        author: true,
+      },
+      orderBy: {
+        author: {
+          firstName: 'asc'
+        }
+      },
+      })
+    } else if (orderOption != '') {
         students = await prisma.student.findMany({
         include: {
           author: true,
         },
         orderBy: {
-          firstName: 'asc',
-        },
-      });
-    } else if (orderOption == 'lastName') {
-        students = await prisma.student.findMany({
-        include: {
-          author: true,
-        },
-        orderBy: {
-          lastName: 'asc',
-        },
-      });
-    } else if (orderOption == 'schoolName') {
-        students = await prisma.student.findMany({
-        include: {
-          author: true,
-        },
-        orderBy: {
-          schoolName: 'asc',
-        },
-      });
-    } else if (orderOption == 'county') {
-        students = await prisma.student.findMany({
-        include: {
-          author: true,
-        },
-        orderBy: {
-          county: 'asc',
+          [orderOption]: 'asc',
         },
       });
     } else {

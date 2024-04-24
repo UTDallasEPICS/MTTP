@@ -29,6 +29,9 @@
             <option value="firstName">First Name</option>
             <option value="lastName">Last Name</option>
             <option value="author">Author Name</option>
+            <option value="birthDay">Date of Birth</option>
+            <option value="city">City</option>
+            <option value="zipCode">Zip Code</option>
           </select>
         </div>
       </div> 
