@@ -18,6 +18,20 @@
         focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
        
       </div>
+      <!--sorting menu-->
+     <div class="sm:col-span-2">
+        <div class="mt-2">
+          <select v-model='sortingOption' @change="getStudents()" class="block mx-auto w-1/2 bg-gray-200 text-gray-700 border rounded-md py-2 px-3
+          mb-3 leading-tight focus:outline-none focus:bg-white">
+            <option disabled value="">Please select a sorting option</option>
+            <option value="schoolName">School Name</option>
+            <option value="county">County</option>
+            <option value="firstName">First Name</option>
+            <option value="lastName">Last Name</option>
+            <option value="author">Author Name</option>
+          </select>
+        </div>
+      </div> 
       <Notification :isVisible="isImportSuccessful" :message="successMessage" />
       <Notification :isVisible="isError" :message="errorMessage" />
       <Loading :isLoading = "isLoading" />
@@ -321,6 +335,9 @@ const clearSuccessMessage = () => {
 
 const isError = ref(false);
 const errorMessage = ref('');
+
+const sortingOption = ref('');
+
 const isLoading = ref(false);
 const importedDataRef = ref(null);
 const importData = async () => {
@@ -476,7 +493,15 @@ const parseCsvFile = (file) => {
    *   @desc get users
    */
   async function getStudents() {
-    return await $fetch('/api/student')
+    console.log("Sorting option: " + sortingOption.value);
+    const studentList = await $fetch('/api/student', {
+      method: 'GET',
+      params: {
+        orderOption: sortingOption.value
+      },
+    })
+    students.value = studentList;
+    return studentList;
   }
   
 
