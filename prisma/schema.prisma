@@ -26,7 +26,8 @@ model Student {
   updatedAt     DateTime? @updatedAt
   phoneNumber      String    
   studentEmail     String
-  schoolName       String    
+  schoolName       String
+  birthDay      String
 }
 
 model User {

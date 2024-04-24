@@ -4,7 +4,9 @@
     <h2 class="text-center text-s font-bold" style="margin-top: 10px">Add student voter information</h2>
     <hr class="rounded center-text" style="border-top: 7px solid #122C4F; width: 65%; margin: 0 auto; margin-top: 7px">
     <!--the form to add a new entry to the student table-->
-    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-96">
+    <Error :isVisible="isError" :message="errorMessage" />
+    <Notification :isVisible="isImportSuccessful" :message="successMessage" />
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mx-16">
 
       <!--first name-->
       <div class="sm:col-span-3">
@@ -25,9 +27,17 @@
           focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
-
+      <!--Date of Birth-->
+      <div class="sm:col-span-2">
+        <label for="birth-day" class="block text-lg font-medium leading-6 text-gray-900">Date of Birth</label>
+        <div class="mt-2">
+          <input type="date" v-model="student.birthDay" name="birth-day" id="birth-day" autocomplete="birth-day" class="block w-full
+          rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+        </div>
+      </div>
       <!--street number-->
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-2">
         <label for="address" class="block text-lg font-medium leading-6 text-gray-900">Address</label>
         <div class="mt-2">
           <input type="text" v-model="student.street" name="address" id="street-address" autocomplete="address" class="block w-full
@@ -37,7 +47,7 @@
       </div>
 
       <!--street name-->
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-2">
         <label for="street-number" class="block text-lg font-medium leading-6 text-gray-900">Apt number</label>
         <div class="mt-2">
           <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="" class="block w-full
@@ -60,14 +70,9 @@
       <div class="sm:col-span-2">
         <label for="county" class="block text-lg font-medium leading-6 text-gray-900">County</label>
         <div class="mt-2">
-          <select class="block w-full bg-gray-200 text-gray-700 border rounded-md py-2 px-3
-          mb-3 leading-tight focus:outline-none focus:bg-white" v-model="student.county">
-            <option disabled value="">Please select county</option>
-            <option value="Dallas">Dallas</option>
-            <option value="Collin">Collin</option>
-            <option value="Denton">Denton</option>
-            <option value="Tarrant">Tarrant</option>
-          </select>
+          <input type="text" v-model="student.county" name="county" id="county" class="block w-full rounded-md
+          border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+          focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
         </div>
       </div>
 
@@ -127,7 +132,6 @@
 </template>
 
 <style scoped>
-
 /*.jost-font {
   font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
@@ -148,6 +152,9 @@
 </style>
 
 <script setup>
+import Error from "~/components/Error.vue";
+import Notification from "~/components/Notification.vue";
+
 const cvuser = useCookie('cvuser')
 const userRole = cvuser.value.role
 const students = ref(null)
@@ -163,6 +170,7 @@ const student = ref({
   phoneNumber: null,
   studentEmail: null,
   schoolName: null,
+  birthDay: null,
 });
 
 
@@ -180,6 +188,7 @@ const clearForm = () => {
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,
+    birthDay: null,
   }
 };
 
@@ -199,50 +208,67 @@ async function getStudents() {
 const isError = ref(false);
 const errorMessage = ref('');
 const isLoading = ref(false);
-const importedDataRef = ref(null);
+const isImportSuccessful = ref(null);
+const successMessage = ref('');
 
 async function addStudent(student) {
   isLoading.value = true;
-
-  try {
-    const addedStudent = await $fetch('/api/student', {
-      method: 'POST',
-      body: {
-        firstName: student.firstName,
-        lastName: student.lastName,
-        streetNumber: parseInt(student.streetNumber),
-        streetAddress: student.street,
-        city: student.city,
-        zipCode: parseInt(student.zipcode),
-        county: student.county,
-        authorId: parseInt(student.authorId),
-        phoneNumber: student.phoneNumber,
-        studentEmail: student.studentEmail,
-        schoolName: student.schoolName,
-      }
-    });
-    console.log(addedStudent.value.authorId)
-    // If the student is added successfully, update the UI and show success message
-    if (addedStudent) {
-      // Set the success state and message
-      isImportSuccessful.value = true;
-      successMessage.value = 'Student added successfully!';
-      
-      // Clear success state and message after a delay (adjust as needed)
+  if (!Number.isInteger(parseInt(student.streetNumber))) {
+      isError.value = true;
+      errorMessage.value = 'Error: The apartment number can only include numbers';
       setTimeout(() => {
-        clearSuccessMessage();
+          isError.value = false;
       }, 3000);
+  } else if (!Number.isInteger(parseInt(student.zipcode))){
+      console.log(student.zipCode);
+      isError.value = true;
+      errorMessage.value = 'Error: The zip code can only include numbers';
+      setTimeout(() => {
+          isError.value = false;
+      }, 3000);
+  } else {
+    try {
+      const addedStudent = await $fetch('/api/student', {
+        method: 'POST',
+        body: {
+          firstName: student.firstName,
+          lastName: student.lastName,
+          streetNumber: parseInt(student.streetNumber),
+          streetAddress: student.street,
+          city: student.city,
+          zipCode: parseInt(student.zipcode),
+          county: student.county,
+          authorId: cvuser.value.id,
+          phoneNumber: student.phoneNumber,
+          studentEmail: student.studentEmail,
+          schoolName: student.schoolName,
+          birthDay: student.birthDay,
+        }
+      });
+      // If the student is added successfully, update the UI and show success message
+      if (addedStudent) {
+        // Set the success state and message
+        isImportSuccessful.value = true;
+        successMessage.value = 'Student added successfully!';
+        
+        // Clear success state and message after a delay (adjust as needed)
+        setTimeout(() => {
+          isImportSuccessful.value = false;
+          successMessage.value = '';
+        }, 3000);
 
-      // Refresh the list of students after adding one
-      students.value = await getStudents();
+        // Refresh the list of students after adding one
+        students.value = await getStudents();
+      }
+    
+    } catch (error) {
+      isError.value = true; // Show error notification
+      errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
+
+      console.error('Error adding student:', error);
+    } finally {
+      isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
     }
-  } catch (error) {
-    isError.value = true; // Show error notification
-    errorMessage.value = 'An error occurred during student addition. Please check the console for details.';
-
-    console.error('Error adding student:', error);
-  } finally {
-    isLoading.value = false; // Ensure isLoading is always set to false, regardless of success or failure
   }
 }
 
