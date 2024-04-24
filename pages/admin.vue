@@ -45,6 +45,7 @@
               <option disabled value="">Please select role</option>
               <option value="staff">staff</option>
               <option value="admin">admin</option>
+              <option value="volunteer">volunteer</option>
             </select>
           </div>
         </div>
@@ -119,17 +120,20 @@
                   <div style="text-align: center; width: 100%;">
                     <span v-if="u.role === 'staff'">staff</span>
                     <span v-else-if="u.role === 'admin'">admin</span>
+                    <span v-else-if="u.role ==='volunteer'">volunteer</span>
                   </div>
                 </template>
                 <template v-else>
                   <div v-if="u.id != editedUser.id" style="text-align: center; width: 100%;">
                     <span v-if="u.role === 'staff'">staff</span>
                     <span v-else-if="u.role === 'admin'">admin</span>
+                    <span v-else-if="u.role === 'volunteer'">volunteer</span>
                   </div>
                   <template v-else>
                     <select class="border-solid border-2" v-model="editedUser.role">
                       <option value="staff">staff</option>
                       <option value="admin">admin</option>
+                      <option value="volunteer">volunteer</option>
                     </select>
                   </template>
                 </template>
