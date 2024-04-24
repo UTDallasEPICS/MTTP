@@ -14,13 +14,13 @@
       <a class="right navPage" href="/api/logout">Logout</a>
     </div> -->
   <!-- hamburger menu code below  -->
-  <div class="off-screen-menu">
-          <ul>
-            <li><nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" class="navPage">Student Entry</nuxt-link></li>
-            <li><nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View Students</nuxt-link></li>
-            <li><nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link></li>
-            <li><a class="right navPage" href="/api/logout">Logout</a></li>
-          </ul>
+    <div class="off-screen-menu">
+      <ul>
+        <li><nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" class="navPage">Student Entry</nuxt-link></li>
+        <li><nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View Students</nuxt-link></li>
+        <li><nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link></li>
+        <li><a class="right navPage" href="/api/logout">Logout</a></li>
+      </ul>
     </div>
     <nav>
       <div class="ham-menu">
@@ -45,13 +45,14 @@
   background-color: #122C4F; /* Set the background to blue */
   color: #ffffff; /* Set the text color to white */
   padding: 10px 20px;
+  position: relative;
+  justify-content: space-between;
 }
-
+/* 
 .left {
-  /* ERROR: when this commented, the logo doesnt stay on top, but when its not commented, the hamburger disappears display: flex; */
-  position: fixed;
+  position: absolute;
   align-items: center;
-}
+} */
 
 .left img {
   width: auto; /* Adjust the image size as needed */
@@ -73,7 +74,7 @@
     /* border-width: 5px; */
     width: 200px;
     max-width: 450px;
-    position: fixed;
+    position: absolute;
     top: 50px;
     right: -450px;
     display: flex;
@@ -92,7 +93,7 @@
     height: 50px;
     width: 40px; 
     /* border-radius: 20px; */
-    /* width was 1150 puts it to left  */
+    /* width was 1150 puts it to left */
     margin-left: auto;
     margin-right: 0;
     position: relative;
@@ -103,7 +104,7 @@
     background-color: white;
     border-radius: 25px;
     position: absolute;
-    left: 2900%;
+    /*left: 2900%;*/
     top: 50%;
     transform: translate(-50%, -50%);
     transition: .3s ease;
