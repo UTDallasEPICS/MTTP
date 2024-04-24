@@ -213,7 +213,8 @@ const successMessage = ref('');
 
 async function addStudent(student) {
   isLoading.value = true;
-  if (!Number.isInteger(parseInt(student.streetNumber))) {
+  if ((student.streetNumber != null) && !Number.isInteger(parseInt(student.streetNumber))) {
+      console.log(student.streetNumber);
       isError.value = true;
       errorMessage.value = 'Error: The apartment number can only include numbers';
       setTimeout(() => {
