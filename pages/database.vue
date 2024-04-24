@@ -1,5 +1,5 @@
 <template>
-    <div v-if="userRole == 'staff' || userRole == 'admin'">
+    <div v-if="userRole == 'staff' || userRole == 'admin' || userRole == 'volunteer'">
     <div>
       
       <h2 class="text-center text-3xl font-bold mt-4"  style="margin-top: 35px">View Database</h2>
@@ -8,7 +8,7 @@
       
       <!--import and export function
           only shows up if user is staff or higher ( not volunteer )-->
-      <div v-if="userRole == 'staff' || userRole == 'admin'" class="flex items-center justify-center sm:col-span-6">
+      <div v-if="userRole == 'staff' || userRole == 'admin' || userRole == 'volunteer'" class="flex items-center justify-center sm:col-span-6">
         <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
         <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
         hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -64,7 +64,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="h-9" v-for="(u) in students" v-show="currid == u.id || (userRole == 'staff' || userRole == 'admin')" :key="u.id">
+          <tr class="h-9" v-for="(u) in students" v-show="currid == u.id || (userRole == 'staff' || userRole == 'admin' || userRole == 'volunteer')" :key="u.id">
             <th scope="row">{{ u.author?.firstName }} {{ u.author.lastName }}</th>
             
             <td v-if="!editButtonPressed">
@@ -359,6 +359,7 @@ const importData = async () => {
       return;
     }
     let jsonData;
+
     if (Array.isArray(importedDataRef.value)) {
       jsonData = importedDataRef.value;
     } else if (importedDataRef.value.data) {
@@ -367,6 +368,7 @@ const importData = async () => {
       console.error('Invalid data format for import.');
       return;
     }
+
     // Process and add the data to the Prisma database
     await addDataToDatabase(jsonData);
 
@@ -427,7 +429,7 @@ const parseCsvFile = (file) => {
       zipCode: record['zipCode'],
       voted: record['voted'],
       authorId: record['authorId'],
-      phoneNumber: String(record['phoneNumber']),
+      phoneNumber: record['phoneNumber'],
       studentEmail: record['studentEmail'],
       schoolName: record['schoolName'],
       birthDay: record['birthDay'],
