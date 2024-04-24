@@ -343,6 +343,7 @@ const importData = async () => {
       return;
     }
     let jsonData;
+
     if (Array.isArray(importedDataRef.value)) {
       jsonData = importedDataRef.value;
     } else if (importedDataRef.value.data) {
@@ -351,6 +352,7 @@ const importData = async () => {
       console.error('Invalid data format for import.');
       return;
     }
+
     // Process and add the data to the Prisma database
     await addDataToDatabase(jsonData);
 
@@ -411,7 +413,7 @@ const parseCsvFile = (file) => {
       zipCode: record['zipCode'],
       voted: record['voted'],
       authorId: record['authorId'],
-      phoneNumber: String(record['phoneNumber']),
+      phoneNumber: record['phoneNumber'],
       studentEmail: record['studentEmail'],
       schoolName: record['schoolName'],
     };
@@ -477,7 +479,7 @@ const parseCsvFile = (file) => {
    *   @desc get users
    */
   async function getStudents() {
-    return await $fetch('/api/student')
+    return await $fetch('/api/student');
   }
   
 
@@ -555,7 +557,7 @@ const removeStudent = async (studentId) => {
   console.log(cvuser.role)
   const currUserId = parseInt(cvuser.value.userId)
 
-  /*"sort by" feature
+  /* "sort by" feature
   const sortBySchoolName = await prisma.user.findMany({
        orderBy: {
         Student:{
