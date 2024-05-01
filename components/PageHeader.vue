@@ -136,15 +136,15 @@ export default {
   mounted() {
     const hamMenu = document.querySelector(".ham-menu");
     const offScreenMenu = document.querySelector(".off-screen-menu");
+    const navPage = document.querySelector(".navPage");
     hamMenu.addEventListener('click', () => {
       hamMenu.classList.toggle('active');
       offScreenMenu.classList.toggle('active');
     });
     //added below code for it to disappear once clicked, still in progress
-    // hamMenu.addEventListener('click', () => {
-    //   hamMenu.classList.toggle('active');
-    //   offScreenMenu.classList.toggle('active');
-    // });
+    navPage.addEventListener('click', () => {
+      offScreenMenu.classList.toggle('active');
+    });
   }
 };
 </script>
