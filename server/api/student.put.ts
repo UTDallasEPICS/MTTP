@@ -22,7 +22,7 @@ export default defineEventHandler(async(event) => {
     const birthDay = body.birthDay
 
 
-    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && id && phoneNumber && studentEmail && schoolName && birthDay))  return createError({statusCode: 400, statusMessage: "Missing Data"})
+    if(!(streetAddress && firstName && lastName && city && zipCode && county && authorId && id && schoolName && birthDay))  return createError({statusCode: 400, statusMessage: "Missing Data"})
 
     let student = null
 
