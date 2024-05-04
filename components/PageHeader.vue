@@ -2,7 +2,7 @@
   <header class="page-header">
     <div class="left">
       <nuxt-link to="/">
-         <img src="..\src\assets\OutlinedLogo.png" alt="Your Logo" /> 
+         <img src="..\src\assets\RESIZED_MTTP log clear border clear background[36].png" alt="Your Logo" /> 
       </nuxt-link>
     </div>
     <!-- <div class="right flex">
@@ -14,13 +14,13 @@
       <a class="right navPage" href="/api/logout">Logout</a>
     </div> -->
   <!-- hamburger menu code below  -->
-    <div class="off-screen-menu">
-      <ul>
-        <li><nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" class="navPage">Student Entry</nuxt-link></li>
-        <li><nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View Students</nuxt-link></li>
-        <li><nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link></li>
-        <li><a class="right navPage" href="/api/logout">Logout</a></li>
-      </ul>
+  <div class="off-screen-menu">
+          <ul>
+            <li><nuxt-link v-if="userRole === 'staff' || userRole === 'admin'" to="/entry" class="navPage">Student Entry</nuxt-link></li>
+            <li><nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View Students</nuxt-link></li>
+            <li><nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link></li>
+            <li><a class="right navPage" href="/api/logout">Logout</a></li>
+          </ul>
     </div>
     <nav>
       <div class="ham-menu">
@@ -40,19 +40,18 @@
 <style scoped>
 .page-header {
   display: flex;
-  /* justify-content: space-between; */
-  /* align-items: center; */
   background-color: #122C4F; /* Set the background to blue */
   color: #ffffff; /* Set the text color to white */
   padding: 10px 20px;
   position: relative;
   justify-content: space-between;
 }
-/* 
-.left {
-  position: absolute;
+
+/* .left {
+  /* ERROR: when this commented, the logo doesnt stay on top, but when its not commented, the hamburger disappears display: flex; */
+  /* position: fixed;
   align-items: center;
-} */
+} */ 
 
 .left img {
   width: auto; /* Adjust the image size as needed */
@@ -93,7 +92,7 @@
     height: 50px;
     width: 40px; 
     /* border-radius: 20px; */
-    /* width was 1150 puts it to left */
+    /* width was 1150 puts it to left  */
     margin-left: auto;
     margin-right: 0;
     position: relative;
@@ -104,7 +103,6 @@
     background-color: white;
     border-radius: 25px;
     position: absolute;
-    /*left: 2900%;*/
     top: 50%;
     transform: translate(-50%, -50%);
     transition: .3s ease;
@@ -136,16 +134,15 @@ export default {
   mounted() {
     const hamMenu = document.querySelector(".ham-menu");
     const offScreenMenu = document.querySelector(".off-screen-menu");
-    const navPage = document.querySelector(".navPage");
     hamMenu.addEventListener('click', () => {
       hamMenu.classList.toggle('active');
       offScreenMenu.classList.toggle('active');
     });
     //added below code for it to disappear once clicked, still in progress
-    navPage.addEventListener('click', () => {
-      offScreenMenu.classList.toggle('active');
-    });
+    // hamMenu.addEventListener('click', () => {
+    //   hamMenu.classList.toggle('active');
+    //   offScreenMenu.classList.toggle('active');
+    // });
   }
 };
 </script>
-
