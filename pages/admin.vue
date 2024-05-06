@@ -49,7 +49,7 @@
             </select>
           </div>
         </div>
-          <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3 mx-72" @click="clearForm">Clear</button>
+          <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-1 mx-20" @click="clearForm">Clear</button>
           <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600 w-60 mx-72" @click.prevent="addUser(user); clearForm()">Submit User</button>
@@ -189,22 +189,7 @@
 <script setup>
 import Notification from "~/components/Notification.vue";
 import Loading from "~/components/LoadingOverlay.vue";
-// add route thing here define page meta
-/*definePageMeta({
-  middleware: [
-    function(to, from) {
-      // custom inline middleware
-    },
-    'auth',
-  ],
-});*/
 
-//export default defineNuxtRouteMiddleware(to, from) => {
- // if (to.params.id == "1")
- // {
-  //  return abortNavigation()
- // }
-//}
 
 const editButtonPressed = ref(false)
 

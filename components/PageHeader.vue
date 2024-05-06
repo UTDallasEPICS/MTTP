@@ -67,10 +67,9 @@
   font-weight: bold;
 }
 .off-screen-menu {
-    background-color: #122C4F;
+    background-color: #ffff;
     height: 150px;
     border-radius: 20px;
-    /* border-width: 5px; */
     width: 200px;
     max-width: 450px;
     position: absolute;
@@ -85,7 +84,8 @@
     transition: .3s ease;
 }
 .off-screen-menu.active {
-    right: 0;
+  background-color: #122C4F;  
+  right: 0;
 }
 
 .ham-menu {

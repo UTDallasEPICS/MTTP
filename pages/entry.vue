@@ -121,11 +121,11 @@
   </div>
 
   <!--buttons for the form-->
-  <div class="mt-6 flex items-center justify-end gap-x-6">
+  <div class="mt-6 flex justify-center">
     <!--clears the form-->
-    <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-3" @click="clearForm">Clear</button>
+    <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-10" @click="clearForm">Clear</button>
     <!--saves the information in the form-->
-    <button type="button"  class="rounded-md mr-96 bg-blue-500 px-3 py-2 text-lg font-semibold
+    <button type="button"  class="rounded-md mr-10 bg-blue-500 px-3 py-2 text-lg font-semibold
     text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
     focus-visible:outline-indigo-600" @click.prevent="addStudent(student)" @click="clearForm ">Save Voter</button>
   </div>
