@@ -2,7 +2,7 @@
   <header class="page-header">
     <div class="left">
       <nuxt-link to="/">
-         <img src="..\src\assets\RESIZED_MTTP log clear border clear background[36].png" alt="Your Logo" /> 
+         <img src="..\src\assets\MTTP log clear border clear background[36].png" alt="Your Logo" /> 
       </nuxt-link>
     </div>
     <!-- <div class="right flex">
@@ -47,11 +47,6 @@
   justify-content: space-between;
 }
 
-/* .left {
-  /* ERROR: when this commented, the logo doesnt stay on top, but when its not commented, the hamburger disappears display: flex; */
-  /* position: fixed;
-  align-items: center;
-} */ 
 
 .left img {
   width: auto; /* Adjust the image size as needed */
