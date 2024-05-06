@@ -1,4 +1,37 @@
-# March To The Polls voter database
+# Website to add, remove, edit, and view student information from a database
+
+## User roles
+Admin - Permissions to access everything
+Staff - Can do everything except access the admin page to add/view users
+Volunteer - Same permissions as staff
+
+## Pages
+# Admin Page
+View and add/remove users from the user database
+# Database Page
+View the student database
+# Edit Student Page
+Edit students in the student database
+# Edit User Page
+Edit users in the user database
+# Entry Page
+Add students to the student database
+# Index (Home) Page
+Central page with MTTP logo to welcome you to the website
+
+
+## Third party integrations
+# Auth0
+Takes care of all user authentication to signup, login, and logout of the webpage
+
+## Tech Stack
+# Frameworks
+Vue.js and Nuxt.js
+# Database
+Prisma(SQLite)
+
+## Deployment Notes
+Being deployed in AWS
 
 ## Setup
 
@@ -80,20 +113,3 @@ npx prisma migrate dev --name init
 npx prisma studio
 
 ```
-
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-Deployment will be done with Google Cloud as MTTP will be maintaining the webapp on their end.
-
-
-Editing entries in the student database from the View Database page is still under development
-
-IMPORTANT!!!
-user.role is currently being stored as an int
-it should be stored as a string
-1 -> "volunteer"
-2 -> "staff"
-3 -> "admin"
-4 -> "ex"
-each one has different functions in the org
-"ex" means they no longer work at MTTP, but their entry in the user table needs to stay in case they have students they entered.
