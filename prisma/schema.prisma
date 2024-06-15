@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -11,7 +12,7 @@ datasource db {
 }
 
 model Student {
-  id     Int       @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   firstName     String
   lastName      String
   streetNumber  Int?      @default(0)
@@ -24,14 +25,14 @@ model Student {
   voted         Boolean   @default(false)
   dateCreated   DateTime  @default(now())
   updatedAt     DateTime? @updatedAt
-  phoneNumber      String?   
-  studentEmail     String?
-  schoolName       String
+  phoneNumber   String?
+  studentEmail  String?
+  schoolName    String
   birthDay      String
 }
 
 model User {
-  id      Int       @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   firstName   String
   lastName    String
   email       String    @unique
