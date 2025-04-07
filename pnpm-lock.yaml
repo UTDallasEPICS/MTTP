@@ -8,8 +8,8 @@ dependencies:
     specifier: ^6.8.0
     version: 6.8.0(ts-node@10.9.1)(webpack@5.89.0)
   '@prisma/client':
-    specifier: ^5.11.0
-    version: 5.11.0(prisma@5.4.2)
+    specifier: ^6.1.0
+    version: 6.1.0(prisma@6.1.0)
   '@types/jsonwebtoken':
     specifier: ^9.0.5
     version: 9.0.5
@@ -29,14 +29,14 @@ dependencies:
     specifier: ^1.1.4
     version: 1.1.4(vue@3.3.4)
   papaparse:
-    specifier: ^5.4.1
-    version: 5.4.1
+    specifier: ^5.5.2
+    version: 5.5.2
   postcss:
     specifier: ^8.4.31
     version: 8.4.31
   prisma:
-    specifier: ^5.4.2
-    version: 5.4.2
+    specifier: ^6.1.0
+    version: 6.1.0
   pug:
     specifier: ^3.0.2
     version: 3.0.2
@@ -1688,9 +1688,9 @@ packages:
       '@parcel/watcher-win32-x64': 2.3.0
     dev: true
 
-  /@prisma/client@5.11.0(prisma@5.4.2):
-    resolution: {integrity: sha512-SWshvS5FDXvgJKM/a0y9nDC1rqd7KG0Q6ZVzd+U7ZXK5soe73DJxJJgbNBt2GNXOa+ysWB4suTpdK5zfFPhwiw==}
-    engines: {node: '>=16.13'}
+  /@prisma/client@6.1.0(prisma@6.1.0):
+    resolution: {integrity: sha512-AbQYc5+EJKm1Ydfq3KxwcGiy7wIbm4/QbjCKWWoNROtvy7d6a3gmAGkKjK0iUCzh+rHV8xDhD5Cge8ke/kiy5Q==}
+    engines: {node: '>=18.18'}
     requiresBuild: true
     peerDependencies:
       prisma: '*'
@@ -1698,12 +1698,39 @@ packages:
       prisma:
         optional: true
     dependencies:
-      prisma: 5.4.2
+      prisma: 6.1.0
     dev: false
 
-  /@prisma/engines@5.4.2:
-    resolution: {integrity: sha512-fqeucJ3LH0e1eyFdT0zRx+oETLancu5+n4lhiYECyEz6H2RDskPJHJYHkVc0LhkU4Uv7fuEnppKU3nVKNzMh8g==}
+  /@prisma/debug@6.1.0:
+    resolution: {integrity: sha512-0himsvcM4DGBTtvXkd2Tggv6sl2JyUYLzEGXXleFY+7Kp6rZeSS3hiTW9mwtUlXrwYbJP6pwlVNB7jYElrjWUg==}
+    dev: false
+
+  /@prisma/engines-version@6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959:
+    resolution: {integrity: sha512-PdJqmYM2Fd8K0weOOtQThWylwjsDlTig+8Pcg47/jszMuLL9iLIaygC3cjWJLda69siRW4STlCTMSgOjZzvKPQ==}
+    dev: false
+
+  /@prisma/engines@6.1.0:
+    resolution: {integrity: sha512-GnYJbCiep3Vyr1P/415ReYrgJUjP79fBNc1wCo7NP6Eia0CzL2Ot9vK7Infczv3oK7JLrCcawOSAxFxNFsAERQ==}
     requiresBuild: true
+    dependencies:
+      '@prisma/debug': 6.1.0
+      '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
+      '@prisma/fetch-engine': 6.1.0
+      '@prisma/get-platform': 6.1.0
+    dev: false
+
+  /@prisma/fetch-engine@6.1.0:
+    resolution: {integrity: sha512-asdFi7TvPlEZ8CzSZ/+Du5wZ27q6OJbRSXh+S8ISZguu+S9KtS/gP7NeXceZyb1Jv1SM1S5YfiCv+STDsG6rrg==}
+    dependencies:
+      '@prisma/debug': 6.1.0
+      '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
+      '@prisma/get-platform': 6.1.0
+    dev: false
+
+  /@prisma/get-platform@6.1.0:
+    resolution: {integrity: sha512-ia8bNjboBoHkmKGGaWtqtlgQOhCi7+f85aOkPJKgNwWvYrT6l78KgojLekE8zMhVk0R9lWcifV0Pf8l3/15V0Q==}
+    dependencies:
+      '@prisma/debug': 6.1.0
     dev: false
 
   /@rollup/plugin-alias@5.1.0(rollup@4.7.0):
@@ -2465,6 +2492,7 @@ packages:
 
   /acorn-import-assertions@1.9.0(acorn@8.11.2):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
     dependencies:
@@ -5178,8 +5206,8 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /papaparse@5.4.1:
-    resolution: {integrity: sha512-HipMsgJkZu8br23pW15uvo6sib6wne/4woLZPlFf3rpDyMe9ywEXUsuD7+6K9PRkJlVT51j/sCOYDKGGS3ZJrw==}
+  /papaparse@5.5.2:
+    resolution: {integrity: sha512-PZXg8UuAc4PcVwLosEEDYjPyfWnTEhOrUfdv+3Bx+NuAb+5NhDmXzg5fHWmdCh1mP5p7JAZfFr3IMQfcntNAdA==}
     dev: false
 
   /parent-module@1.0.1:
@@ -5773,13 +5801,15 @@ packages:
     engines: {node: ^14.13.1 || >=16.0.0}
     dev: true
 
-  /prisma@5.4.2:
-    resolution: {integrity: sha512-GDMZwZy7mysB2oXU+angQqJ90iaPFdD0rHaZNkn+dio5NRkGLmMqmXs31//tg/qXT3iB0cTQwnGGQNuirhSTZg==}
-    engines: {node: '>=16.13'}
+  /prisma@6.1.0:
+    resolution: {integrity: sha512-aFI3Yi+ApUxkwCJJwyQSwpyzUX7YX3ihzuHNHOyv4GJg3X5tQsmRaJEnZ+ZyfHpMtnyahhmXVfbTZ+lS8ZtfKw==}
+    engines: {node: '>=18.18'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 5.4.2
+      '@prisma/engines': 6.1.0
+    optionalDependencies:
+      fsevents: 2.3.3
     dev: false
 
   /process-nextick-args@2.0.1:
