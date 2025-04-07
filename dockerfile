@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:22-alpine as builder
 COPY . ./
 
 RUN npm i
@@ -6,7 +6,7 @@ RUN npx prisma generate
 RUN npm run build
 
 
-FROM node:alpine as deployment
+FROM node:22-alpine as deployment
 
 COPY --from=builder /.output /
 
