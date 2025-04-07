@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 node:alpine as builder
+FROM node:alpine as builder
 COPY . ./
 
 RUN npm i
@@ -6,7 +6,7 @@ RUN npx prisma generate
 RUN npm run build
 
 
-FROM --platform=linux/arm64 node:alpine as deployment
+FROM node:alpine as deployment
 
 COPY --from=builder /.output /
 
