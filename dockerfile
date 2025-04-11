@@ -1,4 +1,4 @@
-FROM node:20-alpine as builder
+FROM --platform=linux/arm64 node:22-bullseye
 COPY . ./
 
 RUN npm i
