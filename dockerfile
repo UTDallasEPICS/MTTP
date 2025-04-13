@@ -1,14 +1,20 @@
-FROM --platform=linux/arm64 node:22-slim as builder
+FROM node:22-slim AS builder
 RUN apt-get update -y && apt-get install -y openssl
 COPY . ./
-RUN npm i
-RUN npx prisma generate
-RUN npm run build
 
-FROM --platform=linux/arm64 node:22-slim as deployment
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+RUN pnpm i --force
+RUN npx prisma generate
+RUN pnpm run build
+
+FROM node:22-slim AS deployment
 RUN apt-get update -y && apt-get install -y openssl
 
 COPY --from=builder /.output /
 COPY --from=builder /prisma/client /prisma/client
 EXPOSE 3000
 CMD ["node", "./server/index.mjs"]
+#CMD ["sh"]
