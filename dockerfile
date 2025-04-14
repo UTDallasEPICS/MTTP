@@ -1,5 +1,5 @@
-FROM node:22-slim AS builder
-RUN apt-get update -y && apt-get install -y openssl
+FROM node:22-alpine AS builder
+#RUN apt-get update -y && apt-get install -y openssl
 COPY . ./
 
 ENV PNPM_HOME="/pnpm"
@@ -10,8 +10,8 @@ RUN pnpm i --force
 RUN npx prisma generate
 RUN pnpm run build
 
-FROM node:22-slim AS deployment
-RUN apt-get update -y && apt-get install -y openssl
+FROM node:22-alpine AS deployment
+#RUN apt-get update -y && apt-get install -y openssl
 
 COPY --from=builder /.output /
 COPY --from=builder /prisma/client /prisma/client
