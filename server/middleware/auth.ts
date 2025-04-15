@@ -3,7 +3,8 @@ import {jwtVerify, importX509} from "jose";
 import fs from "fs"
 import { PrismaClient } from "@/prisma/client"
 const client = new PrismaClient()
-const key = fs.readFileSync(process.cwd() + '/cert-dev.pem').toString()
+const runtime = useRuntimeConfig()
+const key = fs.readFileSync(runtime.AUTH0_PUB_KEY_PATH).toString()
 export default defineEventHandler(async event => {
   event.context.client = client
   const cvtoken = getCookie(event, "cvtoken") || ""
