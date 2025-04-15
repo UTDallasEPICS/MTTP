@@ -15,7 +15,7 @@ export default defineEventHandler(async event => {
     // theoretically logged in
     if (cvtoken) {
       try {
-        const importedKey = await importX509(key, 'ES256')
+        const importedKey = await importX509(key, 'RS256')
         const decoded = await jwtVerify(
           cvtoken, 
           importedKey
