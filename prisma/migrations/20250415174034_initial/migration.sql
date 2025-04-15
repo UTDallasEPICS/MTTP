@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Student" (
+CREATE TABLE "students" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
@@ -12,14 +12,15 @@ CREATE TABLE "Student" (
     "voted" BOOLEAN NOT NULL DEFAULT false,
     "dateCreated" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
-    "phoneNumber" TEXT NOT NULL,
-    "studentEmail" TEXT NOT NULL,
+    "phoneNumber" TEXT,
+    "studentEmail" TEXT,
     "schoolName" TEXT NOT NULL,
-    CONSTRAINT "Student_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "birthDay" TEXT NOT NULL,
+    CONSTRAINT "students_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "users" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
@@ -30,4 +31,4 @@ CREATE TABLE "User" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
