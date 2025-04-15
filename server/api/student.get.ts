@@ -1,7 +1,3 @@
-import { PrismaClient } from '@prisma/client';
-
-;
-
 export default defineEventHandler(async (event) => {
 
   // get the cookie out of getCookie

@@ -24,7 +24,6 @@ export default defineEventHandler(async event => {
         event.context.user = await event.context.client.user.findFirst(
           {
             where:{ email: claims.email }
-          ,
           })
         if(!event.context.user) {
           console.error(`${claims.email} not found`) 
@@ -36,12 +35,12 @@ export default defineEventHandler(async event => {
         // include pages ids to check if that's the family's page. 
         setCookie(event, "cvuser", JSON.stringify(event.context.user))
       } catch (e) {
-        console.error(e) 
+        console.log(e) 
         setCookie(event,'cvtoken','')
         setCookie(event,'cvuser','')
     
         return await sendRedirect(event, loginRedirectUrl())
       }
-    }
+    } 
   }
 })
