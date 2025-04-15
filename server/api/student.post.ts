@@ -1,14 +1,13 @@
-import { PrismaClient } from '@prisma/client'
-import { read } from 'fs'
 
-const prisma = new PrismaClient()
+
+
 
 export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
     if (body.firstName && body.lastName && body.streetAddress && body.city && body.zipCode && body.county && body.schoolName && body.birthDay) {
         try{
-            const student = await prisma.student.create({
+            const student = await event.context.client.student.create({
                 data: {
                     author: {
                         connect: {

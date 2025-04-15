@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-import { read } from 'fs'
 
-const prisma = new PrismaClient()
+
+
 
 export default defineEventHandler(async(event) => {
     
@@ -11,7 +10,7 @@ export default defineEventHandler(async(event) => {
     let error = null
 
     if (body.firstName && body.lastName && body.email && body.role)
-        await prisma.user.create({
+        await event.context.client.user.create({
             data: {
             firstName: body.firstName,
             lastName: body.lastName,

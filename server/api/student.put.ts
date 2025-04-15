@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-import { read } from 'fs'
 
-const prisma = new PrismaClient()
+
+
 
 export default defineEventHandler(async(event) => {
     
@@ -27,7 +26,7 @@ export default defineEventHandler(async(event) => {
     let student = null
 
     if(body.id)
-        student = await prisma.student.update({
+        student = await event.context.client.student.update({
             where: {
                 id: body.id
             },
