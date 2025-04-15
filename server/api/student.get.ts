@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+;
 
 export default defineEventHandler(async (event) => {
 
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   try {
     let students;
     if (orderOption == 'author') {
-      students = await prisma.student.findMany({
+      students = await event.context.client.student.findMany({
       include: {
         author: true,
       },
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       },
       })
     } else if (orderOption != '') {
-        students = await prisma.student.findMany({
+        students = await event.context.client.student.findMany({
         include: {
           author: true,
         },
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     } else {
-        students = await prisma.student.findMany({
+        students = await event.context.client.student.findMany({
         include: {
           author: true,
         },
@@ -45,6 +45,6 @@ export default defineEventHandler(async (event) => {
     console.error('Error fetching students:', error);
     throw error; // Rethrow the error so it can be handled elsewhere
   } finally {
-    await prisma.$disconnect(); // Disconnect Prisma client when done
+    await event.context.client.$disconnect(); // Disconnect Prisma client when done
   }
 });

@@ -1,8 +1,3 @@
-import { PrismaClient } from '@prisma/client'
-import { read } from 'fs'
-
-const prisma = new PrismaClient()
-
 export default defineEventHandler(async(event) => {
     
     const body = await readBody(event)
@@ -10,7 +5,7 @@ export default defineEventHandler(async(event) => {
     let error = null
 
     if(body.id)
-        await prisma.student.delete({
+        await event.context.client.student.delete({
             where: {
               id: body.id,
             },

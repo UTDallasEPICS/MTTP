@@ -25,5 +25,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@vuepic/vue-datepicker']
   },
-
+  /* nitro: {
+    replace: {
+      'typeof window': '`undefined`',
+    },
+  } */
 })

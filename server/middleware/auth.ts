@@ -1,8 +1,9 @@
 import {loginRedirectUrl} from "../api/auth0"
-import jwt from "jsonwebtoken"
+import {jwtVerify, importX509} from "jose";
 import fs from "fs"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@/prisma/client"
 const client = new PrismaClient()
+const key = fs.readFileSync(process.cwd() + '/cert-dev.pem').toString()
 export default defineEventHandler(async event => {
   event.context.client = client
   const cvtoken = getCookie(event, "cvtoken") || ""
@@ -13,10 +14,12 @@ export default defineEventHandler(async event => {
     // theoretically logged in
     if (cvtoken) {
       try {
-        const claims = jwt.verify(
+        const importedKey = await importX509(key, 'ES256')
+        const decoded = await jwtVerify(
           cvtoken, 
-          fs.readFileSync(process.cwd()+"/cert-dev.pem")
-        )
+          importedKey
+        );
+        const claims = decoded as unknown as {email:string}; 
         event.context.claims = claims
         event.context.user = await event.context.client.user.findFirst(
           {
