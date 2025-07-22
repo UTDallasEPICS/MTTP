@@ -11,9 +11,6 @@
 </template>
 
 <script setup>
-
-import {ref} from 'vue'
 const cvuser = useCookie('cvuser')
 const name = cvuser.value.firstName
-console.log(name)
 </script>

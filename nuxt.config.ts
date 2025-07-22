@@ -17,11 +17,6 @@ export default defineNuxtConfig({
     AUTH0_CLIENT_SECRET: "",
     AUTH0_BASE_URL: "",
     AUTH0_ISSUER_BASE_URL: "",
-    AUTH0_ISSUER_BASE_URL: "",
-    STRIPE_PUBLIC: '',
-    STRIPE_SECRET: '',
-    AWS_S3_BUCKET_NAME: '',
-    EMAIL_SOURCE_ADDRESS: '',
     AUTH0_PUB_KEY_PATH: './cert-dev.pem',
   },
   build: {

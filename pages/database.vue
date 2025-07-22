@@ -248,11 +248,18 @@
 import Notification from "~/components/Notification.vue";
 import Loading from "~/components/LoadingOverlay.vue";
 import Modal from "~/components/Modal.vue";
-import { ref } from "vue";
 import * as XLSX from 'xlsx';
 import * as Papa from 'papaparse';
 
 const editButtonPressed = ref(false);
+
+const isError = ref(false);
+const errorMessage = ref('');
+
+const sortingOption = ref('');
+
+const isLoading = ref(false);
+const importedDataRef = ref(null);
 
 const exportData = () => {
   students.value.forEach(student => {
@@ -288,7 +295,6 @@ const handleFileImport = async (event) => {
       } else if (fileType === 'csv') {
         jsonData = await parseCsvFile(file);
       }
-
       // Now you have jsonData containing the data from the file
       // Process and add the data to the Prisma database
       await addDataToDatabase(jsonData);
@@ -310,6 +316,14 @@ const getFileType = (file) => {
 
 const isImportSuccessful = ref(false);
 const successMessage = ref('');
+
+
+const { data: students, refresh:refreshStudents } = await useFetch('/api/student', {
+  method: 'GET',
+  params: {
+    orderOption: sortingOption.value
+  },
+})
 
 
 const handleFileSelect = async (event) => {
@@ -341,13 +355,6 @@ const clearSuccessMessage = () => {
   successMessage.value = '';
 };
 
-const isError = ref(false);
-const errorMessage = ref('');
-
-const sortingOption = ref('');
-
-const isLoading = ref(false);
-const importedDataRef = ref(null);
 const importData = async () => {
   try {
     isLoading.value = true;
@@ -448,7 +455,7 @@ const addDataToDatabase = async (jsonData) => {
   }
 
   // Refresh the list of students after importing data
-  students.value = await getStudents();
+  refreshStudents()
 };
 
 const isModalVisible = ref(false);
@@ -463,7 +470,6 @@ function closeModal() {
 
 
 
-const students = ref(null);
 const student = ref({
   firstName: null,
   lastName: null,
@@ -495,27 +501,6 @@ const editedStudent = ref({
   birthDay: null,
 });
 
-students.value = await getStudents();
-
-
-
-/**
- *   @desc get users
- */
-async function getStudents() {
-  console.log("Sorting option: " + sortingOption.value);
-  const studentList = await $fetch('/api/student', {
-    method: 'GET',
-    params: {
-      orderOption: sortingOption.value
-    },
-  });
-  students.value = studentList;
-  return studentList;
-}
-
-
-
 /**
  *   @desc edit student
  @param editedStudent student object 
@@ -543,7 +528,7 @@ async function editStudent(editedStudent) {
       }
     });
 
-  if (student) students.value = await getStudents();
+  if (student) refreshStudents()
 }
 
 async function goToEdit(studentId) {
@@ -576,7 +561,7 @@ const removeStudent = async (id) => {
     }, 3000);
 
     // Refresh the list of students after removing one
-    students.value = await getStudents();
+    refreshStudents()
   } catch (error) {
     isError.value = true; // Show error notification
     errorMessage.value = 'An error occurred while removing the student. Please check the console for details.';
