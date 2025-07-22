@@ -1,7 +1,7 @@
 import {loginRedirectUrl} from "../api/auth0"
 import {jwtVerify, importX509} from "jose";
 import fs from "fs"
-import { PrismaClient } from "@/prisma/client"
+import { PrismaClient } from "@/prisma/client/client"
 const client = new PrismaClient()
 const runtime = useRuntimeConfig()
 const key = fs.readFileSync(runtime.AUTH0_PUB_KEY_PATH).toString()
