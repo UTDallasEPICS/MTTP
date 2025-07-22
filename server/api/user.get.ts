@@ -1,7 +1,3 @@
-
-
-
-
-export default defineEventHandler(async() => {
+export default defineEventHandler(async(event) => {
     return await event.context.client.user.findMany()
 })

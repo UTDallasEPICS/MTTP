@@ -85,11 +85,13 @@ const props = defineProps(['userRole']);
   text-align: center;
   font-size: medium;
   transition: .3s ease;
+  display: none;
 }
 
 .off-screen-menu.active {
   background-color: #122C4F;
   right: 0;
+  display: flex;
 }
 
 .ham-menu {
