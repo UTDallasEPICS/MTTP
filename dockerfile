@@ -28,7 +28,8 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/pnpm-lock.yaml ./
 COPY --from=builder /app/pnpm-workspace.yaml ./
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/prisma.config.ts ./
+# Commented out because MTTP is a Prisma 6 app
+# COPY --from=builder /app/prisma.config.ts ./
 RUN npm i -g pnpm
 
 # Install Prisma without running any scripts to avoid running nuxt scripts
