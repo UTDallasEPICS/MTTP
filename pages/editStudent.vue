@@ -11,7 +11,7 @@
           <label for="first-name" class="block text-lg font-medium leading-6 text-gray-900">First Name</label>
           <div class="mt-2">
             <input type="text" v-model="student.firstName" name="first-name" id="first-name" autocomplete="given-name" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300
             placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -21,7 +21,7 @@
           <label for="last-name" class="block text-lg font-medium leading-6 text-gray-900">Last Name</label>
           <div class="mt-2">
             <input type="text" v-model="student.lastName" name="last-name" id="last-name" autocomplete="family-name" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -31,7 +31,7 @@
           <label for="birth-day" class="block text-lg font-medium leading-6 text-gray-900">Date of Birth</label>
           <div class="mt-2">
             <input type="date" v-model="student.birthDay" name="birth-day" id="birth-day" autocomplete="birth-day" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -41,7 +41,7 @@
           <label for="address" class="block text-lg font-medium leading-6 text-gray-900">Address</label>
           <div class="mt-2">
             <input type="text" v-model="student.streetAddress" name="address" id="street-address" autocomplete="address" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
              focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -51,7 +51,7 @@
           <label for="street-number" class="block text-lg font-medium leading-6 text-gray-900">Apt number</label>
           <div class="mt-2">
             <input type="text" v-model="student.streetNumber" name="street-number" id="street-number" autocomplete="" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
              focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -61,7 +61,7 @@
           <label for="city" class="block text-lg font-medium leading-6 text-gray-900">City</label>
           <div class="mt-2">
             <input type="text" v-model="student.city" name="city" id="city" autocomplete="address-level2" class="block w-full rounded-md
-            border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -71,7 +71,7 @@
           <label for="county" class="block text-lg font-medium leading-6 text-gray-900">County</label>
           <div class="mt-2">
             <input type="text" v-model="student.county" name="county" id="county" class="block w-full rounded-md
-            border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -81,7 +81,7 @@
           <label for="zip-code" class="block text-lg font-medium leading-6 text-gray-900">ZIP code</label>
           <div class="mt-2">
             <input type="text" name="zip-code" v-model="student.zipCode" id="zip-code" autocomplete="zip-code" class="block
-            w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
+            w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset
             ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -91,7 +91,7 @@
           <label for="phoneNumber" class="block text-lg font-medium leading-6 text-gray-900">Phone Number</label>
           <div class="mt-2">
             <input type="text" v-model="student.phoneNumber" name="phoneNumber" id="phoneNumber" class="block w-full rounded-md
-            border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -101,7 +101,7 @@
           <label for="studentEmail" class="block text-lg font-medium leading-6 text-gray-900">Email Address</label>
           <div class="mt-2">
             <input type="text" v-model="student.studentEmail" name="studentEmail" id="studentEmail" class="block w-full rounded-md
-            border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -111,7 +111,7 @@
           <label for="schoolName" class="block text-lg font-medium leading-6 text-gray-900">School Name</label>
           <div class="mt-2">
             <input type="text" name="schoolName" v-model="student.schoolName" id="schoolName" class="block
-            w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
+            w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset
             ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -124,12 +124,13 @@
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <!--saves the information in the form-->
       <button type="button"  class="rounded-md mr-96 bg-blue-500 px-3 py-2 text-lg font-semibold
-      text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      text-white shadow-xs hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
       focus-visible:outline-indigo-600" @click.prevent="editStudent(student)">Apply Edits</button>
     </div>
   </template>
   
   <style scoped>
+  @reference "../src/assets/tailwind.css";
   
   /*.jost-font {
     font-family: "Jost", sans-serif;
@@ -151,8 +152,10 @@
   </style>
   
   <script setup>
-  const cvuser = useCookie('cvuser')
-  const userRole = cvuser.value.role
+  import { authClient } from "~~/lib/auth-client";
+
+  const { data: session } = await authClient.useSession(useFetch);
+  const userRole = computed(() => session.value?.user?.role);
   const students = ref(null)
   var student = ref({
     id: null,
@@ -163,7 +166,7 @@
     city: null,
     county: null,
     zipCode: null,
-    authorId: cvuser.value.id,
+    authorId: session.value?.user?.id,
     phoneNumber: null,
     studentEmail: null,
     schoolName: null,

@@ -11,6 +11,8 @@
 </template>
 
 <script setup>
-const cvuser = useCookie('cvuser')
-const name = cvuser.value.firstName
+import { authClient } from "~~/lib/auth-client";
+
+const { data: session } = await authClient.useSession(useFetch);
+const name = computed(() => session.value?.user?.firstName ?? "");
 </script>

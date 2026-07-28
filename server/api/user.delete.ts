@@ -1,9 +1,9 @@
-
-
-
-
 export default defineEventHandler(async(event) => {
-    
+    const session = event.context.session;
+    if (!session?.user || session.user.role !== "admin") {
+      return createError({ statusCode: 403, statusMessage: "Forbidden" });
+    }
+
     const body = await readBody(event)
     let user = null
     let error = null
@@ -24,4 +24,3 @@ export default defineEventHandler(async(event) => {
 
     return user
   })
-  

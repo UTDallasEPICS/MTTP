@@ -21,7 +21,7 @@
         <li><nuxt-link to="/database" v-if="userRole === 'staff' || userRole === 'admin'" class="navPage">View
             Students</nuxt-link></li>
         <li><nuxt-link to="/admin" v-if="userRole === 'admin'" class="navPage">Admin</nuxt-link></li>
-        <li><a class="right navPage" href="/api/logout">Logout</a></li>
+        <li><a class="right navPage" href="#" @click.prevent="handleLogout">Logout</a></li>
       </ul>
     </div>
     <nav>
@@ -35,7 +35,14 @@
 </template>
 
 <script setup>
+import { authClient } from "~~/lib/auth-client";
+
 const props = defineProps(['userRole']);
+
+async function handleLogout() {
+  await authClient.signOut();
+  navigateTo("/login");
+}
 </script>
 
 

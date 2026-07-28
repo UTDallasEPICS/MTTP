@@ -21,8 +21,8 @@ Central page with MTTP logo to welcome you to the website
 
 
 ## Third party integrations
-# Auth0
-Takes care of all user authentication to signup, login, and logout of the webpage
+# BetterAuth
+Handles user authentication via email OTP (one-time password) for login
 
 ## Tech Stack
 # Frameworks
