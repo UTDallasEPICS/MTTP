@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --color-chili: #D81F33;
+  --color-sailor: #122C4F;
+}

@@ -14,7 +14,7 @@
           <label for="first-name" class="block text-lg font-medium leading-6 text-gray-900">First name</label>
           <div class="mt-2">
             <input v-model="user.firstName" type="text" name="first-name" id="first-name" autocomplete="given-name"
-                  class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
+                  class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset
                   ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -23,7 +23,7 @@
           <label for="last-name" class="block text-lg font-medium leading-6 text-gray-900">Last name</label>
           <div class="mt-2">
             <input v-model="user.lastName" type="text" name="last-name" id="last-name" autocomplete="family-name"
-                  class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset
+                  class="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset
                   ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -32,7 +32,7 @@
           <label for="email" class="block text-lg font-medium leading-6 text-gray-900">Email</label>
           <div class="mt-2">
             <input v-model="user.email" type="text" name="email" id="email" autocomplete="email" class="block w-full
-            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+            rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
           </div>
         </div>
@@ -50,7 +50,7 @@
           </div>
         </div>
           <button type="button" class="text-lg font-semibold leading-6 text-gray-900 mr-1 mx-20" @click="clearForm">Clear</button>
-          <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
+          <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-xs
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600 w-60 mx-72" @click.prevent="addUser(user); clearForm()">Submit User</button>
         </div>
@@ -141,11 +141,11 @@
               </td>
 
               <td>
-              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
   <!--
-              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+              <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click="{editedUser.id = u.id; 
                                                   editedUser.firstName = u.firstName; 
@@ -155,11 +155,11 @@
                                                   editButtonPressed = true;}">Edit</button>
               <div v-else>
                   <div v-if="editedUser.id == u.id">
-                  <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                  <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
           hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" @click="{editButtonPressed = false;
                                                           editUser(editedUser);}">Apply</button>
-                  <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                  <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
           hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
           focus-visible:outline-indigo-600" @click="editButtonPressed = false">Cancel</button>
                   </div>
@@ -167,7 +167,7 @@
 -->
               </td>
               <td>
-                <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="removeUser(u.id)">Remove</button>
               </td>
@@ -288,10 +288,11 @@ let addedUser = null
     users.value = await getUsers()
 }
 
-const cvuser = useCookie('cvuser')
-//const userRole = cvuser.value.role // do we remove parseInt since we changed it to enum not int? remove line
+import { authClient } from "~~/lib/auth-client";
 
-// Nuxt router guards - if cvuser.value.role is in list of allowed roles, allow else redirect to index
+const { data: session } = await authClient.useSession(useFetch);
+
+// Nuxt router guards - if session.user.role is in list of allowed roles, allow else redirect to index
 // we can also hide navbar elements in app.vue depending on role so that
 // someone can only see the admin link if their role is admin
 

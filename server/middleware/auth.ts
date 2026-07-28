@@ -1,47 +1,23 @@
-import {loginRedirectUrl} from "../api/auth0"
-import {jwtVerify, importX509} from "jose";
-import fs from "fs"
-import { PrismaClient } from "@/prisma/client/client"
-const client = new PrismaClient()
-const runtime = useRuntimeConfig()
-const key = fs.readFileSync(runtime.AUTH0_PUB_KEY_PATH).toString()
-export default defineEventHandler(async event => {
-  event.context.client = client
-  const cvtoken = getCookie(event, "cvtoken") || ""
-  // not logged in but trying to
-  if (!cvtoken && !(event.node.req.url?.includes('/api/callback') )) {
-    await sendRedirect(event, loginRedirectUrl());
-  } else {
-    // theoretically logged in
-    if (cvtoken) {
-      try {
-        const importedKey = await importX509(key, 'RS256')
-        const decoded = await jwtVerify(
-          cvtoken, 
-          importedKey
-        );
-        const claims = decoded as unknown as {email:string}; 
-        event.context.claims = claims
-        event.context.user = await event.context.client.user.findFirst(
-          {
-            where:{ email: claims.email }
-          })
-        if(!event.context.user) {
-          console.error(`${claims.email} not found`) 
-          setCookie(event,'cvtoken','')
-          setCookie(event,'cvuser','')
-    
-          return await sendRedirect(event, loginRedirectUrl());
-        }
-        // include pages ids to check if that's the family's page. 
-        setCookie(event, "cvuser", JSON.stringify(event.context.user))
-      } catch (e) {
-        console.log(e) 
-        setCookie(event,'cvtoken','')
-        setCookie(event,'cvuser','')
-    
-        return await sendRedirect(event, loginRedirectUrl())
-      }
-    } 
+import { PrismaClient } from "@/prisma/client/client";
+import { auth } from "~~/lib/auth";
+
+const prisma = new PrismaClient();
+
+export default defineEventHandler(async (event) => {
+  event.context.client = prisma;
+
+  const path = event.path || "";
+
+  // Allow BetterAuth routes and the login page through
+  if (path.startsWith("/api/auth") || path === "/login") return;
+
+  const session = await auth.api.getSession({ headers: event.headers });
+  if (!session?.user) {
+    return sendRedirect(event, "/login");
   }
-})
+
+  event.context.session = session;
+  event.context.user = session.user;
+
+  setCookie(event, "cvuser", JSON.stringify(session.user));
+});

@@ -11,10 +11,10 @@
       <div v-if="userRole == 'staff' || userRole == 'admin' || userRole == 'volunteer'"
         class="flex items-center justify-center sm:col-span-6">
         <input type="file" @change="handleFileSelect" accept=".xlsx, .csv">
-        <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-sm
+        <button type="button" class="rounded-md bg-green-500 px-3 py-2 text-lg font-semibold text-white shadow-xs
         hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
         focus-visible:outline-green-600" @click.prevent="importData">Import</button>
-        <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm
+        <button type="button" class="rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-xs
         hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
         focus-visible:outline-indigo-600" @click.prevent="exportData">Export</button>
 
@@ -209,18 +209,18 @@
               </td>
 
               <td>
-                <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                <button id="editUserButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" v-if="!editButtonPressed" @click='goToEdit(u.id)'>Edit</button>
                 <div v-else>
                   <div v-if="editedStudent.id == u.id">
-                    <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                    <button id="applyEditButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="{
     editButtonPressed = false;
     editStudent(editedStudent);
   }">Apply</button>
-                    <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                    <button id="cancelEditButton" class="rounded-md bg-gray-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
             hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="editButtonPressed = false">Cancel</button>
                   </div>
@@ -229,7 +229,7 @@
 
               <!--Remove function-->
               <td>
-                <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm
+                <button id="applyRemoveButton" class="rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-xs
             hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600" @click="removeStudent(u.id)">Remove</button>
               </td>
@@ -573,9 +573,10 @@ const removeStudent = async (id) => {
 
 
 
-const cvuser = useCookie('cvuser');
-const userRole = (cvuser.value.role);
-console.log(cvuser.role);
-const currid = parseInt(cvuser.value.id)
+import { authClient } from "~~/lib/auth-client";
+
+const { data: session } = await authClient.useSession(useFetch);
+const userRole = computed(() => session.value?.user?.role);
+const currid = computed(() => session.value?.user?.id);
 
 </script>

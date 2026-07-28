@@ -1,24 +1,20 @@
 <template>
-    <PageHeader :userRole="userRole"/>
+    <PageHeader v-if="loggedIn" :userRole="userRole"/>
     <NuxtPage ></NuxtPage>
 </template>
 
 
 <script setup lang="ts">
 
-const runtime = useRuntimeConfig()
-const router = useRouter()
-const routes = ref(router.getRoutes())
-const route = useRoute()
-const cvCookie = useCookie('cvtoken')
-const cvuser = useCookie('cvuser')
+import { authClient } from "~~/lib/auth-client";
 
+const route = useRoute();
+const { data: session } = await authClient.useSession(useFetch);
+const loggedIn = computed(() => !!session.value);
+const userRole = computed(() => session.value?.user?.role);
 
-const userRole = computed(() => (cvuser.value.role));
-
-if(!cvCookie.value)
-{
-  navigateTo('/api/login')
+if (!import.meta.server && !loggedIn.value && route.path !== "/login") {
+  navigateTo("/login");
 }
 
 </script>
