@@ -1,10 +1,8 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { emailOTP } from "better-auth/plugins";
-import { PrismaClient } from "@/prisma/client/client";
 import nodemailer from "nodemailer";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prisma";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
