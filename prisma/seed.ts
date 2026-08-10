@@ -1,6 +1,11 @@
-import { PrismaClient } from "../prisma/client/client";
+import { PrismaClient } from "./generated/client";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  adapter: new PrismaBetterSqlite3({
+    url: process.env.DATABASE_URL,
+  }),
+});
 
 async function main() {
   const adminEmail = process.env.SEED_ADMIN_EMAIL || "admin@marchtothepolls.org";
