@@ -152,9 +152,7 @@
   </style>
   
   <script setup>
-  import { authClient } from "~~/lib/auth-client";
-
-  const { data: session } = await authClient.useSession(useFetch);
+  const { data: session } = await useAuthSession();
   const userRole = computed(() => session.value?.user?.role);
   const students = ref(null)
   var student = ref({
