@@ -223,6 +223,9 @@ user.value.role = null;
 
 const isRemovalSuccessful = ref(false);
 const successMessage = ref('');
+const isError = ref(false);
+const errorMessage = ref('');
+const isLoading = ref(false);
 
 users.value = await getUsers()
 
@@ -288,9 +291,7 @@ let addedUser = null
     users.value = await getUsers()
 }
 
-import { authClient } from "~~/lib/auth-client";
-
-const { data: session } = await authClient.useSession(useFetch);
+const { data: session } = await useAuthSession();
 
 // Nuxt router guards - if session.user.role is in list of allowed roles, allow else redirect to index
 // we can also hide navbar elements in app.vue depending on role so that

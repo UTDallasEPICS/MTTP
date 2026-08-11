@@ -156,9 +156,7 @@
 import Error from "~/components/Error.vue";
 import Notification from "~/components/Notification.vue";
 
-import { authClient } from "~~/lib/auth-client";
-
-const { data: session } = await authClient.useSession(useFetch);
+const { data: session } = await useAuthSession();
 const userRole = computed(() => session.value?.user?.role);
 const students = ref(null)
 const student = ref({

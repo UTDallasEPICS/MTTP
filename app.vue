@@ -6,10 +6,8 @@
 
 <script setup lang="ts">
 
-import { authClient } from "~~/lib/auth-client";
-
 const route = useRoute();
-const { data: session } = await authClient.useSession(useFetch);
+const { data: session } = await useAuthSession();
 const loggedIn = computed(() => !!session.value);
 const userRole = computed(() => session.value?.user?.role);
 
